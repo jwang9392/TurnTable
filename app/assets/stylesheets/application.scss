@@ -14,31 +14,11 @@
  *= require_self
  */
 
-html {
-  background-color: whitesmoke;
-  min-height: 100%;
-}
+@import "./components/main.scss";
+@import "./components/header.scss";
+@import "./components/nav_dropdown.scss";
+@import "./components/modal.scss";
 
-.app-body {
-  background-color: white;
-  max-width: 1600px;
-  margin: auto;
-}
-
-.changetosearch {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 400px;
-  background: url("/assets/header.jpg") no-repeat top center;
-  background-size: cover;
-}
-
-.changetosearch {
-  color: white;
-  font-family: sans-serif;
-  font-size: 40px;
-}
 
 /* .hidden {
   display: none;

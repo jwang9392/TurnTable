@@ -35,3 +35,21 @@
   border: none;
   border-radius: 5px;
 }
+
+.changetosearch {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 400px;
+  background-image: image-url('header.jpg');
+  background-repeat: no-repeat;  
+  background-position: center top;
+  background-size: cover;
+}
+
+.changetosearch {
+  color: white;
+  font-family: sans-serif;
+  font-size: 40px;
+}
+
