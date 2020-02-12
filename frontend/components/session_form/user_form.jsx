@@ -38,7 +38,6 @@ class UserForm extends React.Component {
   }
 
   render() {
-
     return (
       <div className="signup-form-container">
         <form onSubmit={this.handleSubmit} className="signup-form-box">
@@ -82,7 +81,7 @@ class UserForm extends React.Component {
               />
             </label>
             <br />
-            <input className="session-submit" type="submit" value={this.props.formType} />
+            <input className="session-submit" type="submit" value="Sign Up" />
           </div>
         </form>
       </div>

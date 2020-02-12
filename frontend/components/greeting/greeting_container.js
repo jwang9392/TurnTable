@@ -7,9 +7,8 @@ import Greeting from './greeting';
 const mapStateToProps = ({ session }) => {
   debugger
   return {
-    currentUser: session.currentUser
-  };
-};
+  currentUser: session.currentUserId
+}};
 
 const mapDispatchToProps = dispatch => ({
   logout: () => dispatch(logout()),
