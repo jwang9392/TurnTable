@@ -11,6 +11,10 @@ class SessionForm extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  componentDidMount() {
+    this.props.clearErrors;
+  }
+
   update(field) {
     return e => this.setState({
       [field]: e.currentTarget.value
@@ -40,30 +44,31 @@ class SessionForm extends React.Component {
     return (
       <div className="login-form-container">
         <form onSubmit={this.handleSubmit} className="login-form-box">
-          <br />
+          <h2>Please sign in</h2>
+          <hr/>
           {this.renderErrors()}
           <div className="login-form">
-            <br />
-            <label>
               <input type="text"
                 value={this.state.email}
                 placeholder='Email'
                 onChange={this.update('email')}
                 className="modal-input"
               />
-            </label>
-            <br />
-            <label>
+              <br />
               <input type="password"
                 value={this.state.password}
                 placeholder='Password'
                 onChange={this.update('password')}
                 className="modal-input"
               />
-            </label>
             <br />
             <input className="session-submit" type="submit" value="Sign In" />
           </div>
+          <hr/>
+          <p>New to TurnTable?
+            &nbsp;
+            <button onClick={this.props.openModal}>Create an account</button>
+          </p>
         </form>
       </div>
     );

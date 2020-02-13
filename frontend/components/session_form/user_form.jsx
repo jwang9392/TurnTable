@@ -13,6 +13,10 @@ class UserForm extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  componentDidMount() {
+    this.props.clearErrors;
+  }
+
   update(field) {
     return e => this.setState({
       [field]: e.currentTarget.value
@@ -42,48 +46,44 @@ class UserForm extends React.Component {
       <div className="signup-form-container">
         <form onSubmit={this.handleSubmit} className="signup-form-box">
           <br />
+          <h2>Welcome to TurnTable!</h2>
+          <hr />
           {this.renderErrors()}
           <div className="signup-form">
             <br />
-            <label>
-              <input type="text"
-                value={this.state.fname}
-                placeholder='First Name *'
-                onChange={this.update('fname')}
-                className="modal-input"
-              />
-            </label>
+            <input type="text"
+              value={this.state.fname}
+              placeholder='First Name *'
+              onChange={this.update('fname')}
+              className="modal-input"
+            />
             <br />
-            <label>
-              <input type="text"
-                value={this.state.lname}
-                placeholder='Last Name *'
-                onChange={this.update('lname')}
-                className="modal-input"
-              />
-            </label>
-            <br />
-            <label>
-              <input type="text"
-                value={this.state.email}
-                placeholder='Enter email *'
-                onChange={this.update('email')}
-                className="modal-input"
-              />
-            </label>
-            <br />
-            <label>
-              <input type="password"
-                placeholder='Enter password *'
-                value={this.state.password}
-                onChange={this.update('password')}
-                className="modal-input"
-              />
-            </label>
+            <input type="text"
+              value={this.state.lname}
+              placeholder='Last Name *'
+              onChange={this.update('lname')}
+              className="modal-input"
+            />
+            <br />            
+            <input type="text"
+              value={this.state.email}
+              placeholder='Enter email *'
+              onChange={this.update('email')}
+              className="modal-input"
+            />
+            <br />            
+            <input type="password"
+              placeholder='Enter password *'
+              value={this.state.password}
+              onChange={this.update('password')}
+              className="modal-input"
+            />
             <br />
             <input className="session-submit" type="submit" value="Sign Up" />
           </div>
+        <hr />
         </form>
+        <p>By creating an account you agree to the TurnTable Terms of Use and Privacy Policy.</p>
       </div>
     );
   }
