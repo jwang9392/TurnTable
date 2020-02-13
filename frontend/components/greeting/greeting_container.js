@@ -4,16 +4,19 @@ import { openModal } from '../../actions/modal_actions';
 import { logout } from '../../actions/session_actions';
 import Greeting from './greeting';
 
-const mapStateToProps = ({ session }) => {
+const mapStateToProps = ({ session, entities: { users } }) => {
   debugger
   return {
-  currentUser: session.currentUserId
-}};
+    user: users[session.currentUserId]
+  }  
+};
 
-const mapDispatchToProps = dispatch => ({
-  logout: () => dispatch(logout()),
-  openModal: modal => dispatch(openModal(modal))
-});
+const mapDispatchToProps = dispatch => {
+  return {
+    logout: () => dispatch(logout()),
+    openModal: modal => dispatch(openModal(modal))
+  }
+};
 
 export default connect(
   mapStateToProps,

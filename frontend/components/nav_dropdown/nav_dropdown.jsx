@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { logout } from '../../actions/session_actions';
 
 const mapStateToProps = ({ session }) => ({
-  currentUser: session.currentUser
+  currentUser: session.currentUserId
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -13,7 +13,7 @@ const mapDispatchToProps = dispatch => ({
 
 const NavDropdown = ({ logout }) => {
   return (
-    <div className="dropdown-container hidden">
+    <div className="dropdown-container">
       <div className='arrow-up'></div>
       <Link to="/user/:userId" className="dropdown-item">My Profile</Link>
       <Link to="/user/:userId" className="dropdown-item">My Dining History</Link>
