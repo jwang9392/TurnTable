@@ -11,6 +11,7 @@ class UserForm extends React.Component {
       password: ''
     };
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.demoSubmit = this.demoSubmit.bind(this);
   }
 
   componentDidMount() {
@@ -27,6 +28,15 @@ class UserForm extends React.Component {
     e.preventDefault();
     const user = Object.assign({}, this.state, { username: `${[this.state.fname]} ${[this.state.lname]}` });
     this.props.processForm(user).then(this.props.closeModal);
+  }
+
+  demoSubmit(e) {
+    e.preventDefault();
+    const demoUser = {
+      email: 'hello@world.com',
+      password: 'helloworld'
+    };
+    this.props.loginDemo(demoUser).then(this.props.closeModal);
   }
 
   renderErrors() {
@@ -83,7 +93,15 @@ class UserForm extends React.Component {
           </div>
         <hr />
         </form>
-        <p>By creating an account you agree to the TurnTable Terms of Use and Privacy Policy.</p>
+        <p>Don't want to complete the form?
+            &nbsp;
+            <input type="submit"
+            value="Continue as Guest"
+            onClick={this.demoSubmit}
+            className="demo-login"
+          />
+        </p>
+        <span>By creating an account you agree to the TurnTable Terms of Use and Privacy Policy.</span>
       </div>
     );
   }

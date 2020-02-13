@@ -29,7 +29,7 @@
   margin: 10px 0;
 }
 
-.signup-form-container p {
+.signup-form-container span {
   margin-top: 15px;
   font-size: 14px;
   color: rgb(172,172,172);
@@ -69,11 +69,19 @@
   margin: 20px 0; 
 }
 
+.session-submit:focus {
+  outline: none;
+}
+
+.session-submit::selection {
+  outline: 2px solid gray;
+}
+
 .session-submit:hover {
   cursor: pointer;
 }
 
-.login-form-box p {
+.modal-child p {
   padding: 5px 0;
   margin: 20px 0;
   font-size: 16px;
@@ -85,4 +93,24 @@ p > button {
   background-color: white;
   font-size: 16px;
   padding: unset;
+  outline: none;
 }
+
+.demo-login {
+  padding: 16px;
+  margin: 8px 0;
+  border: none;
+  border: 1px solid lightgray;
+  border-radius: 3px;
+  width: 390px;
+  font-size: 14px;
+  font-weight: 400;
+  outline: none;
+}
+
+.demo-login:hover {
+  margin: 7px 0;
+  width: 390px;
+  border: 2px solid rgb(218,55,67);
+}
+

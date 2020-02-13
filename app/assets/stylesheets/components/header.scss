@@ -21,6 +21,7 @@
   margin:0;
   padding:0;
   cursor: pointer;
+  outline: none;
 }
 
 .signup-button {
@@ -32,12 +33,14 @@
   font-size: 14px;
   border: none;
   border-radius: 5px;
+  outline: none;
 }
 
 .header-greeting {
   display: flex;
   align-items: center;
   justify-content: space-evenly;
+  margin-right: 25px;
 }
 
 .header-name {

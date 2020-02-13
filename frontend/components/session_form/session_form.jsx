@@ -9,6 +9,7 @@ class SessionForm extends React.Component {
       password: ''
     };
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.demoSubmit = this.demoSubmit.bind(this);
   }
 
   componentDidMount() {
@@ -25,6 +26,15 @@ class SessionForm extends React.Component {
     e.preventDefault();
     const user = Object.assign({}, this.state);
     this.props.processForm(user).then(this.props.closeModal);
+  }
+
+  demoSubmit(e) {
+    e.preventDefault();
+    const demoUser = {
+      email: 'hello@world.com',
+      password: 'helloworld'
+    };
+    this.props.processForm(demoUser).then(this.props.closeModal);
   }
 
   renderErrors() {
@@ -65,6 +75,14 @@ class SessionForm extends React.Component {
             <input className="session-submit" type="submit" value="Sign In" />
           </div>
           <hr/>
+          <p>Don't want to complete the form?
+            &nbsp;
+            <input type="submit"
+              value="Continue as Guest"
+              onClick={this.demoSubmit}
+              className="demo-login"
+            />
+          </p>
           <p>New to TurnTable?
             &nbsp;
             <button onClick={this.props.openModal}>Create an account</button>
