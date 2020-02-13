@@ -5,11 +5,14 @@
   justify-content: space-between;
 }
 
-.login-signup {
-  display: flex;
-  align-items: center;
-  margin-right: 20px;
-  width: 160px;
+#dropdown {
+  margin: 10px;
+  display: inline-block;
+  color: rgb(163,163,163);
+}
+
+#dropdown:hover {
+  cursor: pointer;
 }
 
 .login-button {
@@ -24,16 +27,11 @@
   outline: none;
 }
 
-.signup-button {
-  background-color: rgb(34,123,152);
-  color: white;
-  height: 30px;
-  width: 80px;
-  text-decoration: none;
-  font-size: 14px;
-  border: none;
-  border-radius: 5px;
-  outline: none;
+.login-signup {
+  display: flex;
+  align-items: center;
+  margin-right: 20px;
+  width: 160px;
 }
 
 .header-greeting {
@@ -51,15 +49,21 @@
   cursor: pointer;
 }
 
-#dropdown {
-  margin: 10px;
-  display: inline-block;
-  color: rgb(163,163,163);
-}
-
-#dropdown:hover {
+.signup-button {
+  background-color: rgb(34,123,152);
+  color: white;
+  height: 30px;
+  width: 80px;
+  text-decoration: none;
+  font-size: 14px;
+  border: none;
+  border-radius: 5px;
+  outline: none;
   cursor: pointer;
 }
+
+
+// MOVE TO SEARCH LATER \/
 
 .changetosearch {
   display: flex;
