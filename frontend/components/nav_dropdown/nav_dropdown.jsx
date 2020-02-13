@@ -17,7 +17,7 @@ class NavDropdown extends React.Component {
         {/* BONUS FEATURE FOR ABOVE DINING HISTORY - SHOW PAGE BUT AT THE DINING HISTORY*/}
         {/* HOW TO ROUTE TO FAVORITES? THROUGH ASSOCIATION */}
 
-        <Link to="/favorites" className="dropdown-item">My Saved Restaurants</Link> 
+        <Link to="/favorites" className="dropdown-item">My Saved Venues</Link> 
         <Link to="/" className="dropdown-item" onClick={this.props.logout}>Sign Out</Link>
       </div>
     )
