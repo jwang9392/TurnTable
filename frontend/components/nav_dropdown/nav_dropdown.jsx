@@ -1,30 +1,27 @@
 import React from 'react';
-import { connect } from 'react-redux'
 import { Link } from 'react-router-dom';
-import { logout } from '../../actions/session_actions';
 
-const mapStateToProps = ({ session }) => ({
-  currentUser: session.currentUserId
-});
+class NavDropdown extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { hidden: true };
+  }
 
-const mapDispatchToProps = dispatch => ({
-  logout: () => dispatch(logout())
-})
+  render() {
+    return (
+      <div className="dropdown-container">
+        <div className='arrow-up'></div>
+        <Link to="/user/:userId" className="dropdown-item">My Profile</Link>
+        <Link to="/user/:userId" className="dropdown-item">My Dining History</Link>
 
-const NavDropdown = ({ logout }) => {
-  return (
-    <div className="dropdown-container">
-      <div className='arrow-up'></div>
-      <Link to="/user/:userId" className="dropdown-item">My Profile</Link>
-      <Link to="/user/:userId" className="dropdown-item">My Dining History</Link>
+        {/* BONUS FEATURE FOR ABOVE DINING HISTORY - SHOW PAGE BUT AT THE DINING HISTORY*/}
+        {/* HOW TO ROUTE TO FAVORITES? THROUGH ASSOCIATION */}
 
-      {/* BONUS FEATURE FOR ABOVE DINING HISTORY - SHOW PAGE BUT AT THE DINING HISTORY*/}
-      {/* HOW TO ROUTE TO FAVORITES? THROUGH ASSOCIATION */}
-
-      <Link to="/favorites" className="dropdown-item">My Saved Restaurants</Link> 
-      <Link to="/" className="dropdown-item" onClick={logout}>Sign Out</Link>
-    </div>
-  )
+        <Link to="/favorites" className="dropdown-item">My Saved Restaurants</Link> 
+        <Link to="/" className="dropdown-item" onClick={this.props.logout}>Sign Out</Link>
+      </div>
+    )
+  }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(NavDropdown);
+export default NavDropdown;

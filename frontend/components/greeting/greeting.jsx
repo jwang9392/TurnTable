@@ -1,9 +1,11 @@
 import React from 'react';
-import NavDropdown from '../nav_dropdown/nav_dropdown';
+import NavDropdown from '../nav_dropdown/nav_dropdown_container';
 
+function toggle() {
+  document.getElementsByClassName("nav-dropdown")[0].classList.toggle("hidden");
+}
 
 const Greeting = ({ user, openModal }) => {
-debugger
   const sessionLinks = () => {
     return (
     <nav className="login-signup">
@@ -14,16 +16,19 @@ debugger
     )
   };
   const personalGreeting = (user) => {
-    debugger
     return (
-      <hgroup className="header-group">
-        <h4 className="header-name">Hi, {user.fname}!</h4>
-        <NavDropdown />
+      <hgroup className="header-group" onClick={() => toggle()}>
+        <div className="header-greeting">
+          <h4 className="header-name">Hi, {user.fname}!</h4>
+          <i id='dropdown' className="fas fa-chevron-down"></i>
+        </div>
+        <div className="nav-dropdown hidden">
+          <NavDropdown />
+        </div>
       </hgroup>
     )
   };
 
-  debugger
   return user ? personalGreeting(user, logout) : sessionLinks()
 };
 

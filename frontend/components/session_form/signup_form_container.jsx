@@ -4,7 +4,6 @@ import { closeModal } from '../../actions/modal_actions';
 import UserForm from './user_form';
 
 const mapStateToProps = ({ errors }) => {
-  debugger
   return {
     errors: errors.session,
     formType: 'signup'

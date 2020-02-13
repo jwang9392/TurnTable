@@ -36,6 +36,31 @@
   border-radius: 5px;
 }
 
+.header-greeting {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.header-name {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-weight: 450;
+}
+
+.header-name:hover {
+  cursor: pointer;
+}
+
+#dropdown {
+  margin: 10px;
+  display: inline-block;
+  color: rgb(163,163,163);
+}
+
+#dropdown:hover {
+  cursor: pointer;
+}
+
 .changetosearch {
   display: flex;
   justify-content: center;
