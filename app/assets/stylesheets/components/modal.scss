@@ -13,17 +13,76 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 450px;
-  padding: 5px;
+  width: 390px;
+  padding: 35px;
   background-color: white;
 }
 
-.signup-form-box {
-  border: 1px solid black;
-  display: flex;
-  justify-content: center;
+.modal-child h2 {
+  margin: 15px 0;
+  padding: 8px 0; 
+  font-weight: 500;
+  font-size: 22px;
+}
+
+.modal-child ul {
+  margin: 10px 0;
+}
+
+.signup-form-container p {
+  margin-top: 15px;
+  font-size: 14px;
+  color: rgb(172,172,172);
 }
 
 .modal-input {
-  margin: 10px;
+  padding: 16px;
+  margin: 8px 0;
+  border: none;
+  border: 1px solid lightgray;
+  border-radius: 3px;
+  width: 356px;
+  font-size: 13px;
+}
+
+.modal-input:hover {
+  border: 1px solid rgb(172,172,172);
+  border-radius: 3px;  
+}
+
+.modal-input:focus {
+  border: 2px solid rgb(172,172,172);
+  outline: none;
+  width: 356px;
+  padding: 15px;
+}
+
+.session-submit {
+  height: 55px;
+  width: 390px;
+  font-size: 18px;
+  font-weight: 400;
+  color: white;
+  background-color: rgb(218,55,67);
+  border: none;
+  border-radius: 3px;
+  margin: 20px 0; 
+}
+
+.session-submit:hover {
+  cursor: pointer;
+}
+
+.login-form-box p {
+  padding: 5px 0;
+  margin: 20px 0;
+  font-size: 16px;
+}
+
+p > button {
+  border: none;
+  color: rgb(218,55,67);
+  background-color: white;
+  font-size: 16px;
+  padding: unset;
 }
