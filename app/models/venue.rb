@@ -16,19 +16,20 @@
 
 class Venue < ApplicationRecord
   validates :name, :address, :city, :state, :zipcode, :phone_number, :capacity, presence: true
-    CITIES = {
-      ['New York', 'NY'],
-      ['Chicago', 'IL'],
-      ['Los Angeles', 'CA'],
-      ['San Francisco', 'CA'],
-      ['Miami', 'FL'],
-      ['Los Vegas', 'NV'],
-      ['Houston', 'TX'],
-      ['Atlanta', 'GA'],
-      ['Denver', 'CO'],
-      ['Orlando', 'FL'],
-      ['Philadelphia', 'PA'],
-      ['Dallas', 'TX']
-    }
+  
+  CITIES = [
+    ['New York', 'NY'],
+    ['Chicago', 'IL'],
+    ['Los Angeles', 'CA'],
+    ['San Francisco', 'CA'],
+    ['Miami', 'FL'],
+    ['Los Vegas', 'NV'],
+    ['Houston', 'TX'],
+    ['Atlanta', 'GA'],
+    ['Denver', 'CO'],
+    ['Orlando', 'FL'],
+    ['Philadelphia', 'PA'],
+    ['Dallas', 'TX']
+  ]
 
 end

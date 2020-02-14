@@ -15,3 +15,17 @@ User.create!({
     password: 'helloworld',
     username: 'hello world'
 })
+
+250.times do
+    location = Venue::CITIES.sample
+    
+    Venue.create!({
+        name: Faker::Venue.name
+        description: Faker::Venue.description,
+        phone_number: Faker::PhoneNumber.cell_phone,
+        address: Faker::Address.street_address,
+        city: location.first,
+        state: location.last,
+        zipcode: Faker::Address.zip,
+    })
+end
