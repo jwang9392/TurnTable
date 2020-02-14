@@ -1,10 +1,6 @@
 class Api::VenuesController < ApplicationController
 
-  def index
-    @venues = Venue.all
-
-    render json: ['placeholder']
-  end
+  
 
   private
 

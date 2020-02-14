@@ -15,8 +15,6 @@
 #
 
 class Venue < ApplicationRecord
-  validates :name, :address, :city, :state, :zipcode, :phone_number, :capacity, presence: true
-  
   CITIES = [
     ['New York', 'NY'],
     ['Chicago', 'IL'],
@@ -32,4 +30,7 @@ class Venue < ApplicationRecord
     ['Dallas', 'TX']
   ]
 
+  validates :name, :address, :city, :state, :zipcode, :phone_number, :capacity, presence: true
+  
+  has_many :reservations
 end
