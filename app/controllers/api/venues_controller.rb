@@ -1,6 +1,21 @@
 class Api::VenuesController < ApplicationController
 
-  
+  def index
+    @venues = Venue.all
+
+    render :index
+  end
+    
+  def show
+    @venue = Venue.find_by(id: params[:id])
+
+    if @venue
+      render :show
+    else
+      render json: ['Venue does not exist']
+    end
+  end
+
 
   private
 

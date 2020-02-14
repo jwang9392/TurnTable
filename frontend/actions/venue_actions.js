@@ -1,25 +1,30 @@
-import * as ApiUtil from '../util/restaurant_api_util';
+import * as ApiUtil from '../util/venue_api_util';
 
 export const RECEIVE_VENUES = "RECEIVE_VENUES";
 export const RECEIVE_VENUE = "RECEIVE_VENUE";
 export const RECEIVE_VENUE_ERRORS = 'RECEIVE_VENUE_ERRORS';
 
-const receiveVenues = ({ venues }) => ({
+const receiveVenues = venues => ({
   type: RECEIVE_VENUES,
   venues
 })
 
-const receiveVenue = () => ({
+const receiveVenue = venue => ({
   type: RECEIVE_RESTAURANT,
-
+  venue
 })
 
-const receiveVenueErrors = errors => {
-  return ({
-    type: RECEIVE_VENUE_ERRORS,
-    errors
-  });
-};
+const receiveVenueErrors = errors => ({
+  type: RECEIVE_VENUE_ERRORS,
+  errors
+});
+
+export const fetchVenues = () => dispatch => (
+  ApiUtil.fetchVenues().then(
+    venues => dispatch(receiveVenues(venues)),
+    err => (dispatch(receiveVenueErrors(err.responseJSON)))
+  )
+)
 
 export const fetchVenue = id => dispatch => (
   ApiUtil.fetchVenue(id).then(
@@ -27,10 +32,3 @@ export const fetchVenue = id => dispatch => (
     err => (dispatch(receiveVenueErrors(err.responseJSON)))
   )
 );
-
-export const fetchVenues = searchParams => dispatch => (
-  ApiUtil.fetchVenues(searchParams).then(
-    venues => dispatch(receiveVenues(venues)),
-    err => (dispatch(receiveVenueErrors(err.responseJSON)))
-  )
-)

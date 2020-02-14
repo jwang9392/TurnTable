@@ -1,6 +1,11 @@
 import React from 'react';
 import Modal from './modal/modal';
 import GreetingContainer from './greeting/greeting_container'
+import VenueShowContainer from './venue/venue_show_container'
+import {
+  Route,
+  Switch
+} from 'react-router-dom';
 
 
 const App = () => (
@@ -13,6 +18,11 @@ const App = () => (
     <div className='changetosearch'>
       <p>Where will you be tonight?</p>
     </div>
+
+    <Switch>
+      <Route path="/venues/:id" component={VenueShowContainer} />
+    </Switch>
+
   </div>
 );
 

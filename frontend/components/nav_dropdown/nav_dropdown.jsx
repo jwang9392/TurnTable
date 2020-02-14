@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 class NavDropdown extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { hidden: true };
   }
 
   render() {
