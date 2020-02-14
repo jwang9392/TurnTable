@@ -7,6 +7,7 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 User.destroy_all
+Venue.destroy_all
 
 User.create!({
     fname: 'Guest',
@@ -20,12 +21,12 @@ User.create!({
     location = Venue::CITIES.sample
     
     Venue.create!({
-        name: Faker::Venue.name
-        description: Faker::Venue.description,
+        name: Faker::Beer.hop,
         phone_number: Faker::PhoneNumber.cell_phone,
         address: Faker::Address.street_address,
         city: location.first,
         state: location.last,
         zipcode: Faker::Address.zip,
+        capacity: (rand(2..20) * 10)
     })
 end
