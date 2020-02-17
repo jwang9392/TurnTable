@@ -33,4 +33,5 @@ class Venue < ApplicationRecord
   validates :name, :address, :city, :state, :zipcode, :phone_number, :capacity, presence: true
   
   has_many :reservations
+
 end

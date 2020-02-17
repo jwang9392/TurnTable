@@ -1,10 +1,19 @@
+.dropdown-background {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  z-index: 10;
+}
+
 .dropdown-container {
   position: absolute;
   display: flex;
   flex-direction: column;
   height: 175px;
   width: 230px;
-  top: 55px;
+  top: 80px;
   right: 45px;
   border: 1px solid lightgray;
   border-radius: 2px;

@@ -19,6 +19,7 @@ const receiveVenueErrors = errors => ({
   errors
 });
 
+// DO I NEED SEARCH PARAMS LATER? PROBABLY \/
 export const fetchVenues = () => dispatch => (
   ApiUtil.fetchVenues().then(
     venues => dispatch(receiveVenues(venues)),
@@ -26,8 +27,8 @@ export const fetchVenues = () => dispatch => (
   )
 )
 
-export const fetchVenue = id => dispatch => (
-  ApiUtil.fetchVenue(id).then(
+export const fetchVenue = venueId => dispatch => (
+  ApiUtil.fetchVenue(venueId).then(
     venue => dispatch(receiveVenue(venue)),
     err => (dispatch(receiveVenueErrors(err.responseJSON)))
   )
