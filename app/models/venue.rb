@@ -12,7 +12,7 @@
 #  capacity     :integer          not null
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
-#
+# 
 
 class Venue < ApplicationRecord
   CITIES = [
@@ -33,5 +33,18 @@ class Venue < ApplicationRecord
   validates :name, :address, :city, :state, :zipcode, :phone_number, :capacity, presence: true
   
   has_many :reservations
+
+  # ADD COLUMN FOR OVERALL RATING?
+
+  def self.search(searchParams)
+    where(
+      "name LIKE ? OR 
+      city LIKE ? OR 
+      state LIKE ?",
+      "%#{searchParams}%", 
+      "%#{searchParams}%", 
+      "%#{searchParams}%"
+    )
+  end
 
 end

@@ -12,3 +12,10 @@ export const fetchVenue = venueId => {
     url: `api/venues/${venueId}`
   })
 }
+
+export const searchVenues = (searchParams) => {
+  return $.ajax({
+    url: "/api/search",
+    data: { searchParams }
+  });
+}

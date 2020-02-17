@@ -2,6 +2,7 @@ import * as ApiUtil from '../util/venue_api_util';
 
 export const RECEIVE_VENUES = "RECEIVE_VENUES";
 export const RECEIVE_VENUE = "RECEIVE_VENUE";
+export const RECEIVE_VENUE_SEARCH = 'RECEIVE_VENUE_SEARCH';
 export const RECEIVE_VENUE_ERRORS = 'RECEIVE_VENUE_ERRORS';
 
 const receiveVenues = venues => ({
@@ -19,7 +20,11 @@ const receiveVenueErrors = errors => ({
   errors
 });
 
-// DO I NEED SEARCH PARAMS LATER? PROBABLY \/
+const receiveVenueSearch = searchParams => ({
+  type: RECEIVE_VENUE_SEARCH,
+  searchParams
+})
+
 export const fetchVenues = () => dispatch => (
   ApiUtil.fetchVenues().then(
     venues => dispatch(receiveVenues(venues)),
@@ -33,3 +38,10 @@ export const fetchVenue = venueId => dispatch => (
     err => (dispatch(receiveVenueErrors(err.responseJSON)))
   )
 );
+
+export const searchVenues = searchParams => (
+  ApiUtil.searchVenues(searchParams).then(
+    venues => dispatchEvent(receiveVenueSearch(venues)),
+    err => (dispatch(receiveVenueErrors(err.responseJSON)))
+  )
+)

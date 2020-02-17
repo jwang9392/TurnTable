@@ -1,4 +1,4 @@
-import { RECEIVE_VENUES, RECEIVE_VENUE } from '../actions/venue_actions';
+import { RECEIVE_VENUES, RECEIVE_VENUE, RECEIVE_VENUE_SEARCH } from '../actions/venue_actions';
 
 const venuesReducer = (state = {}, action) => {
   Object.freeze(state)
@@ -8,6 +8,8 @@ const venuesReducer = (state = {}, action) => {
     case RECEIVE_VENUE:
       const newVenue = { [action.venue.id]: action.venue };
       return Object.assign({}, newVenue);
+    case RECEIVE_VENUE_SEARCH:
+      return Object.assign({}, state, action.venues);
     default:
       return state;
   }
