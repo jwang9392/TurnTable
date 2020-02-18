@@ -14,7 +14,9 @@
  *= require_self
  */
 
-@import "react-datepicker/dist/react-datepicker.css";
+@import "./datepicker/datepicker.scss";
+@import "./datepicker/mixins.scss";
+@import "./datepicker/variables.scss";
 @import "./components/main.scss";
 @import "./components/header.scss";
 @import "./components/nav_dropdown.scss";
