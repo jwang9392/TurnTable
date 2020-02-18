@@ -20,7 +20,7 @@ class Api::VenuesController < ApplicationController
     @venues = Venue.search(params["searchParams"]) 
     # debugger
     if @venues.empty? 
-      render json: { message:'No results found' }
+      render json: ['No results found']
     else
       render :index  
     end

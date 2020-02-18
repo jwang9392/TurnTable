@@ -1,8 +1,13 @@
 .app-body > header {
-  margin-top: 25px;
+  margin-top: 28px;
   display: flex;
-  height: 60px;
+  height: 55px;
   justify-content: space-between;
+}
+
+.app-body header > h1 {
+  margin: 15px 0 0 20px;
+  text-align: center;
 }
 
 #dropdown {
@@ -25,13 +30,23 @@
   padding:0;
   cursor: pointer;
   outline: none;
+  color: rgb(75, 75, 75);
+  transition-duration: 200ms;
+}
+
+.login-button:hover {
+  color: black;
 }
 
 .login-signup {
   display: flex;
   align-items: center;
-  margin-right: 20px;
-  width: 160px;
+  margin-right: 17px;
+  width: 172px;
+}
+
+.login-signup > *:hover {
+  cursor: pointer;
 }
 
 .header-greeting {
@@ -52,12 +67,17 @@
 .signup-button {
   background-color: rgb(34,123,152);
   color: white;
-  height: 30px;
-  width: 80px;
+  height: 32px;
+  width: 77px;
   text-decoration: none;
   font-size: 14px;
   border: none;
-  border-radius: 5px;
+  border-radius: 4px;
   outline: none;
+  transition-duration: 350ms;
   cursor: pointer;
+}
+
+.signup-button:hover {
+  background-color: rgb(26, 100, 124);
 }

@@ -105,6 +105,7 @@ p input {
   border: none;
   border-radius: 3px;
   margin: 20px 0; 
+  transition-duration: 350ms;
 }    
 
 .session-submit:focus {
@@ -112,6 +113,7 @@ p input {
 }    
 
 .session-submit:hover {
+  background-color: rgb(189, 36, 46);
   cursor: pointer;
 }    
 

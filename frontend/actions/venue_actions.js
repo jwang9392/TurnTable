@@ -39,13 +39,9 @@ export const fetchVenue = venueId => dispatch => (
   )
 );
 
-export const searchVenues = searchParams => dispatch => {
-  debugger
-  return (
-    ApiUtil.searchVenues(searchParams)
-    .then(
-      venues => dispatch(receiveVenueSearch(venues)),
-      err => (dispatch(receiveVenueErrors(err.responseJSON)))
-    )
-    )
-  };
+export const searchVenues = searchParams => dispatch => (
+  ApiUtil.searchVenues(searchParams).then(
+    venues => dispatch(receiveVenueSearch(venues)),
+    err => (dispatch(receiveVenueErrors(err.responseJSON)))
+  )
+);
