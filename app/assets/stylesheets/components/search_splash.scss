@@ -1,0 +1,130 @@
+.search-splash {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 400px;
+  background-image: image-url('header.jpg');
+  background-repeat: no-repeat;  
+  background-position: center top;
+  background-size: cover;
+}
+
+.search-splash p {
+  color: white;
+  font-size: 40px;
+  padding: 24px;
+}
+
+
+.search-splash form {
+  display: flex;
+}
+
+.reservation-options {
+  display: flex;
+}
+
+.reservation-options > * {
+  display: flex;
+  width: 130px;
+  background-color: white;
+  padding: 15px 15px;
+}
+
+.reservation-date {
+  border-radius: 5px 0 0 5px;
+}
+
+.reservation-date:hover {
+  cursor: pointer;
+}
+
+.reservation-options i#dropdown{
+  margin: 4px 0 0 0;
+  font-size: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.reservation-party {
+  border-radius: 0 5px 5px 0;
+}
+
+.datepicker {
+  margin-left: 2px;
+  width: 100px;
+  border: none;
+  text-align: center;
+  font-size: 16px;
+}
+
+.datepicker:hover {
+  cursor: pointer;
+}
+
+.datepicker:focus {
+  outline: none;
+}
+
+
+.custom-select select{
+  border: none;
+  background-color: white;
+  font-size: 16px;
+  -o-appearance: none;
+  -ms-appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+.reservation-date, .reservation-time, .reservation-party {
+  display: flex;
+  justify-content: space-between;
+}
+
+.reservation-options label select {
+  margin-left: 10px;
+  outline: none;
+}
+
+.reservation-time {
+  border-left: 1px solid lightgray;
+  border-right: 1px solid lightgray;
+}
+
+.search-submit {
+  width: 130px;
+  font-size: 16px;
+  font-weight: 500;
+  color: white;
+  background-color: rgb(218,55,67);
+  border: none;
+  border-radius: 5px;
+}
+
+.search-field {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  background-color: white;
+  margin: 0 28px;
+  border-radius: 5px;
+  width: 290px;
+}
+
+.search-field i {
+  margin: 0 10px;
+}
+
+.search-input {
+  border: none;
+  outline: none;
+  font-size: 16px;
+  width: 100%;
+}
+
+// .search-field:hover {
+//   cursor: text;
+// }

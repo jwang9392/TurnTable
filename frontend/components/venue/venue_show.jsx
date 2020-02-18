@@ -1,4 +1,6 @@
 import React from 'react';
+import DatePicker from 'react-datepicker';
+import "react-datepicker/dist/react-datepicker.css";
 
 class VenueShow extends React.Component {
   constructor(props) {
@@ -8,9 +10,11 @@ class VenueShow extends React.Component {
 
 
   render() {
-    
+
     return (
-      <div>yo</div>
+      <div>
+        yo
+      </div>
     )
   }
 }

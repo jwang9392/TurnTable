@@ -17,7 +17,7 @@ User.create!({
     username: 'hello world'
 })
 
-250.times do
+100.times do
     location = Venue::CITIES.sample
     
     Venue.create!({

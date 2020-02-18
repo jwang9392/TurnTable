@@ -20,9 +20,9 @@ const receiveVenueErrors = errors => ({
   errors
 });
 
-const receiveVenueSearch = searchParams => ({
+const receiveVenueSearch = venues => ({
   type: RECEIVE_VENUE_SEARCH,
-  searchParams
+  venues
 })
 
 export const fetchVenues = () => dispatch => (
@@ -39,9 +39,13 @@ export const fetchVenue = venueId => dispatch => (
   )
 );
 
-export const searchVenues = searchParams => (
-  ApiUtil.searchVenues(searchParams).then(
-    venues => dispatchEvent(receiveVenueSearch(venues)),
-    err => (dispatch(receiveVenueErrors(err.responseJSON)))
-  )
-)
+export const searchVenues = searchParams => dispatch => {
+  debugger
+  return (
+    ApiUtil.searchVenues(searchParams)
+    .then(
+      venues => dispatch(receiveVenueSearch(venues)),
+      err => (dispatch(receiveVenueErrors(err.responseJSON)))
+    )
+    )
+  };

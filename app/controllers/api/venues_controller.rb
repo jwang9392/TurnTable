@@ -16,11 +16,20 @@ class Api::VenuesController < ApplicationController
     end
   end
 
+  def search
+    @venues = Venue.search(params["searchParams"]) 
+    # debugger
+    if @venues.empty? 
+      render json: { message:'No results found' }
+    else
+      render :index  
+    end
+  end
 
   private
 
   def venue_params
-    params.require(:venue).permit(:name, :address, :city, :state, :zipcode, :phone_number, :capacity)
+    params.require(:venue).permit(:name, :address, :city, :state, :zipcode, :phone_number, :capacity, :search)
   end
 
 end
