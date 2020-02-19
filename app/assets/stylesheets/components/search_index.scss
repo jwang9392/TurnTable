@@ -1,0 +1,32 @@
+.search-item {
+  display: flex;
+}
+
+.search-result-list {
+  width: 767px;
+  margin: auto;
+}
+
+.search-result-list li {
+  padding: 14px 0;
+  height: 205.45px;
+}
+
+.search-venue-details {
+  padding-left: 19.1406px;
+  height: 145.38px;
+  width: 560.55px;
+  position: relative;
+}
+
+.venue-name {
+  position: absolute;
+  margin: 4px 0 2px;
+  font-size: 18px;
+}
+
+.venue-search-image {
+  height: 205.45px;
+  width: 205.45px;
+  background-color: darkgray;
+}

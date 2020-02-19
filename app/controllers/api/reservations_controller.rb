@@ -1,12 +1,23 @@
 class Api::ReservationsController < ApplicationController
   def index
-    @reservations = Reservation.includes(:restaurant).where("user_id = ?", params[:userId])
+    @reservations = Reservation.includes(:venue).where("user_id = ?", params[:userId])
+
+    render :index
+  end
+
+  def show
+    @reservation = Reservation.find_by(id: params[:id])
+
+    render :show
   end
 
   def create
     @reservation = Reservation.new(reservation_params)
+    @action = 'POST'
+    @error = 0
+
     if @reservation.save
-        render "api/reservations/show"
+        render :show
     else
         render json: @reservation.errors.full_messages, status: 422
     end
@@ -14,8 +25,11 @@ class Api::ReservationsController < ApplicationController
 
   def update
     @reservation = Reservation.find_by(id: params[:id])
+    @action = 'UPDATE'
+    @error = 1
+
     if @reservation.update(reservation_params)
-        render "api/reservations/show"
+        render :show
     else
         render json: @reservation.errors.full_messages, status: 422
     end
@@ -24,8 +38,10 @@ class Api::ReservationsController < ApplicationController
   def destroy
     @reservation = Reservation.find_by(id: params[:id])
     @action = 'DESTROY'
+    @error = 2
+
     if @reservation.destroy!
-        render "api/reservations/show"
+        render :show
     else
         render json: ["Reservation does not exist."]
     end

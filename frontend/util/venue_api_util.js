@@ -13,7 +13,6 @@ export const fetchVenue = venueId => {
 }
 
 export const searchVenues = (searchParams) => {
-  
   return $.ajax({
     method: "GET",
     url: "/api/search",

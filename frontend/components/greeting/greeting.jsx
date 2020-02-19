@@ -1,5 +1,6 @@
 import React from 'react';
 import NavDropdown from '../nav_dropdown/nav_dropdown_container';
+import {logout} from '../../actions/session_actions'
 
 function toggle() {
   document.getElementsByClassName("nav-dropdown")[0].classList.toggle("hidden");

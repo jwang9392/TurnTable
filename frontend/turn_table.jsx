@@ -1,8 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {login, signup, logout} from './util/session_api_util';
-import {fetchVenue, fetchVenues} from './util/venue_api_util';
-import { logoutCurrentUser} from './actions/session_actions'
+import {fetchReservation, fetchReservations, createReservation, updateReservation, removeReservation} from './util/reservation_api_util';
 import configureStore from './store/store';
 import Root from './components/root'
 
@@ -16,13 +14,13 @@ document.addEventListener('DOMContentLoaded', () => {
   } else {
     store = configureStore();
   }
-  window.login = login;
-  window.signup = signup;
-  window.logout = logout;
-  window.fetchVenue = fetchVenue;
-  window.fetchVenues = fetchVenues;
+
+  window.fetchReservation = fetchReservation;
+  window.fetchReservations = fetchReservations;
+  window.createReservation = createReservation;
+  window.updateReservation = updateReservation;
+  window.removeReservation = removeReservation;
   window.getState = store.getState;
   window.dispatch = store.dispatch;
-  window.logoutCurrentUser = logoutCurrentUser
   ReactDOM.render(<Root store={store}/> , root)
 })

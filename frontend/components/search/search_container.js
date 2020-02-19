@@ -4,7 +4,7 @@ import Search from "./search";
 
 const mapDispatchToProps = (dispatch) => {
   return {
-  processSearch: (searchParams) => dispatch(searchVenues(searchParams)),
+    processSearch: (searchParams) => dispatch(searchVenues(searchParams)),
   }
 }
 

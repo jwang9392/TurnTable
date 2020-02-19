@@ -14,7 +14,6 @@ class SearchBar extends React.Component {
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    debugger
   }
 
   makeTimeOptions() {
@@ -52,7 +51,6 @@ class SearchBar extends React.Component {
   }
 
   handleSubmit(e) {
-    debugger
     e.preventDefault();
     this.props.processSearch(this.state.searchParams).then(() => {
       this.props.history.push({
@@ -68,7 +66,6 @@ class SearchBar extends React.Component {
   }
 
   render() {
-    // debugger
     return (
       <div className='search-bar'>
         <form onSubmit={this.handleSubmit}> 

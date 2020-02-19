@@ -4,4 +4,9 @@ class Reservation < ApplicationRecord
 
   belongs_to :venue
   belongs_to :user
+
+  # Time.parse()
+
+  # var.strftime("%I:%M%p")
+
 end

@@ -11,7 +11,6 @@ import Home from './home';
 // };
 
 const mapDispatchToProps = dispatch => {
-  debugger
   return {
     fetchVenues: () => dispatch(fetchVenues()),
     fetchVenue: (venueId) => dispatch(fetchVenue(venueId))

@@ -8,6 +8,7 @@
 
 User.destroy_all
 Venue.destroy_all
+Reservation.destroy_all
 
 User.create!({
     fname: 'Guest',
@@ -30,3 +31,13 @@ User.create!({
         capacity: (rand(2..20) * 10)
     })
 end
+
+Reservation.create!({
+  time: "09:00PM",
+  date: Date.today,
+  occasion: nil,
+  special_request: nil,
+  party_size: 4,
+  user_id: User.first.id,
+  venue_id: Venue.first.id
+})

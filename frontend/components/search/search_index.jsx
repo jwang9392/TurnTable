@@ -8,11 +8,9 @@ class SearchIndex extends React.Component {
   constructor(props) {
     super(props);
     this.searchParam = this.props.match.params.searchParams;
-    debugger
   }
 
   render() {
-    debugger
     if (Object.keys(this.props.venues).length < 1) {
       return (
         <div>

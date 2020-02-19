@@ -7,7 +7,7 @@ const SearchIndexItem = (props) => {
   return (
     <li className="search-item" key={venue.id}>
       <Link to={`/venues/${venue.id}`}>
-        <div className='changetovenueimage'></div>
+        <div className='venue-search-image'></div>
       </Link>
       <div className="search-venue-details">
         <Link className="venue-name" to={`/venues/${venue.id}`}>
