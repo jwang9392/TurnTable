@@ -9,7 +9,7 @@ const venuesReducer = (state = {}, action) => {
       const newVenue = { [action.venue.id]: action.venue };
       return Object.assign({}, newVenue);
     case RECEIVE_VENUE_SEARCH:
-      return Object.assign({}, state, action.venues);
+      return Object.assign({}, action.venues);
     default:
       return state;
   }

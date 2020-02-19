@@ -4,7 +4,7 @@
   justify-content: center;
   align-items: center;
   height: 416px;
-  background-image: image-url('header.jpg');
+  background-image: image-url('home-search.jpg');
   background-repeat: no-repeat;  
   background-position: center top;
   background-size: cover;
@@ -33,7 +33,7 @@
 }
 
 .reservation-date {
-  border-radius: 5px 0 0 5px;
+  border-radius: 3px 0 0 3px;
 }
 
 .reservation-date:hover {
@@ -49,7 +49,7 @@
 }
 
 .reservation-party {
-  border-radius: 0 5px 5px 0;
+  border-radius: 0 3px 3px 0;
 }
 
 .datepicker {
@@ -90,8 +90,8 @@
 }
 
 .reservation-time {
-  border-left: 1px solid lightgray;
-  border-right: 1px solid lightgray;
+  border-left: 1px solid rgb(224,224,224);
+  border-right: 1px solid rgb(224,224,224);
 }
 
 .search-submit {
@@ -101,7 +101,7 @@
   color: white;
   background-color: rgb(218,55,67);
   border: none;
-  border-radius: 5px;
+  border-radius: 3px;
 }
 
 .search-field {
@@ -110,7 +110,7 @@
   align-items: center;
   background-color: white;
   margin: 0 28px;
-  border-radius: 5px;
+  border-radius: 3px;
   width: 290px;
 }
 

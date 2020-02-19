@@ -3,6 +3,7 @@ import Modal from './modal/modal';
 import GreetingContainer from './greeting/greeting_container';
 import Home from './home/home';
 import VenueShowContainer from './venue/venue_show_container';
+import SearchIndexContainer from './search/search_index_container';
 import {
   Route,
   Switch
@@ -20,6 +21,7 @@ const App = () => (
     <Switch>
       <Route exact path="/" component={Home} />
       <Route path="/venues/:id" component={VenueShowContainer} />
+      <Route path="/search/:searchParams" component={SearchIndexContainer} />
     </Switch>
 
   </div>
