@@ -2,28 +2,25 @@ import React from "react";
 import { withRouter } from 'react-router-dom';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
-import { makeTimeOptions, createPartySizeOptions } from '../../util/util';
+import { makeTimeOptions, createPartySizeOptions, formatDate ,parseHash } from '../../util/util';
 
 class SearchBar extends React.Component {
   constructor(props) {
     super(props);
 
-    this.date = this.props.location.state.date;
-    this.time = this.props.location.state.time;
-    this.partySize = this.props.location.state.partySize;
     this.state = {
       searchParams: "",
       date: "",
       time: "",
-      partySize: 2
+      partySize: ""
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
 
   update(field) {
-    return e => this.setState({ [
-      field]: e.target.value 
+    return e => this.setState({ 
+      [field]: e.target.value 
     });
   }
 
@@ -34,26 +31,23 @@ class SearchBar extends React.Component {
   }
 
   handleSubmit(e) {
+    debugger
     e.preventDefault();
     this.props.processSearch(this.state.searchParams).then(() => {
-      this.props.history.push({
-        pathname: `/search/query`,
-        search: `${this.state.searchParams}`,
-        state: {
-          date: this.state.date,
-          time: this.state.time,
-          partySize: this.state.partySize
-        }
-      })
+      this.props.history.push(
+        `/search/query?${this.state.searchParams}#${formatDate(this.state.date)}#${this.state.time}#${this.state.partySize}`
+      )
     });
   }
 
   render() {
+    const parsedHash = parseHash(this.props.location.hash)
+    debugger
     return (
       <div className='search-bar'>
         <form onSubmit={this.handleSubmit}> 
           <label className="reservation-party">
-            <select id="party-selector" defaultValue={this.partySize}
+            <select id="party-selector" defaultValue={this.state.partySize === "" ? parsedHash[3] : this.state.partySize}
               onChange={this.update("partySize")}>
               {createPartySizeOptions()}
               <option value="larger">Larger party</option>
@@ -67,14 +61,14 @@ class SearchBar extends React.Component {
                 useWeekdaysShort={true}
                 onFocus={e => e.target.blur()}
                 dateFormat="MMM d, yyyy"
-                selected={new Date(this.date)}
+                selected={new Date(this.state.date === "" ? parsedHash[1] : this.state.date)}
                 onChange={this.handleChange}
               />
             </div>
             <i id='dropdown' className="fas fa-chevron-down"></i>
           </label>
           <label className="reservation-time">
-            <select id="time-selector" defaultValue={this.time}
+            <select id="time-selector" defaultValue={this.state.time === "" ? parsedHash[2] : this.state.time}
               onChange={this.update("time")}>
               {makeTimeOptions()}
             </select>

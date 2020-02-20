@@ -11,7 +11,6 @@ class SearchIndex extends React.Component {
   }
 
   render() {
-    debugger
     if (Object.keys(this.props.venues).length < 1) {
       return (
         <div>

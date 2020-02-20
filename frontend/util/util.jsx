@@ -24,7 +24,8 @@ export const createPartySizeOptions = () => {
   })
 }
 
-export const formatDate = (date) => {
+export const formatDate = date => {
+  debugger
   const mdy = date.toDateString().slice(4).split(" ");
   const months = {
     "Jan": "01",
@@ -43,4 +44,15 @@ export const formatDate = (date) => {
   const formattedMonth = months[mdy[0]];
 
   return `${mdy[2]}-${formattedMonth}-${mdy[1]}`
+}
+
+export const parseHash = hash => {
+  const keywords = hash.split("#");
+  const keywordObject = {}
+
+  keywordObject[1] = keywords[1];
+  keywordObject[2] = keywords[2];
+  keywordObject[3] = keywords[3];
+
+  return keywordObject;
 }

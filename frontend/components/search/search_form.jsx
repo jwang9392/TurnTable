@@ -32,15 +32,9 @@ class SearchForm extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     this.props.processSearch(this.state.searchParams).then(() => {
-      this.props.history.push({
-        pathname: `/search/query`,
-        search: `${this.state.searchParams}`,
-        state: {
-          date: formatDate(this.state.date),
-          time: this.state.time,
-          partySize: this.state.partySize
-        }
-      })
+      this.props.history.push(
+        `/search/query?${this.state.searchParams}#${formatDate(this.state.date)}#${this.state.time}#${this.state.partySize}`
+      )
     });
   }
 
