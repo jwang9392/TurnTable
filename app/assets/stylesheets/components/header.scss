@@ -49,6 +49,10 @@
   cursor: pointer;
 }
 
+.header a {
+  text-decoration: none;
+}
+
 .header {
   position: relative;
 }
@@ -73,9 +77,15 @@
   cursor: pointer;
 }
 
+.logo {
+  display: flex;
+  align-items: center;
+  color: black;
+}
+
 .logo-image {
   margin-left: 30px;
-  margin-bottom: 8px;
+  margin-bottom: 2px;
   height: 36px;
   width: 58px;
   background-image: image-url('logo.jpg');
@@ -83,12 +93,19 @@
 }
 
 .logo-text p {
-  font-size: 10px;
+  font-size: 7px;
   text-align: right;
-  margin-bottom: 5px;å
+  margin-top: 3px;
+  margin-bottom: 5px;
+}
+
+.logo-text p > span {
+  font-weight: bold;
+  margin-right: 2px;
 }
 
 .logo-text h3 {
+  font-size: 17px;
   margin-bottom: 2px;
 }
 

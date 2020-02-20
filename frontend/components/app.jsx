@@ -15,13 +15,6 @@ const App = () => (
   <div className='app-body'>
     <Modal />
     <header className="header">
-      <span>
-        <div className="logo-image"/>
-        <div className="logo-text">
-          <h3>TurnTable</h3>
-          <p>by <span>Jason Wang</span></p>
-        </div>
-      </span>
       <GreetingContainer />
     </header>
 
