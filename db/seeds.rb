@@ -33,7 +33,7 @@ User.create!({
 end
 
 Reservation.create!({
-  time: "09:00PM",
+  time: "9:00PM",
   date: Date.today,
   occasion: nil,
   special_request: nil,

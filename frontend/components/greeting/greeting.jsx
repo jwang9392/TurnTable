@@ -2,25 +2,36 @@ import React from 'react';
 import NavDropdown from '../nav_dropdown/nav_dropdown_container';
 import {logout} from '../../actions/session_actions'
 
-function toggle() {
-  document.getElementsByClassName("nav-dropdown")[0].classList.toggle("hidden");
-}
 
-const Greeting = ({ user, openModal }) => {
-  const sessionLinks = () => {
+class Greeting extends React.Component { 
+  
+  constructor(props) {
+    super(props);
+  }
+
+  componentDidUpdate() {
+    this.props.currentUserId ? this.props.fetchReservations(this.props.currentUserId) : null
+  }
+  
+  toggle() {
+    document.getElementsByClassName("nav-dropdown")[0].classList.toggle("hidden");
+  }
+
+  sessionLinks() {
     return (
-    <nav className="login-signup">
-      <button onClick={() => openModal('signup')} className='signup-button'>Sign up</button>
+      <nav className="login-signup">
+      <button onClick={() => this.props.openModal('signup')} className='signup-button'>Sign up</button>
       &nbsp;
-      <button onClick={() => openModal('login')} className='login-button'>Sign in</button>
+      <button onClick={() => this.props.openModal('login')} className='login-button'>Sign in</button>
     </nav>
     )
   };
-  const personalGreeting = (user) => {
+
+  personalGreeting() {
     return (
-      <hgroup className="header-group" onClick={() => toggle()}>
+      <hgroup className="header-group" onClick={() => this.toggle()}>
         <div className="header-greeting">
-          <h4 className="header-name">Hi, {user.fname}!</h4>
+          <h4 className="header-name">Hi, {this.props.user.fname}!</h4>
           <i id='dropdown' className="fas fa-chevron-down"></i>
         </div>
         <div className="nav-dropdown hidden">
@@ -30,8 +41,13 @@ const Greeting = ({ user, openModal }) => {
     )
   };
 
-  return user ? personalGreeting(user, logout) : sessionLinks()
-};
+  render() {
+    return (
+      this.props.user ? this.personalGreeting(logout) : this.sessionLinks()
+    )
+  }
 
+
+}
 export default Greeting;
 

@@ -14,6 +14,7 @@ class SessionForm extends React.Component {
 
   componentDidMount() {
     this.props.clearErrors;
+    
   }
 
   update(field) {
@@ -29,12 +30,14 @@ class SessionForm extends React.Component {
   }
 
   demoSubmit(e) {
+    debugger
     e.preventDefault();
     const demoUser = {
       email: 'hello@world.com',
       password: 'helloworld'
     };
     this.props.processForm(demoUser).then(this.props.closeModal);
+    debugger
   }
 
   renderErrors() {

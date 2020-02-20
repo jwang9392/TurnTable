@@ -9,7 +9,7 @@ class SearchBar extends React.Component {
     this.state = {
       searchParams: "",
       date: new Date(),
-      time: 21, // ADJUST TIME VALUE 
+      time: "9:00PM",
       partySize: 2
     };
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -41,7 +41,9 @@ class SearchBar extends React.Component {
   }
 
   update(field) {
-    return e => this.setState({ [field]: e.target.value });
+    return e => this.setState({ [
+      field]: e.target.value 
+    });
   }
 
   handleChange(selectedDate) {

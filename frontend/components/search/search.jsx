@@ -2,6 +2,7 @@ import React from "react";
 import { withRouter } from 'react-router-dom';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
+import { makeTimeOptions, createPartySizeOptions } from '../../util/util';
 
 class Search extends React.Component {
   constructor(props) {
@@ -9,39 +10,17 @@ class Search extends React.Component {
     this.state = {
       searchParams: "",
       date: new Date(),
-      time: 21, // ADJUST TIME VALUE 
+      time: "9:00PM",
       partySize: 2
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
 
-  makeTimeOptions() {
-    return Array.from(Array(24).keys()).map(n => {
-      if (n === 0) {
-        return <option key={n} value={0} >12:00 AM</option>;
-      } else if (n < 12) {
-        return <option key={n} value={n}>{n}:00 AM</option>
-      } else if (n === 12) {
-        return <option key={n} value={n}>12:00 PM</option>
-      } else {
-        return <option key={n} value={n}>{n - 12}:00 PM</option>
-      }
-    })
-  }
-
-  createPartySizeOptions() {
-    return Array.from(Array(21).keys()).slice(1).map(n => {
-      if (n === 1) {
-        return <option key={n} value={n}>{n} person</option>;
-      } else {
-        return <option key={n} value={n}>{n} people</option>;
-      }
-    })
-  }
-
   update(field) {
-    return e => this.setState({ [field]: e.target.value });
+    return e => this.setState({ 
+      [field]: e.target.value 
+    });
   }
 
   handleChange(selectedDate) {
@@ -66,7 +45,6 @@ class Search extends React.Component {
   }
 
   render() {
-    // debugger
     return (
       <div className='search-splash'>
         <p>Where will you be tonight?</p>
@@ -91,7 +69,7 @@ class Search extends React.Component {
                 <i id="ticker" className="far fa-clock"></i>
                 <select id="time-selector" defaultValue={this.state.time}
                   onChange={this.update("time")}>
-                  {this.makeTimeOptions()}
+                  {makeTimeOptions()}
                 </select>
               </div>
               <i id='dropdown' className="fas fa-chevron-down"></i>
@@ -101,7 +79,7 @@ class Search extends React.Component {
                 <i id="user-icon" className="far fa-user"></i>
                 <select id="party-selector" defaultValue={this.state.partySize}
                   onChange={this.update("partySize")}>
-                  {this.createPartySizeOptions()}
+                  {createPartySizeOptions()}
                   <option value="larger">Larger party</option>
                 </select>
               </div>

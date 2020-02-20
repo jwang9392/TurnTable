@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter} from 'react-router-dom';
 
 const SearchIndexItem = (props) => {
   const { venue } = props
@@ -35,4 +35,4 @@ const SearchIndexItem = (props) => {
 }
 
 
-export default SearchIndexItem;
+export default withRouter(SearchIndexItem);

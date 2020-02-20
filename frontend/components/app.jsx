@@ -4,6 +4,7 @@ import GreetingContainer from './greeting/greeting_container';
 import Home from './home/home';
 import VenueShowContainer from './venue/venue_show_container';
 import SearchIndexContainer from './search/search_index_container';
+import CreateReservationFormContainer from './reservations/create_reservation_container_form';
 import {
   Route,
   Switch
@@ -22,6 +23,7 @@ const App = () => (
       <Route exact path="/" component={Home} />
       <Route path="/venues/:id" component={VenueShowContainer} />
       <Route path="/search/:searchParams" component={SearchIndexContainer} />
+      <Route path="/api/venues/:venue_id/reservations" component={CreateReservationFormContainer} />
     </Switch>
 
   </div>
