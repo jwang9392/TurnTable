@@ -49,6 +49,15 @@
   cursor: pointer;
 }
 
+.header {
+  position: relative;
+}
+
+.header > span {
+  display: flex;
+  align-items: center;
+}
+
 .header-greeting {
   display: flex;
   align-items: center;
@@ -62,6 +71,25 @@
 
 .header-name:hover {
   cursor: pointer;
+}
+
+.logo-image {
+  margin-left: 30px;
+  margin-bottom: 8px;
+  height: 36px;
+  width: 58px;
+  background-image: image-url('logo.jpg');
+  background-size: cover;
+}
+
+.logo-text p {
+  font-size: 10px;
+  text-align: right;
+  margin-bottom: 5px;å
+}
+
+.logo-text h3 {
+  margin-bottom: 2px;
 }
 
 .signup-button {

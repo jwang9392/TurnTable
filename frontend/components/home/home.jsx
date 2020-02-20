@@ -1,5 +1,5 @@
 import React from 'react';
-import SearchContainer from '../search/search_container';
+import SearchContainer from '../search/search_form_container';
 import { Link, withRouter } from 'react-router-dom';
 
 const Home = () => (

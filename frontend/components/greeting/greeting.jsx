@@ -9,13 +9,13 @@ class Greeting extends React.Component {
     super(props);
   }
 
-  componentDidUpdate() {
-    const { user, currentUserId } = this.props;
+  // componentDidUpdate() {
+  //   const { user, currentUserId } = this.props;
 
-    if (user.id === currentUserId) { 
-      this.props.fetchReservations(this.props.currentUserId) 
-    }
-  }
+  //   if (user.id === currentUserId) { 
+  //     this.props.fetchReservations(this.props.currentUserId) 
+  //   }
+  // }
   
   toggle() {
     document.getElementsByClassName("nav-dropdown")[0].classList.toggle("hidden");
