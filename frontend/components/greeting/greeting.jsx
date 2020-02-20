@@ -10,7 +10,11 @@ class Greeting extends React.Component {
   }
 
   componentDidUpdate() {
-    this.props.currentUserId ? this.props.fetchReservations(this.props.currentUserId) : null
+    const { user, currentUserId } = this.props;
+
+    if (user.id === currentUserId) { 
+      this.props.fetchReservations(this.props.currentUserId) 
+    }
   }
   
   toggle() {

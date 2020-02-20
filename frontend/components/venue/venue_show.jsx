@@ -10,7 +10,6 @@ class VenueShow extends React.Component {
 
 
   render() {
-    debugger
     return (
       <div>
         yo

@@ -2,7 +2,7 @@ import React from "react";
 import { withRouter } from 'react-router-dom';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
-import { makeTimeOptions, createPartySizeOptions } from '../../util/util';
+import { makeTimeOptions, createPartySizeOptions, formatDate } from '../../util/util';
 
 class Search extends React.Component {
   constructor(props) {
@@ -36,7 +36,7 @@ class Search extends React.Component {
         pathname: `/search/query`,
         search: `${this.state.searchParams}`,
         state: {
-          date: this.state.date,
+          date: formatDate(this.state.date),
           time: this.state.time,
           partySize: this.state.partySize
         }

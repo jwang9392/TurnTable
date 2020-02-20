@@ -2,42 +2,23 @@ import React from "react";
 import { withRouter } from 'react-router-dom';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
+import { makeTimeOptions, createPartySizeOptions } from '../../util/util';
 
 class SearchBar extends React.Component {
   constructor(props) {
     super(props);
+
+    this.date = this.props.location.state.date;
+    this.time = this.props.location.state.time;
+    this.partySize = this.props.location.state.partySize;
     this.state = {
       searchParams: "",
-      date: new Date(),
-      time: "9:00PM",
+      date: "",
+      time: "",
       partySize: 2
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
-  }
-
-  makeTimeOptions() {
-    return Array.from(Array(24).keys()).map(n => {
-      if (n === 0) {
-        return <option key={n} value={0} >12:00 AM</option>;
-      } else if (n < 12) {
-        return <option key={n} value={n}>{n}:00 AM</option>
-      } else if (n === 12) {
-        return <option key={n} value={n}>12:00 PM</option>
-      } else {
-        return <option key={n} value={n}>{n - 12}:00 PM</option>
-      }
-    })
-  }
-
-  createPartySizeOptions() {
-    return Array.from(Array(21).keys()).slice(1).map(n => {
-      if (n === 1) {
-        return <option key={n} value={n}>{n} person</option>;
-      } else {
-        return <option key={n} value={n}>{n} people</option>;
-      }
-    })
   }
 
   update(field) {
@@ -72,9 +53,9 @@ class SearchBar extends React.Component {
       <div className='search-bar'>
         <form onSubmit={this.handleSubmit}> 
           <label className="reservation-party">
-            <select id="party-selector" defaultValue={this.state.partySize}
+            <select id="party-selector" defaultValue={this.partySize}
               onChange={this.update("partySize")}>
-              {this.createPartySizeOptions()}
+              {createPartySizeOptions()}
               <option value="larger">Larger party</option>
             </select>
             <i id='dropdown' className="fas fa-chevron-down"></i>
@@ -86,16 +67,16 @@ class SearchBar extends React.Component {
                 useWeekdaysShort={true}
                 onFocus={e => e.target.blur()}
                 dateFormat="MMM d, yyyy"
-                selected={this.state.date}
+                selected={new Date(this.date)}
                 onChange={this.handleChange}
               />
             </div>
             <i id='dropdown' className="fas fa-chevron-down"></i>
           </label>
           <label className="reservation-time">
-            <select id="time-selector" defaultValue={this.state.time}
+            <select id="time-selector" defaultValue={this.time}
               onChange={this.update("time")}>
-              {this.makeTimeOptions()}
+              {makeTimeOptions()}
             </select>
             <i id='dropdown' className="fas fa-chevron-down"></i>
           </label>

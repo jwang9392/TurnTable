@@ -20,9 +20,7 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = dispatch => ({
   createReservation: reservation => dispatch(createReservation(reservation)),
-  closeModal: () => dispatch(closeModal()),
-  openSignupModal: () => dispatch(openModal('signup')),
-  openLoginModal: () => dispatch(openModal('login')),
+  openModal: modal => dispatch(openModal(modal)),
   logout: () => dispatch(logout())
 })
 
