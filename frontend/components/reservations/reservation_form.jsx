@@ -2,7 +2,7 @@ import React from 'react';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 
-class CreateReservationForm extends React.Component {
+class ReservationForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
@@ -41,7 +41,19 @@ class CreateReservationForm extends React.Component {
   loggedInComponent() {
     return (
       <div className="logged-in-res-create">
-        
+        <div>
+          <span>
+            Jason Wang (<span className="res-trigger-links" onClick={this.props.logout}>Not Jason?</span>)
+          </span>
+        </div>
+        <div className="res-create-input-fields">
+          <input type="text" placeholder="First name" />
+          <input type="text" placeholder="Last name" />
+          <input type="text" placeholder="Phone number" />
+          <input type="email" placeholder="Email" />
+          <input type="text" placeholder="Select an occasion (optional)" />
+          <input type="textarea" placeholder="Add a special request (optional)" />
+        </div>
       </div>
     )
   }
@@ -51,13 +63,13 @@ class CreateReservationForm extends React.Component {
       <div className="logged-out-res-create">
         <div>
           <span>
-            <button onClick={this.modalTrigger("login")}>
+            <span className="res-trigger-links" onClick={this.modalTrigger("login")}>
               Sign in
-            </button>{" "}
+            </span>{" "}
             or{" "}
-            <button onClick={this.modalTrigger("signup")}>
+            <span className="res-trigger-links" onClick={this.modalTrigger("signup")}>
               Sign up
-            </button>{" "}
+            </span>{" "}
             to make this reservation
           </span>
         </div>
@@ -100,4 +112,4 @@ class CreateReservationForm extends React.Component {
   }
 }
 
-export default CreateReservationForm;
+export default ReservationForm;

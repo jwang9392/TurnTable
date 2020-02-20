@@ -3,7 +3,7 @@ import { withRouter } from "react-router-dom";
 import { createReservation } from "../../actions/reservation_actions";
 import { logout } from '../../actions/session_actions';
 import { openModal, closeModal } from '../../actions/modal_actions';
-import CreateReservationForm from "./create_reservation_form";
+import ReservationForm from "./reservation_form";
 
 const mapStateToProps = (state, ownProps) => {
   const clearErrors = () => {
@@ -24,4 +24,4 @@ const mapDispatchToProps = dispatch => ({
   logout: () => dispatch(logout())
 })
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(CreateReservationForm))
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(ReservationForm))

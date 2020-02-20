@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import { searchVenues } from "../../actions/venue_actions"
-import Search from "./search";
+import SearchForm from "./search_form";
 
 const mapDispatchToProps = (dispatch) => {
   return {
@@ -8,4 +8,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default connect(null, mapDispatchToProps)(Search);
+export default connect(null, mapDispatchToProps)(SearchForm);
