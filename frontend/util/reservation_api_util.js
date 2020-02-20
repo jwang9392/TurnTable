@@ -7,7 +7,6 @@ export const fetchReservations = userId => {
 }
 
 export const fetchReservation = resId => {
-  debugger
   return $.ajax({
     method: "GET",
     url: `/api/reservations/${resId}`,

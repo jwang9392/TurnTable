@@ -18,5 +18,4 @@ export const searchVenues = (searchParams) => {
     url: "/api/search",
     data: { searchParams }
   });
-  // debugger
 }
