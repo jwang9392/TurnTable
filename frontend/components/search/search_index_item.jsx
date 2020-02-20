@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link, withRouter} from 'react-router-dom';
+import ReservationTimes from '../reservations/reservation_times_container';
 
 const SearchIndexItem = (props) => {
   const { venue } = props
@@ -22,12 +23,12 @@ const SearchIndexItem = (props) => {
           </div> */}
           {/* IMPORTANT ADD AFTER CREATING RATINGS ^ */}
         </div>
-        <p className="event-subdetail">
-          {event.event_city}
-        </p>
-        <ul className="timeslots">
-          {/* RESERVATION COMPONENT GOES HERE */}
-        </ul>
+        <h1 className="event-subdetail">
+          {venue.event_city}
+        </h1>
+        <div className="timeslots">
+          <ReservationTimes venueId={venue.id}/>
+        </div>
       </div>
     </li>
   );

@@ -5,7 +5,6 @@ import { openModal } from '../../actions/modal_actions';
 
 
 const mapStateToProps = ( { entities: { venues } }, ownProps) => {
-
   return {
     venues
   };

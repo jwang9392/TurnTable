@@ -25,7 +25,6 @@ export const createPartySizeOptions = () => {
 }
 
 export const formatDate = date => {
-  debugger
   const mdy = date.toDateString().slice(4).split(" ");
   const months = {
     "Jan": "01",

@@ -17,6 +17,7 @@
   height: 145.38px;
   width: 560.55px;
   position: relative;
+  display: flex;
 }
 
 .venue-name {
@@ -28,5 +29,6 @@
 .venue-search-image {
   height: 205.45px;
   width: 205.45px;
+  border-radius: 3px;
   background-color: darkgray;
 }

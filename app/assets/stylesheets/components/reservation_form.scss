@@ -5,3 +5,17 @@
 .res-trigger-links {
   color: rgb(218,55,67);
 }
+
+.timeslots {
+  position: absolute;
+  top: 50px;
+}
+
+.timeslots ul {
+  display: flex;
+  flex-direction: row;
+}
+
+.timeslots li {
+  height: 30px;
+}

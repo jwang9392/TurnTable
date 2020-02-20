@@ -31,7 +31,6 @@ class SearchBar extends React.Component {
   }
 
   handleSubmit(e) {
-    debugger
     e.preventDefault();
     this.props.processSearch(this.state.searchParams).then(() => {
       this.props.history.push(
@@ -42,7 +41,6 @@ class SearchBar extends React.Component {
 
   render() {
     const parsedHash = parseHash(this.props.location.hash)
-    debugger
     return (
       <div className='search-bar'>
         <form onSubmit={this.handleSubmit}> 
