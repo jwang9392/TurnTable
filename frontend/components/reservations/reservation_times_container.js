@@ -4,7 +4,6 @@ import { createReservation } from '../../actions/reservation_actions'
 import ReservationTimes from "./reservation_times";
 
 const mapStateToProps = (state) => {
-  // debugger
   return {
     currentUserId: state.session.currentUserId,
     venues: state.entities.venues

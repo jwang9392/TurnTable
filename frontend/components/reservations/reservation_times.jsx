@@ -29,10 +29,21 @@ const ReservationTimes = (props) => {
     let timesAfter = times.slice(0, ((currentTimeIdx - 24) + 3));
     timeslots = timesBefore.concat(timesAfter);
   }
-debugger
+
   return (
     <ul>
-      {timeslots.map(time => <li key={time}><button onClick={() => props.history.push(`/api/venues/${props.venueId}/reservations`)}>{time}</button></li>)}
+      {timeslots.map(time => 
+        <li key={time}>
+          <button onClick={
+            () => props.history.push({
+              pathname: `/api/venues/${props.venueId}/reservations`,
+              state: { reservationHash: props.location.hash }
+            })
+          }>
+            {time}
+          </button>
+        </li>)
+      }
     </ul>
   )
 }

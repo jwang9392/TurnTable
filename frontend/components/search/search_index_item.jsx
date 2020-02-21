@@ -4,7 +4,9 @@ import ReservationTimes from '../reservations/reservation_times_container';
 
 const SearchIndexItem = (props) => {
   const { venue } = props
+  const numBooked = Math.ceil(Math.random() * 100);
 
+  // debugger
   return (
     <li className="search-item" key={venue.id}>
       <Link to={`/venues/${venue.id}`}>
@@ -23,9 +25,14 @@ const SearchIndexItem = (props) => {
           </div> */}
           {/* IMPORTANT ADD AFTER CREATING RATINGS ^ */}
         </div>
-        <h1 className="event-subdetail">
-          {venue.event_city}
-        </h1>
+        <p className="event-subdetail">
+          {venue.city}
+        </p>
+        <div className="times-booked">
+          <i className="fas fa-chart-line"></i>
+          {` Booked ${numBooked} times today`}
+          {/* PLACEHOLDER */}
+        </div>
         <div className="timeslots">
           <ReservationTimes venueId={venue.id}/>
         </div>

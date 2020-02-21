@@ -49,9 +49,9 @@ export const parseHash = hash => {
   const keywords = hash.split("#");
   const keywordObject = {}
 
-  keywordObject[1] = keywords[1];
-  keywordObject[2] = keywords[2];
-  keywordObject[3] = keywords[3];
+  keywordObject["date"] = keywords[1];
+  keywordObject["time"] = keywords[2];
+  keywordObject["partySize"] = keywords[3];
 
   return keywordObject;
 }

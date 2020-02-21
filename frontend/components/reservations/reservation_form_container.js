@@ -9,10 +9,12 @@ const mapStateToProps = (state, ownProps) => {
   const clearErrors = () => {
     return state.errors['reservation'] = [];
   }
-
+  
   return {
+    currentUser: state.entities.users[state.session.currentUserId],
     venue: state.entities.venues[ownProps.match.params.venue_id],
     loggedIn: Boolean(state.session.currentUserId),
+    reservationHash: ownProps.location.state.reservationHash,
     errors: state.session.errors,
     clearErrors: clearErrors()
   }

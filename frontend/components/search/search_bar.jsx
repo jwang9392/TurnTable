@@ -45,7 +45,7 @@ class SearchBar extends React.Component {
       <div className='search-bar'>
         <form onSubmit={this.handleSubmit}> 
           <label className="reservation-party">
-            <select id="party-selector" defaultValue={this.state.partySize === "" ? parsedHash[3] : this.state.partySize}
+            <select id="party-selector" defaultValue={this.state.partySize === "" ? parsedHash["partySize"] : this.state.partySize}
               onChange={this.update("partySize")}>
               {createPartySizeOptions()}
               <option value="larger">Larger party</option>
@@ -59,14 +59,14 @@ class SearchBar extends React.Component {
                 useWeekdaysShort={true}
                 onFocus={e => e.target.blur()}
                 dateFormat="MMM d, yyyy"
-                selected={new Date(this.state.date === "" ? parsedHash[1] : this.state.date)}
+                selected={new Date(this.state.date === "" ? parsedHash["date"] : this.state.date)}
                 onChange={this.handleChange}
               />
             </div>
             <i id='dropdown' className="fas fa-chevron-down"></i>
           </label>
           <label className="reservation-time">
-            <select id="time-selector" defaultValue={this.state.time === "" ? parsedHash[2] : this.state.time}
+            <select id="time-selector" defaultValue={this.state.time === "" ? parsedHash["time"] : this.state.time}
               onChange={this.update("time")}>
               {makeTimeOptions()}
             </select>
