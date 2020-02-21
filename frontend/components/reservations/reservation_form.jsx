@@ -75,16 +75,20 @@ class ReservationForm extends React.Component {
   loggedInComponent() {
     return (
       <div className="logged-in-res-create">
-        <div>
+        <div className="res-links">
           <span>
             {this.state.fname} {this.state.lname} (<span className="res-trigger-links" onClick={this.props.logout}>Not {this.state.fname}?</span>)
           </span>
         </div>
         <div className="res-create-input-fields">
-          <input type="text" placeholder="Phone Number" onChange={this.update("phone_number")} defaultValue={this.state.phone_number} />
-          <input value={this.state.email} readOnly />
-          <input type="text" placeholder="Select an occasion (optional)" onChange={this.update("occasion")} />
-          <input type="textarea" placeholder="Add a special request (optional)" onChange={this.update("special_request")} />
+          <div className="res-input-row">
+            <input className="res-input-field" type="text" placeholder="Phone Number" onChange={this.update("phone_number")} defaultValue={this.state.phone_number} />
+            <input className="res-input-field" value={this.state.email} readOnly />
+          </div><br/>
+          <div className="res-input-row">
+            <input className="res-input-field" type="text" placeholder="Select an occasion (optional)" onChange={this.update("occasion")} />
+            <input className="res-input-field" type="textarea" placeholder="Add a special request (optional)" onChange={this.update("special_request")} />
+          </div>
         </div>
       </div>
     )
@@ -93,7 +97,7 @@ class ReservationForm extends React.Component {
   loggedOutComponent() {
     return (
       <div className="logged-out-res-create">
-        <div>
+        <div className="res-links">
           <span>
             <span className="res-trigger-links" onClick={this.modalTrigger("login")}>
               Sign in
@@ -106,12 +110,18 @@ class ReservationForm extends React.Component {
           </span>
         </div>
         <div className="res-create-input-fields">
-          <input type="text" placeholder="First name" onChange={this.update("fname")} />
-          <input type="text" placeholder="Last name" onChange={this.update("lname")}/>
-          <input type="text" placeholder="Phone number" onChange={this.update("phone_number")}/>
-          <input type="email" placeholder="Email" onChange={this.update("email")}/>
-          <input type="text" placeholder="Select an occasion (optional)" onChange={this.update("occasion")}/>
-          <input type="textarea" placeholder="Add a special request (optional)" onChange={this.update("special_request")}/>
+          <div className="res-input-row">
+            <input className="res-input-field" type="text" placeholder="First name" onChange={this.update("fname")} />
+            <input className="res-input-field" type="text" placeholder="Last name" onChange={this.update("lname")}/>
+          </div><br/>
+          <div className="res-input-row">
+            <input className="res-input-field" type="text" placeholder="Phone number" onChange={this.update("phone_number")}/>
+            <input className="res-input-field" type="email" placeholder="Email" onChange={this.update("email")}/>
+          </div><br/>
+          <div className="res-input-row">
+            <input className="res-input-field" type="text" placeholder="Select an occasion (optional)" onChange={this.update("occasion")}/>
+            <input className="res-input-field" type="textarea" placeholder="Add a special request (optional)" onChange={this.update("special_request")}/>
+          </div>
         </div>
       </div>
     )
@@ -142,15 +152,22 @@ class ReservationForm extends React.Component {
                 </div>
               </div>
             </div>
+            <div className="res-timer">
+              <i id="ticker" className="far fa-clock"></i>&nbsp;&nbsp;&nbsp;
+              <span>We're holding this table for you for 5:00 minutes</span>
+              {/* ADD TIMER ABOVE */}
+            </div>
             <form onSubmit={this.handleSubmit} noValidate>
               <>{this.props.loggedIn ? this.loggedInComponent() : this.loggedOutComponent()}</>
-              <div>
-                
-                  <div>Sign me up to receive offers and news from this venue by email</div>
-                
-                
-                  <div>Yes, I want to get text updates and reminders about my reservations</div>
-                
+              <div className="res-contact-options">
+                  <div>
+                    <input className="res-checkbox" type="checkbox" />&nbsp;
+                    Sign me up to receive offers and news from this venue by email
+                  </div>
+                  <div>
+                    <input className="res-checkbox" type="checkbox" />&nbsp;
+                    Yes, I want to get text updates and reminders about my reservations
+                  </div>
               </div>
               <button className="submit-res-btn">
                 Complete reservation
@@ -158,14 +175,14 @@ class ReservationForm extends React.Component {
             </form>
           </div>
           <div className="res-message">
-            <h4>What to know before you go</h4>
-            <h5>Important reservation information</h5>
+            <span>What to know before you go</span>
+            <div>Important reservation information</div>
             <p>We have a 30 minute grace period. Please call us if you are running later than 30 minutes after your reservation time.</p>
             <br /><br />
             <p>We may contact you about this reservation, so please ensure your email and phone number are up to date.</p>
             <br /><br />
             <p>Your table will be reserved for 1 hour 30 minutes for parties of up to 2; 2 hours for parties of up to 4; and 2 hours 30 minutes for parties of 5+.</p>
-            <h5>A note from {this.props.venue.name}</h5>
+            <div>A note from {this.props.venue.name}</div>
             <p>Thank you for making your reservation at {this.props.venue.name}. Please note that we try our best to accommodate all reservations as received; however we cannot guarantee seating in any specific room unless specified and agreed upon. Kindly call if you are delayed 30 minutes after your reservation time. Furthermore, if you do not see your preferred time slot, please call us at {this.props.venue.phone_number}; we will try our best to accommodate you!</p>
           </div>
         </section>

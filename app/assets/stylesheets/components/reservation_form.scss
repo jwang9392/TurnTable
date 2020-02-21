@@ -5,6 +5,23 @@
   margin: auto;
 }
 
+.res-create-container > * {
+  margin: 0 16px;
+}
+
+.res-contact-options {
+  margin-top: 35px;
+}
+
+.res-contact-options > * {
+  margin-top: 10px;
+}
+
+input.res-checkbox {
+  text-decoration: none;
+  transform: scale(1.2); 
+}
+
 .res-details {
   display: flex;
   font-size: 16px;
@@ -16,17 +33,23 @@
 
 .res-details i {
   color: #2d323f;
+  font-size: 18;
 }
 
 .res-form-container {
   margin-top: 32px;
-  width: 600px;
+  width: 630px;
 }
 
 .res-form-container > span {
   font-size: 24px;
   font-weight: normal;
   color: #2d323f;
+}
+
+.res-input-row {
+  display: flex;
+  justify-content: space-between;
 }
 
 .res-img {
@@ -38,9 +61,52 @@
   background-size: cover;
 }
 
+.res-message {
+  margin-top: 100px;
+}
+
+.res-message > div {
+  font-size: 14px;
+  margin-top: 16px;
+}
+
+.res-message > p {
+  font-size: 14px;
+  font-weight: lighter;
+}
+
+.res-message > span {
+  font-size: 16px;
+}
+
+.res-timer {
+  margin-top: 20px;
+  background-color: #eef8fb;
+  padding: 10px 0;
+  border-radius: 3px;
+}
+
 .res-left-header {
   display: flex;
   margin-top: 22px;
+}
+
+.res-input-field {
+  width: 305px;
+  height: 48px;
+  padding-left: 20px;
+  border-radius: 3px;
+  outline: none;
+  -webkit-appearance: none; 
+  -moz-appearance: none; 
+  border: 1px solid lightgray;
+  font-size: 16px;
+}
+
+.res-links {
+  margin-top: 38px;
+  margin-bottom: 20px;
+  font-size: 16px;
 }
 
 .res-message {
@@ -49,9 +115,13 @@
   flex-direction: column;
 }
 
+.res-trigger-links{
+  color: #da3743;
+}
+
 .res-trigger-links:hover {
+  text-decoration: underline;
   cursor: pointer;
-  background-color: rgb(189, 36, 46);
 }
 
 .res-venue-name {
@@ -62,6 +132,7 @@
 }
 
 .submit-res-btn {
+  margin-top: 20px;
   width: 272px;
   height: 48px;
   text-decoration: none;
