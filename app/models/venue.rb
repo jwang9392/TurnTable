@@ -38,9 +38,9 @@ class Venue < ApplicationRecord
 
   def self.search(searchParams)
     where(
-      "name LIKE ? OR 
-      city LIKE ? OR 
-      state LIKE ?",
+      "name ILIKE ? OR 
+      city ILIKE ? OR 
+      state ILIKE ?",
       "%#{searchParams}%", 
       "%#{searchParams}%", 
       "%#{searchParams}%"

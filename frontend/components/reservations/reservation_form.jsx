@@ -73,17 +73,18 @@ class ReservationForm extends React.Component {
   }
 
   loggedInComponent() {
+    debugger
     return (
       <div className="logged-in-res-create">
         <div className="res-links">
           <span>
-            {this.state.fname} {this.state.lname} (<span className="res-trigger-links" onClick={this.props.logout}>Not {this.state.fname}?</span>)
+            {this.props.currentUser.fname} {this.props.currentUser.lname} (<span className="res-trigger-links" onClick={this.props.logout}>Not {this.props.currentUser.fname}?</span>)
           </span>
         </div>
         <div className="res-create-input-fields">
           <div className="res-input-row">
-            <input className="res-input-field" type="text" placeholder="Phone Number" onChange={this.update("phone_number")} defaultValue={this.state.phone_number} />
-            <input className="res-input-field" value={this.state.email} readOnly />
+            <input className="res-input-field" type="text" placeholder="Phone Number" onChange={this.update("phone_number")} defaultValue={this.props.currentUser.phone_number} />
+            <input className="res-input-field" value={this.props.currentUser.email} readOnly />
           </div><br/>
           <div className="res-input-row">
             <input className="res-input-field" type="text" placeholder="Select an occasion (optional)" onChange={this.update("occasion")} />
@@ -95,6 +96,7 @@ class ReservationForm extends React.Component {
   }
 
   loggedOutComponent() {
+    debugger
     return (
       <div className="logged-out-res-create">
         <div className="res-links">

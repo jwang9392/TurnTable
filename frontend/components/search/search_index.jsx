@@ -14,7 +14,6 @@ class SearchIndex extends React.Component {
     if (Object.keys(this.props.venues).length < 1) {
       return (
         <div>
-          <div id='jw'>NO VENUES</div>
           <SearchBarContainer />
           <div className='search-content-section'>
             <h3>WE DID NOT FIND A MATCH FOR YOUR SEARCH</h3>
@@ -43,7 +42,6 @@ class SearchIndex extends React.Component {
 
       return (
         <div>
-          <div id='jw'>YOU GOT VENUES</div>
           <SearchBarContainer />
           <div className='filter-column'></div>
           <ul className='search-result-list'>

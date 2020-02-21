@@ -1,6 +1,7 @@
 import React from 'react';
 import Modal from './modal/modal';
 import GreetingContainer from './greeting/greeting_container';
+import Footer from './greeting/footer'
 import Home from './home/home';
 import VenueShowContainer from './venue/venue_show_container';
 import SearchIndexContainer from './search/search_index_container';
@@ -25,6 +26,9 @@ const App = () => (
       <Route path="/api/venues/:venue_id/reservations" component={ReservationFormContainer} />
     </Switch>
 
+    <footer>
+      <Footer />
+    </footer>
   </div>
 );
 

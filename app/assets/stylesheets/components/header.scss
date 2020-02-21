@@ -126,3 +126,13 @@
 .signup-button:hover {
   background-color: rgb(26, 100, 124);
 }
+
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: red;
+  color: white;
+  text-align: center;
+}

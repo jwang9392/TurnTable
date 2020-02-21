@@ -59,6 +59,10 @@
   background-color: whitesmoke;
 }
 
+.dropdown-item-NA:hover {
+  cursor: not-allowed;
+}
+
 .header-group {
   position: relative;
 }
@@ -66,3 +70,4 @@
 .hidden {
   display: none;
 }
+

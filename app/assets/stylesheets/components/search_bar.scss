@@ -63,7 +63,10 @@
   border-radius: 0;
 }
 
-#jw {
-  height: 32px;
-  background-color: blue;
+.search-bar select#time-selector {
+  padding-left: 8px;
+}
+
+.search-bar select#party-selector {
+  padding-left: 8px;
 }
