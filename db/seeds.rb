@@ -15,7 +15,8 @@ User.create!({
     lname: 'User',
     email: 'hello@world.com',
     password: 'helloworld',
-    username: 'hello world'
+    username: 'hello world',
+    phone_number: '123-456-7890'
 })
 
 100.times do
