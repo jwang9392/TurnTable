@@ -1,14 +1,100 @@
-.create-reservation-container {
+.res-create-container {
+  width: 976px;
   display: flex;
+  flex-direction: row;
+  margin: auto;
 }
 
-.res-trigger-links {
-  color: rgb(218,55,67);
+.res-details {
+  display: flex;
+  font-size: 16px;
+}
+
+.res-details > * {
+  margin-right: 32px;
+}
+
+.res-details i {
+  color: #2d323f;
+}
+
+.res-form-container {
+  margin-top: 32px;
+  width: 600px;
+}
+
+.res-form-container > span {
+  font-size: 24px;
+  font-weight: normal;
+  color: #2d323f;
+}
+
+.res-img {
+  height: 64px;
+  width: 64px;
+  margin-right: 16px;
+  border-radius: 4px;
+  background-image: image-url('index1.jpg');
+  background-size: cover;
+}
+
+.res-left-header {
+  display: flex;
+  margin-top: 22px;
+}
+
+.res-message {
+  width: 288px;
+  display: flex;
+  flex-direction: column;
+}
+
+.res-trigger-links:hover {
+  cursor: pointer;
+  background-color: rgb(189, 36, 46);
+}
+
+.res-venue-name {
+  font-size: 24px;
+  font-weight: 500;
+  padding-top: 2px;
+  margin: 0 0 13px 0;
+}
+
+.submit-res-btn {
+  width: 272px;
+  height: 48px;
+  text-decoration: none;
+  border: none;
+  border-radius: 3px;
+  font-size: 16px;
+  background-color: #da3743;
+  color: white;
+}
+
+.submit-res-btn:hover {
+  background-color: #d6535b;
 }
 
 .timeslots {
   position: absolute;
-  top: 50px;
+  top: 111px;
+}
+
+.timeslots button {
+  width: 98.2px;
+  height: 30.38px;
+  border: none;
+  border-radius: 3px;
+  background-color: #DA3743;
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.timeslots button:hover {
+  cursor: pointer;
+  background-color: rgb(189, 36, 46);
 }
 
 .timeslots ul {
@@ -18,4 +104,13 @@
 
 .timeslots li {
   height: 30px;
+  padding: 0 4px;
+}
+
+.timeslots li:first-child {
+  padding: 0 4px 0 0;
+}
+
+.timeslots li:last-child {
+  padding: 0 0 0 4px;
 }

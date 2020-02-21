@@ -1,3 +1,7 @@
+.fa-chart-line {
+  color: #DA3743;
+}
+
 .search-item {
   display: flex;
 }
@@ -17,18 +21,36 @@
   height: 145.38px;
   width: 560.55px;
   position: relative;
-  display: flex;
+  display: block;
+}
+
+.search-venue-details p {
+  position: absolute;
+  top: 60px;
+  font-size: 14px;
+  font-weight: lighter;
+}
+
+.times-booked {
+  position: absolute;
+  top: 83px;
+  font-size: 14px;
+  
 }
 
 .venue-name {
   position: absolute;
-  margin: 4px 0 2px;
+  margin: 8px 0 2px;
   font-size: 18px;
+  font-weight: bold;
+  text-decoration: none;
+  color: #247F9E;
 }
 
 .venue-search-image {
   height: 205.45px;
   width: 205.45px;
   border-radius: 3px;
-  background-color: darkgray;
+  background-image: image-url('index1.jpg');
+  background-size: cover;
 }
