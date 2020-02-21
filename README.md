@@ -14,9 +14,19 @@ TurnTable is a single page web application based off OpenTable. This app's main 
 
 ## Features
 ---
-###User Authentication
+### User Authentication
 Users can create an account, securely log in, and log out.
 
-###Search
+### Search
+Users can search for venues against different data columns.
 
-###Reservations
+### Reservations
+Users specify the date, time, and party size, and the venues will show available reservation times. 
+
+
+## Future Implementations
+* Reviews
+* Favorites
+* Search Filters
+* Maps feature
+* Augment website data based on user location
