@@ -5,6 +5,7 @@ class ReservationForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      loggedIn: this.props.loggedIn,
       fname: "",
       lname: "",
       email: "",
@@ -18,6 +19,7 @@ class ReservationForm extends React.Component {
   }
 
   componentDidMount() {
+    debugger
     this.props.clearErrors;
 
     const {venue, currentUser} = this.props
@@ -40,7 +42,9 @@ class ReservationForm extends React.Component {
   }
 
   modalTrigger(action) {
-    return () => this.props.openModal(action)
+    return () => {
+      this.props.openModal(action);
+    }
   }
 
   update(field) {
@@ -68,27 +72,61 @@ class ReservationForm extends React.Component {
         user_id: this.state.user_id
       }
 
-      this.props.createReservation(reservation);
+      this.props.createReservation(reservation).then(data => {
+        const resId = data.reservation.id;
+
+        debugger
+
+        this.props.history.push(
+          `/reservations/${resId}`
+        )
+      });;
     }
   }
 
   loggedInComponent() {
-    debugger
+    // debugger
     return (
       <div className="logged-in-res-create">
         <div className="res-links">
           <span>
-            {this.props.currentUser.fname} {this.props.currentUser.lname} (<span className="res-trigger-links" onClick={this.props.logout}>Not {this.props.currentUser.fname}?</span>)
+            {this.props.currentUser.fname} {this.props.currentUser.lname} (
+              <span className="res-trigger-links" onClick={this.props.logout}>
+                Not {this.props.currentUser.fname}?
+              </span>
+            )
           </span>
         </div>
         <div className="res-create-input-fields">
           <div className="res-input-row">
-            <input className="res-input-field" type="text" placeholder="Phone Number" onChange={this.update("phone_number")} defaultValue={this.props.currentUser.phone_number} />
-            <input className="res-input-field" value={this.props.currentUser.email} readOnly />
+            <input 
+              className="res-input-field" 
+              type="text" 
+              placeholder="Phone Number" 
+              onChange={this.update("phone_number")} 
+              defaultValue={this.props.currentUser.phone_number} 
+            />
+            <input 
+              className="res-input-field" 
+              defaultValue={this.props.currentUser.email} 
+              readOnly 
+            />
           </div><br/>
           <div className="res-input-row">
-            <input className="res-input-field" type="text" placeholder="Select an occasion (optional)" onChange={this.update("occasion")} />
-            <input className="res-input-field" type="textarea" placeholder="Add a special request (optional)" onChange={this.update("special_request")} />
+            <input 
+              className="res-input-field" 
+              type="text" 
+              placeholder="Select an occasion (optional)" 
+              onChange={this.update("occasion")} 
+              defaultValue=""
+            />
+            <input 
+              className="res-input-field" 
+              type="textarea" 
+              placeholder="Add a special request (optional)" 
+              onChange={this.update("special_request")} 
+              defaultValue=""
+            />
           </div>
         </div>
       </div>
@@ -96,16 +134,22 @@ class ReservationForm extends React.Component {
   }
 
   loggedOutComponent() {
-    debugger
+    // debugger
     return (
       <div className="logged-out-res-create">
         <div className="res-links">
           <span>
-            <span className="res-trigger-links" onClick={this.modalTrigger("login")}>
+            <span 
+              className="res-trigger-links" 
+              onClick={this.modalTrigger("login")}
+            >
               Sign in
             </span>{" "}
             or{" "}
-            <span className="res-trigger-links" onClick={this.modalTrigger("signup")}>
+            <span 
+              className="res-trigger-links" 
+              onClick={this.modalTrigger("signup")}
+            >
               Sign up
             </span>{" "}
             to make this reservation
@@ -113,16 +157,52 @@ class ReservationForm extends React.Component {
         </div>
         <div className="res-create-input-fields">
           <div className="res-input-row">
-            <input className="res-input-field" type="text" placeholder="First name" onChange={this.update("fname")} />
-            <input className="res-input-field" type="text" placeholder="Last name" onChange={this.update("lname")}/>
+            <input 
+              className="res-input-field" 
+              type="text" 
+              placeholder="First name" 
+              onChange={this.update("fname")} 
+              defaultValue=""
+            />
+            <input 
+              className="res-input-field" 
+              type="text" 
+              placeholder="Last name" 
+              onChange={this.update("lname")}
+              defaultValue=""
+            />
           </div><br/>
           <div className="res-input-row">
-            <input className="res-input-field" type="text" placeholder="Phone number" onChange={this.update("phone_number")}/>
-            <input className="res-input-field" type="email" placeholder="Email" onChange={this.update("email")}/>
+            <input 
+              className="res-input-field" 
+              type="text" 
+              placeholder="Phone number" 
+              onChange={this.update("phone_number")}
+              defaultValue=""
+            />
+            <input 
+              className="res-input-field" 
+              type="email" 
+              placeholder="Email" 
+              onChange={this.update("email")}
+              defaultValue=""
+            />
           </div><br/>
           <div className="res-input-row">
-            <input className="res-input-field" type="text" placeholder="Select an occasion (optional)" onChange={this.update("occasion")}/>
-            <input className="res-input-field" type="textarea" placeholder="Add a special request (optional)" onChange={this.update("special_request")}/>
+            <input 
+              className="res-input-field" 
+              type="text" 
+              placeholder="Select an occasion (optional)" 
+              onChange={this.update("occasion")}
+              defaultValue=""
+            />
+            <input 
+              className="res-input-field" 
+              type="textarea" 
+              placeholder="Add a special request (optional)" 
+              onChange={this.update("special_request")}
+              defaultValue=""
+            />
           </div>
         </div>
       </div>
@@ -148,9 +228,18 @@ class ReservationForm extends React.Component {
               <div>
                 <p className="res-venue-name">{this.props.venue.name}</p>
                 <div className="res-details">
-                  <div><i id="date" className="far fa-calendar"></i>&nbsp;&nbsp;{date}</div>
-                  <div><i id="ticker" className="far fa-clock"></i>&nbsp;&nbsp;{reservationInfo["time"]}</div>
-                  <div><i id="user-icon" className="far fa-user"></i>&nbsp;&nbsp;{reservationInfo["partySize"]}</div>  
+                  <div>
+                    <i id="date" className="far fa-calendar"></i>
+                    &nbsp;&nbsp;{date}
+                  </div>
+                  <div>
+                    <i id="ticker" className="far fa-clock"></i>
+                    &nbsp;&nbsp;{reservationInfo["time"]}
+                  </div>
+                  <div>
+                    <i id="user-icon" className="far fa-user"></i>
+                    &nbsp;&nbsp;{reservationInfo["partySize"]}
+                  </div>  
                 </div>
               </div>
             </div>

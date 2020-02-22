@@ -36,7 +36,7 @@ const ReservationTimes = (props) => {
         <li key={time}>
           <button onClick={
             () => props.history.push({
-              pathname: `/api/venues/${props.venueId}/reservations`,
+              pathname: `/venues/${props.venueId}/reservations`,
               state: { reservationHash: props.location.hash }
             })
           }>

@@ -13,7 +13,7 @@ class VenueShow extends React.Component {
     return (
       <div>
         yo
-        <button onClick={() => this.props.history.push(`/api/venues/${this.props.venueId}/reservations`)}>RESERVATION TEST</button>
+        <button onClick={() => this.props.history.push(`/venues/${this.props.venueId}/reservations`)}>RESERVATION TEST</button>
       </div>
     )
   }
