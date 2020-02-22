@@ -127,12 +127,26 @@
   background-color: rgb(26, 100, 124);
 }
 
-.footer {
+.footer-container {
   position: fixed;
-  left: 0;
+  display: flex;
+  justify-content: flex-end;
   bottom: 0;
+  left: 0;
+  height: 100px;
   width: 100%;
-  background-color: red;
-  color: white;
-  text-align: center;
+  background-color: rgb(34, 34, 34);
+  font-size: 22px;
+  z-index: 5;
+}
+
+.footer-container-items {
+  margin-top: 10px;
+  margin-right: 20px;
+}
+
+.footer-container > p {
+  font-size: 14px;
+  margin-top: 10px;
+  color: lightslategray;
 }
