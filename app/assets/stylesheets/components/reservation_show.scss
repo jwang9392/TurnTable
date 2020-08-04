@@ -1,0 +1,41 @@
+.res-show-body {
+  background-color: rgb(245,245,245);
+  padding: 20px;
+}
+
+.res-show-header {
+  margin: auto;
+  background-color: white;
+  width: 744px;
+}
+
+.res-confirm-success {
+  color: white;
+  height: 72px;
+  background-color: rgb(86,182,141);
+  display: flex;
+  align-items: center;
+}
+
+.res-confirm-success p {
+  font-size: 18px;
+}
+
+.res-confirm-success span {
+  font-size: 14px;
+}
+
+.res-show-detail-container {
+  padding: 16px;
+}
+
+.res-show-detail {
+  height: 106px;
+  
+}
+
+.fa-check-circle {
+  font-size: 48px;
+  padding: 12px;
+  margin-left: 10px;
+}

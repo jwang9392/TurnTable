@@ -12,7 +12,7 @@
 
 .search-splash p {
   color: white;
-  font-size: 40px;
+  font-size: 48px;
   padding: 24px;
 }
 
@@ -26,7 +26,7 @@
 }
 
 .reservation-options > * {
-  display: flex;
+  display: block;
   width: 130px;
   background-color: white;
   padding: 15px 15px;
@@ -53,7 +53,6 @@
 }
 
 .datepicker {
-  margin-left: 2px;
   width: 100px;
   border: none;
   text-align: center;
@@ -95,7 +94,7 @@
 }
 
 .search-submit {
-  width: 130px;
+  width: 146px;
   font-size: 16px;
   font-weight: 500;
   color: white;
@@ -114,7 +113,7 @@
   justify-content: left;
   align-items: center;
   background-color: white;
-  margin: 0 28px;
+  margin: 0 16px;
   border-radius: 3px;
   width: 290px;
 }
