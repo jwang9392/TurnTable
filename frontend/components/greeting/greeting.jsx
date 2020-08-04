@@ -1,23 +1,11 @@
 import React from 'react';
-import NavDropdown from '../nav_dropdown/nav_dropdown_container';
-import {logout} from '../../actions/session_actions'
 import { Link, withRouter } from "react-router-dom";
 
-
-class Greeting extends React.Component { 
-  
+class Greeting extends React.Component {
   constructor(props) {
     super(props);
   }
 
-  // componentDidUpdate() {
-  //   const { user, currentUserId } = this.props;
-
-  //   if (user.id === currentUserId) { 
-  //     this.props.fetchReservations(this.props.currentUserId) 
-  //   }
-  // }
-  
   toggle() {
     document.getElementsByClassName("nav-dropdown")[0].classList.toggle("hidden");
   }
@@ -25,56 +13,48 @@ class Greeting extends React.Component {
   sessionLinks() {
     return (
       <>
-      <Link to={`/`}>
-        <div className="logo">
-          <div className="logo-image"></div>
-          <div className="logo-text">
-            <h3>TurnTable</h3>
-            <p>by <span>Jason Wang</span></p>
-          </div>
-        </div>
-      </Link>
-      <nav className="login-signup">
-      <button onClick={() => this.props.openModal('signup')} className='signup-button'>Sign up</button>
+        <nav className="login-signup">
+          <button onClick={() => this.props.openModal('signup')} className='signup-button'>Sign up</button>
       &nbsp;
       <button onClick={() => this.props.openModal('login')} className='login-button'>Sign in</button>
-    </nav>
-    </>
+        </nav>
+      </>
     )
   };
 
   personalGreeting() {
     return (
       <>
-      <Link to={`/`}>
-        <div className="logo">
-          <div className="logo-image" />
-          <div className="logo-text">
-            <h3>TurnTable</h3>
-            <p>by <span>Jason Wang</span></p>
+        <div className="header-group" onClick={() => this.toggle()}>
+          <div className="header-greeting">
+            <h4 className="header-name">Hi, {this.props.user.fname}!</h4>
+            <i id='dropdown' className="fas fa-chevron-down"></i>
+          </div>
+          <div className="nav-dropdown hidden">
+            <div className='dropdown-background'>
+              <div className="dropdown-container">
+                <div className='arrow-up'></div>
+                <Link to="" className="dropdown-item dropdown-item-NA">My Profile</Link>
+                <Link to="" className="dropdown-item dropdown-item-NA">My Dining History</Link>
+
+                {/* BONUS FEATURE FOR ABOVE DINING HISTORY - SHOW PAGE BUT AT THE DINING HISTORY*/}
+                {/* HOW TO ROUTE TO FAVORITES? THROUGH ASSOCIATION */}
+
+                <Link to="" className="dropdown-item dropdown-item-NA">My Saved Venues</Link>
+                <Link to="/" className="dropdown-item" onClick={this.props.logout}>Sign Out</Link>
+              </div>
+            </div>
           </div>
         </div>
-      </Link>
-      <hgroup className="header-group" onClick={() => this.toggle()}>
-        <div className="header-greeting">
-          <h4 className="header-name">Hi, {this.props.user.fname}!</h4>
-          <i id='dropdown' className="fas fa-chevron-down"></i>
-        </div>
-        <div className="nav-dropdown hidden">
-          <NavDropdown />
-        </div>
-      </hgroup>
       </>
     )
   };
 
   render() {
     return (
-      this.props.user ? this.personalGreeting(logout) : this.sessionLinks()
+      this.props.user ? this.personalGreeting() : this.sessionLinks()
     )
   }
-
-
 }
-export default withRouter(Greeting);
 
+export default withRouter(Greeting);
