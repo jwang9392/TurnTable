@@ -6,7 +6,6 @@ const SearchIndexItem = (props) => {
   const { venue } = props
   const numBooked = Math.ceil(Math.random() * 100);
 
-  // debugger
   return (
     <li className="search-item" key={venue.id}>
       <Link to={`/venues/${venue.id}`}>

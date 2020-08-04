@@ -19,7 +19,6 @@ class ReservationForm extends React.Component {
   }
 
   componentDidMount() {
-    debugger
     this.props.clearErrors;
 
     const {venue, currentUser} = this.props
@@ -28,7 +27,7 @@ class ReservationForm extends React.Component {
     })
 
     if (this.props.loggedIn) {
-      // debugger
+      
       
       this.setState({
         fname: currentUser.fname,
@@ -54,7 +53,6 @@ class ReservationForm extends React.Component {
   }
 
   handleSubmit(e) {
-
     e.preventDefault();
 
     const reservationHash = this.props.location.state.reservationHash;
@@ -75,8 +73,6 @@ class ReservationForm extends React.Component {
       this.props.createReservation(reservation).then(data => {
         const resId = data.reservation.id;
 
-        debugger
-
         this.props.history.push(
           `/reservations/${resId}`
         )
@@ -85,7 +81,6 @@ class ReservationForm extends React.Component {
   }
 
   loggedInComponent() {
-    // debugger
     return (
       <div className="logged-in-res-create">
         <div className="res-links">
@@ -134,7 +129,6 @@ class ReservationForm extends React.Component {
   }
 
   loggedOutComponent() {
-    // debugger
     return (
       <div className="logged-out-res-create">
         <div className="res-links">

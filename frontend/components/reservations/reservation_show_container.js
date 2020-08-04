@@ -4,23 +4,18 @@ import ReservationShow from './reservation_show';
 
 
 const mapStateToProps = (state, ownProps) => {
-  debugger
-  const { reservationId } = ownProps.match.params
-  const reservation = state.entities.reservations[reservationId]
-  const venue = (reservation) ? state.entities.venues[reservation.venue_id] : {}
   return {
-    reservation,
-    venue,
-    user: state.session.currentUser,
-    reservationInfo: state.session.reservationInfo
+    state: state,
+    resId: ownProps.match.params.id,
+    user: state.entities.users[state.session.currentUserId]
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchReservation: (reservationId) => dispatch(fetchReservation(reservationId)),
-    deleteReservation: (reservationId) => dispatch(deleteReservation(reservationId)),
-    updateReservation: (reservationId) => dispatch(updateReservation(reservationId))
+    fetchReservation: (resId) => dispatch(fetchReservation(resId)),
+    deleteReservation: (resId) => dispatch(deleteReservation(resId)),
+    updateReservation: (reservation) => dispatch(updateReservation(reservation))
   };
 };
 

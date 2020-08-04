@@ -1,7 +1,7 @@
 import React from 'react';
 import Modal from './modal/modal';
-import GreetingContainer from './greeting/greeting_container';
-import Footer from './greeting/footer'
+import Navbar from './navbar/navbar_container';
+import Footer from './footer/footer'
 import Home from './home/home';
 import VenueShowContainer from './venue/venue_show_container';
 import SearchIndexContainer from './search/search_index_container';
@@ -16,10 +16,8 @@ import ReservationShow from './reservations/reservation_show';
 
 const App = () => (
   <div className='app-body'>
+    <Navbar />
     <Modal />
-    <header className="header">
-      <GreetingContainer />
-    </header>
 
     <Switch>
       <Route exact path="/" component={Home} />
@@ -29,9 +27,7 @@ const App = () => (
       <Route path="/reservations/:id" component={ReservationShowContainer} />
     </Switch>
 
-    <footer>
-      <Footer />
-    </footer>
+    <Footer />
   </div>
 );
 
