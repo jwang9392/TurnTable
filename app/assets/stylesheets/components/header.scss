@@ -123,29 +123,3 @@
 .signup-button:hover {
   background-color: rgb(26, 100, 124);
 }
-
-.footer {
-  display: flex;
-  justify-content: space-between;
-  bottom: 0;
-  height: 80px;
-  width: 1600px;
-  background-color: rgb(45, 52, 63);
-  font-size: 22px;
-}
-
-.footer-container {
-  display: flex;
-  align-items: center;
-}
-
-.footer-container > * {
-  color: rgb(165,166,169);
-  margin-left: 15px;
-  text-decoration: none;
-}
-
-.footer-container > p {
-  font-size: 14px;
-  color: white;
-}
