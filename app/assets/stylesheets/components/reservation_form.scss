@@ -33,7 +33,13 @@ input.res-checkbox {
 
 .res-details i {
   color: #2d323f;
-  font-size: 18;
+  font-size: 18px;
+}
+
+.res-form > p {
+  margin-bottom: 10px;
+  font-size: 12px;
+  font-weight: lighter;
 }
 
 .res-form-container {
@@ -79,11 +85,24 @@ input.res-checkbox {
   font-size: 16px;
 }
 
-.res-timer {
+.countdown, .countdown-over {
   margin-top: 20px;
-  background-color: #eef8fb;
-  padding: 10px 0;
+  padding: 13px 0;
   border-radius: 3px;
+  font-size: 13px;
+}
+
+.res-timer {
+  font-weight: lighter;
+  margin-left: 15px;
+}
+
+.countdown {
+  background-color: #eef8fb;
+}
+
+.countdown-over {
+  background-color: rgb(252,237,239);
 }
 
 .res-left-header {
@@ -133,6 +152,7 @@ input.res-checkbox {
 
 .submit-res-btn {
   margin-top: 20px;
+  margin-bottom: 20px;
   width: 272px;
   height: 48px;
   text-decoration: none;

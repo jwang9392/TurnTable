@@ -13,12 +13,36 @@ class ReservationForm extends React.Component {
       occasion: "",
       special_request: "",
       venue_id: "",
-      user_id: ""
+      user_id: "",
+      minutes: 5,
+      seconds: 0
     };
+    debugger
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   componentDidMount() {
+debugger
+    this.myInterval = setInterval(() => {
+      const { seconds, minutes } = this.state
+
+      if (seconds > 0) {
+        this.setState(({ seconds }) => ({
+          seconds: seconds - 1
+        }))
+      }
+      if (seconds === 0) {
+        if (minutes === 0) {
+          clearInterval(this.myInterval)
+        } else {
+          this.setState(({ minutes }) => ({
+            minutes: minutes - 1,
+            seconds: 59
+          }))
+        }
+      }
+    }, 1000)
+
     this.props.clearErrors;
 
     const {venue, currentUser} = this.props
@@ -28,7 +52,7 @@ class ReservationForm extends React.Component {
 
     if (this.props.loggedIn) {
       
-      
+      debugger
       this.setState({
         fname: currentUser.fname,
         lname: currentUser.lname,
@@ -37,7 +61,12 @@ class ReservationForm extends React.Component {
         venue_id: venue.id,
         user_id: currentUser.id
       })
+      debugger
     }
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.myInterval)
   }
 
   modalTrigger(action) {
@@ -71,10 +100,12 @@ class ReservationForm extends React.Component {
       }
 
       this.props.createReservation(reservation).then(data => {
+        
         const resId = data.reservation.id;
+        const userId = data.reservation.user_id;
 
         this.props.history.push(
-          `/reservations/${resId}`
+          `/users/${userId}/reservations/${resId}`
         )
       });;
     }
@@ -146,7 +177,7 @@ class ReservationForm extends React.Component {
             >
               Sign up
             </span>{" "}
-            to make this reservation
+            to collect points for this reservation
           </span>
         </div>
         <div className="res-create-input-fields">
@@ -203,7 +234,21 @@ class ReservationForm extends React.Component {
     )
   }
 
+  renderErrors() {
+    debugger
+    return (
+      <ul>
+        {this.props.errors.map((error, i) => (
+          <li key={`error-${i}`}>
+            {error}
+          </li>
+        ))}
+      </ul>
+    );
+  }
+
   render() {
+    const { minutes, seconds } = this.state
     const reservationHash = this.props.location.state.reservationHash;
     const reservationInfo = parseHash(reservationHash);
     let date = new Date(reservationInfo["date"]);
@@ -237,12 +282,18 @@ class ReservationForm extends React.Component {
                 </div>
               </div>
             </div>
-            <div className="res-timer">
-              <i id="ticker" className="far fa-clock"></i>&nbsp;&nbsp;&nbsp;
-              <span>We're holding this table for you for 5:00 minutes</span>
-              {/* ADD TIMER ABOVE */}
-            </div>
-            <form onSubmit={this.handleSubmit} noValidate>
+
+            { minutes === 0 && seconds === 0 ? 
+              <div className="countdown-over">
+                <span className="res-timer">You can still try to complete your reservation, but this table may no longer be available.</span>
+              </div> :
+              <div className="countdown">
+                <span className="res-timer">We're holding this table for you for </span>
+              <span> {minutes}:{seconds < 10 ? `0${seconds}` : seconds} minutes</span> 
+            </div> }
+            
+            <form className="res-form" onSubmit={this.handleSubmit} noValidate>
+              {this.renderErrors()}
               <>{this.props.loggedIn ? this.loggedInComponent() : this.loggedOutComponent()}</>
               <div className="res-contact-options">
                   <div>
@@ -256,7 +307,9 @@ class ReservationForm extends React.Component {
               </div>
               <button className="submit-res-btn">
                 Complete reservation
-              </button>          
+              </button>
+              <p>By clicking “Complete reservation” you agree to the TurnTable Terms of Use and Privacy Policy. </p>
+              <p>Standard text message rates may apply. You may opt out of receiving text messages at any time. </p>
             </form>
           </div>
           <div className="res-message">

@@ -7,11 +7,7 @@ import VenueShowContainer from './venue/venue_show_container';
 import SearchIndexContainer from './search/search_index_container';
 import ReservationFormContainer from './reservations/reservation_form_container';
 import ReservationShowContainer from './reservations/reservation_show_container';
-import {
-  Route,
-  Switch
-} from 'react-router-dom';
-import ReservationShow from './reservations/reservation_show';
+import { Route, Switch } from 'react-router-dom';
 
 
 const App = () => (

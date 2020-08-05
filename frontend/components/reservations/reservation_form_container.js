@@ -6,6 +6,7 @@ import { openModal, closeModal } from '../../actions/modal_actions';
 import ReservationForm from "./reservation_form";
 
 const mapStateToProps = (state, ownProps) => {
+  debugger
   const clearErrors = () => {
     return state.errors['reservation'] = [];
   }
@@ -15,7 +16,7 @@ const mapStateToProps = (state, ownProps) => {
     venue: state.entities.venues[ownProps.match.params.venue_id],
     loggedIn: Boolean(state.session.currentUserId),
     reservationHash: ownProps.location.state.reservationHash,
-    errors: state.session.errors,
+    errors: state.errors.reservation,
     clearErrors: clearErrors()
   }
 }
@@ -26,4 +27,4 @@ const mapDispatchToProps = dispatch => ({
   logout: () => dispatch(logout())
 })
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(ReservationForm))
+export default connect(mapStateToProps, mapDispatchToProps)(ReservationForm)
