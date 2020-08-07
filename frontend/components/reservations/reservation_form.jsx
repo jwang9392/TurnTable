@@ -17,13 +17,12 @@ class ReservationForm extends React.Component {
       minutes: 5,
       seconds: 0
     };
-    debugger
+    
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   componentDidMount() {
-debugger
-    this.myInterval = setInterval(() => {
+    this.myInterval = setInterval( () => {
       const { seconds, minutes } = this.state
 
       if (seconds > 0) {
@@ -44,15 +43,13 @@ debugger
     }, 1000)
 
     this.props.clearErrors;
-
     const {venue, currentUser} = this.props
+
     this.setState({
       venue_id: venue.id,
     })
 
     if (this.props.loggedIn) {
-      
-      debugger
       this.setState({
         fname: currentUser.fname,
         lname: currentUser.lname,
@@ -61,7 +58,6 @@ debugger
         venue_id: venue.id,
         user_id: currentUser.id
       })
-      debugger
     }
   }
 
@@ -86,10 +82,7 @@ debugger
 
     const reservationHash = this.props.location.state.reservationHash;
     const reservationInfo = parseHash(reservationHash);
-    // if (!this.props.loggedIn) {
-    //   this.props.openModal('reservation-signup')
-    // }
-      
+
     if (this.props.loggedIn) {
       const reservation = {
         time: reservationInfo["time"],
@@ -235,7 +228,7 @@ debugger
   }
 
   renderErrors() {
-    debugger
+    
     return (
       <ul>
         {this.props.errors.map((error, i) => (
@@ -308,8 +301,7 @@ debugger
               <button className="submit-res-btn">
                 Complete reservation
               </button>
-              <p>By clicking “Complete reservation” you agree to the TurnTable Terms of Use and Privacy Policy. </p>
-              <p>Standard text message rates may apply. You may opt out of receiving text messages at any time. </p>
+              <p>By clicking “Complete reservation” you agree to the TurnTable Terms of Use and Privacy Policy. Standard text message rates may apply. You may opt out of receiving text messages at any time. </p>
             </form>
           </div>
           <div className="res-message">
