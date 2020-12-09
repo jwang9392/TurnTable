@@ -15,7 +15,7 @@ class ReservationConflict extends React.Component {
 
     if (this.props.loggedIn) {
       const reservation = {
-        time: this.props.oldRes.time,
+        time: this.props.time,
         date: this.props.date,
         party_size: this.props.newPartySize,
         venue_id: this.props.newVenue.id,
@@ -24,6 +24,7 @@ class ReservationConflict extends React.Component {
 
       this.props.closeModal();
       this.props.deleteReservation(this.props.oldRes.id);
+      
       this.props.createReservation(reservation).then(data => {
         const resId = data.reservation.id;
         const userId = data.reservation.user_id;
