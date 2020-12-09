@@ -41,6 +41,7 @@ class SearchBar extends React.Component {
 
   render() {
     const parsedHash = parseHash(this.props.location.hash)
+    
     return (
       <div className='search-bar'>
         <form onSubmit={this.handleSubmit}> 

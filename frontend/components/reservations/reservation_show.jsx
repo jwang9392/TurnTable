@@ -8,6 +8,7 @@ class ReservationShow extends React.Component {
   }
   
   render() {
+    
     return (
       <div className="res-show-body">
 

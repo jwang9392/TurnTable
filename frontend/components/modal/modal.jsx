@@ -9,27 +9,33 @@ function Modal({ modal, closeModal }) {
   if (!modal) {
     return null;
   }
+
   let component;
   let modalType;
+  let clickAction;
 
   switch (modal) {
     case 'login':
       component = <LoginFormContainer />;
       modalType = "modal-session";
+      clickAction = closeModal;
       break;
     case 'signup':
       component = <SignupFormContainer />;
       modalType = "modal-session";
+      clickAction = closeModal;
       break;
     case 'res':
       component = <ReservationConflictContainer />;
       modalType = "modal-res";
+      clickAction = null;
       break;
     default:
       return null;
   }
+  
   return (
-    <div className="modal-background" onClick={closeModal}>
+    <div className="modal-background" onClick={clickAction}>
       <div className={modalType} onClick={e => e.stopPropagation()}>
         {component}
       </div>

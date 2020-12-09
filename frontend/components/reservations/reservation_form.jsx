@@ -1,4 +1,5 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
 import { parseHash } from '../../util/util';
 
 class ReservationForm extends React.Component {
@@ -19,6 +20,7 @@ class ReservationForm extends React.Component {
     };
     
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.modalTrigger = this.modalTrigger.bind(this);
   }
 
   componentDidMount() {
@@ -58,6 +60,8 @@ class ReservationForm extends React.Component {
         venue_id: venue.id,
         user_id: currentUser.id
       })
+
+      this.props.fetchReservations(currentUser.id);
     }
   }
 
@@ -80,14 +84,11 @@ class ReservationForm extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
 
-    const reservationHash = this.props.location.state.reservationHash;
-    const reservationInfo = parseHash(reservationHash);
-
     if (this.props.loggedIn) {
       const reservation = {
-        time: reservationInfo["time"],
-        date: new Date(reservationInfo["date"]),
-        party_size: +reservationInfo["partySize"],
+        time: this.props.reservationInfo["time"],
+        date: this.props.date,
+        party_size: this.props.reservationInfo["partySize"],
         venue_id: this.state.venue_id,
         user_id: this.state.user_id
       }
@@ -100,7 +101,10 @@ class ReservationForm extends React.Component {
         this.props.history.push(
           `/users/${userId}/reservations/${resId}`
         )
-      });;
+      }, err => {
+          this.props.openModal("res");
+        }
+      );
     }
   }
 
@@ -227,28 +231,11 @@ class ReservationForm extends React.Component {
     )
   }
 
-  renderErrors() {
-    
-    return (
-      <ul>
-        {this.props.errors.map((error, i) => (
-          <li key={`error-${i}`}>
-            {error}
-          </li>
-        ))}
-      </ul>
-    );
-  }
-
   render() {
     const { minutes, seconds } = this.state
-    const reservationHash = this.props.location.state.reservationHash;
-    const reservationInfo = parseHash(reservationHash);
-    let date = new Date(reservationInfo["date"]);
-    date = date.toString().split(" ").slice(0, 3);
+    let date = this.props.date.toString().split(" ").slice(0, 3);
     let dateFront = [date.slice(0, -1).join(', ')];
     date = dateFront.concat([date[2]]).join(" ");
-
     
     return (
       <div>
@@ -266,11 +253,11 @@ class ReservationForm extends React.Component {
                   </div>
                   <div>
                     <i id="ticker" className="far fa-clock"></i>
-                    &nbsp;&nbsp;{reservationInfo["time"]}
+                    &nbsp;&nbsp;{this.props.reservationInfo["time"]}
                   </div>
                   <div>
                     <i id="user-icon" className="far fa-user"></i>
-                    &nbsp;&nbsp;{reservationInfo["partySize"]}
+                    &nbsp;&nbsp;{this.props.reservationInfo["partySize"]}
                   </div>  
                 </div>
               </div>
@@ -286,7 +273,6 @@ class ReservationForm extends React.Component {
             </div> }
             
             <form className="res-form" onSubmit={this.handleSubmit} noValidate>
-              {this.renderErrors()}
               <>{this.props.loggedIn ? this.loggedInComponent() : this.loggedOutComponent()}</>
               <div className="res-contact-options">
                   <div>
@@ -321,4 +307,4 @@ class ReservationForm extends React.Component {
   }
 }
 
-export default ReservationForm;
+export default withRouter(ReservationForm);
