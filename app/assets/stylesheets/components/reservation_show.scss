@@ -34,6 +34,78 @@
   
 }
 
+.conflict-modal > h3 {
+  font-size: 24px;
+  font-weight: normal;
+  margin: 8px 0;
+}
+
+.conflict-modal > p {
+  margin: 10px 0;
+}
+
+.conflict-res {
+  display: flex;
+  margin: 14px 0px;
+}
+
+.conflict-res h3 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: normal;
+}
+
+.old-res, .new-res{
+  padding: 20px;
+  width: 620px;
+  border: 1px solid lightgray;
+  border-radius: 3px;
+}
+
+.new-res {
+  margin-left: 20px ;
+}
+
+.new-res button {
+  height: 50px;
+  width:270px;
+  font-size: 15px;
+  font-weight: 400;
+  color: white;
+  background-color: rgb(218,55,67);
+  border: none;
+  border-radius: 3px;
+  transition-duration: 350ms;
+}
+
+.new-res button:hover {
+  background-color: rgb(189, 36, 46);
+  cursor: pointer;
+}    
+
+.old-res button {
+  height: 50px;
+  width:270px;
+  font-size: 15px;
+  font-weight: 400;
+  background-color: white;
+  border: 1px solid lightgray;
+  border-radius: 3px;
+}
+
+.old-res button:hover {
+  width: 270px;
+  border: 2px solid rgb(218,55,67);
+}
+
+.res-conflict-detail {
+  margin: 20px 0px;
+}
+
+.res-conflict-detail > * {
+  margin: 10px 0;
+}
+
 .fa-check-circle {
   font-size: 48px;
   padding: 12px;
