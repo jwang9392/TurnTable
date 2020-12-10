@@ -30,7 +30,7 @@ class ReservationConflict extends React.Component {
         const userId = data.reservation.user_id;
 
         this.props.history.push(
-          `/users/${userId}/reservations/${resId}`
+          `/reservations/${resId}`
         )
       });
     }

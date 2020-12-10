@@ -20,7 +20,7 @@ const App = () => (
       <Route exact path="/venues/:id" component={VenueShowContainer} />
       <Route path="/search/:searchParams" component={SearchIndexContainer} />
       <Route path="/venues/:venue_id/reservations" component={ReservationFormContainer} />
-      <Route path="/users/:user_id/reservations/:id" component={ReservationShowContainer} />
+      <Route path="/reservations/:id" component={ReservationShowContainer} />
     </Switch>
 
     <Footer />

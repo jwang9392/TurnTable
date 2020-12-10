@@ -83,7 +83,7 @@ class ReservationForm extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-
+debugger
     if (this.props.loggedIn) {
       const reservation = {
         time: this.props.reservationInfo["time"],
@@ -99,13 +99,25 @@ class ReservationForm extends React.Component {
         const userId = data.reservation.user_id;
 
         this.props.history.push(
-          `/users/${userId}/reservations/${resId}`
+          `/reservations/${resId}`
         )
       }, err => {
           this.props.openModal("res");
         }
       );
     }
+  }
+
+  renderErrors() {
+    return (
+      <ul>
+        {this.props.errors.map((error, i) => (
+          <li key={`error-${i}`}>
+            {error}
+          </li>
+        ))}
+      </ul>
+    );
   }
 
   loggedInComponent() {
@@ -271,8 +283,10 @@ class ReservationForm extends React.Component {
                 <span className="res-timer">We're holding this table for you for </span>
               <span> {minutes}:{seconds < 10 ? `0${seconds}` : seconds} minutes</span> 
             </div> }
+
+            {this.renderErrors()}
             
-            <form className="res-form" onSubmit={this.handleSubmit} noValidate>
+            <form className="res-form" onSubmit={this.handleSubmit}>
               <>{this.props.loggedIn ? this.loggedInComponent() : this.loggedOutComponent()}</>
               <div className="res-contact-options">
                   <div>
