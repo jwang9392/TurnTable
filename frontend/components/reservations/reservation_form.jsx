@@ -1,6 +1,5 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
-import { parseHash } from '../../util/util';
 
 class ReservationForm extends React.Component {
   constructor(props) {
@@ -24,25 +23,25 @@ class ReservationForm extends React.Component {
   }
 
   componentDidMount() {
-    this.myInterval = setInterval( () => {
-      const { seconds, minutes } = this.state
+    // this.myInterval = setInterval( () => {
+    //   const { seconds, minutes } = this.state
 
-      if (seconds > 0) {
-        this.setState(({ seconds }) => ({
-          seconds: seconds - 1
-        }))
-      }
-      if (seconds === 0) {
-        if (minutes === 0) {
-          clearInterval(this.myInterval)
-        } else {
-          this.setState(({ minutes }) => ({
-            minutes: minutes - 1,
-            seconds: 59
-          }))
-        }
-      }
-    }, 1000)
+    //   if (seconds > 0) {
+    //     this.setState(({ seconds }) => ({
+    //       seconds: seconds - 1
+    //     }))
+    //   }
+    //   if (seconds === 0) {
+    //     if (minutes === 0) {
+    //       clearInterval(this.myInterval)
+    //     } else {
+    //       this.setState(({ minutes }) => ({
+    //         minutes: minutes - 1,
+    //         seconds: 59
+    //       }))
+    //     }
+    //   }
+    // }, 1000)
 
     this.props.clearErrors;
     const {venue, currentUser} = this.props
@@ -107,7 +106,14 @@ class ReservationForm extends React.Component {
   }
 
   renderErrors() {
-    debugger
+    // debugger
+    // this.props.errors.forEach(err => {
+    //   switch (err) {
+    //     case "User must exist":
+    //       return <li>{err}</li>;
+    //   }
+    // });
+
     return (
       <ul>
         {this.props.errors.map((error, i) => (

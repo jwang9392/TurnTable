@@ -6,6 +6,7 @@ import { parseHash } from '../../util/util';
 import ReservationConflict from "./reservation_conflict";
 
 const mapStateToProps = (state, ownProps) => {
+  debugger
   const reservations = state.entities.reservations;
   const resInfo = parseHash(ownProps.location.state.reservationHash);
   const dateParts = resInfo["date"].split("-");
