@@ -7,33 +7,43 @@ class ReservationConflict extends React.Component {
       loggedIn: this.props.loggedIn
     }
 
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleKeep = this.handleKeep.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
-  handleSubmit(e) {
+  handleKeep(e) {
     e.preventDefault();
 
-    if (this.props.loggedIn) {
-      const reservation = {
-        time: this.props.time,
-        date: this.props.date,
-        party_size: this.props.newPartySize,
-        venue_id: this.props.newVenue.id,
-        user_id: this.props.currentUser.id
-      }
+    this.props.closeModal();
+    this.props.history.goBack();
+  }
 
-      this.props.closeModal();
-      this.props.deleteReservation(this.props.oldRes.id);
-      
+  handleChange(e) {
+    e.preventDefault();
+
+    const reservation = {
+      time: this.props.time,
+      date: this.props.date,
+      party_size: this.props.newPartySize,
+      venue_id: this.props.newVenue.id,
+    };
+
+    if (this.props.loggedIn) {
+      reservation.user_id = this.props.currentUser.id
+    }
+    
+    this.props.closeModal();
+    this.props.deleteReservation(this.props.oldRes.id);
+    
+    setTimeout(() => { 
       this.props.createReservation(reservation).then(data => {
         const resId = data.reservation.id;
-        const userId = data.reservation.user_id;
 
         this.props.history.push(
           `/reservations/${resId}`
         )
       });
-    }
+    }, 50);
   }
 
   render() {
@@ -62,7 +72,7 @@ class ReservationConflict extends React.Component {
                     &nbsp;&nbsp;{this.props.oldRes.party_size}
               </div>  
             </div>
-            <button>Keep</button>
+            <button onClick={this.handleKeep}>Keep</button>
           </div>
           <div className="new-res">
             <h3>{this.props.newVenue.name}</h3>
@@ -80,7 +90,7 @@ class ReservationConflict extends React.Component {
                     &nbsp;&nbsp;{this.props.newPartySize}
               </div>  
             </div>
-            <button onClick={this.handleSubmit}>Continue</button>
+            <button onClick={this.handleChange}>Continue</button>
           </div>
         </div>
       </div>

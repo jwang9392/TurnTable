@@ -83,32 +83,31 @@ class ReservationForm extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-debugger
-    if (this.props.loggedIn) {
-      const reservation = {
-        time: this.props.reservationInfo["time"],
-        date: this.props.date,
-        party_size: this.props.reservationInfo["partySize"],
-        venue_id: this.state.venue_id,
-        user_id: this.state.user_id
-      }
-
-      this.props.createReservation(reservation).then(data => {
-        
-        const resId = data.reservation.id;
-        const userId = data.reservation.user_id;
-
-        this.props.history.push(
-          `/reservations/${resId}`
-        )
-      }, err => {
-          this.props.openModal("res");
-        }
-      );
+    const reservation = {
+      time: this.props.reservationInfo["time"],
+      date: this.props.date,
+      party_size: this.props.reservationInfo["partySize"],
+      venue_id: this.state.venue_id
     }
+
+    if (this.props.loggedIn) {
+      reservation.user_id = this.state.user_id
+    }
+    
+    this.props.createReservation(reservation).then(data => {
+      const resId = data.reservation.id;
+
+      this.props.history.push(
+        `/reservations/${resId}`
+      )
+    }, err => {
+        this.props.openModal("res");
+      }
+    );
   }
 
   renderErrors() {
+    debugger
     return (
       <ul>
         {this.props.errors.map((error, i) => (
@@ -281,8 +280,9 @@ debugger
               </div> :
               <div className="countdown">
                 <span className="res-timer">We're holding this table for you for </span>
-              <span> {minutes}:{seconds < 10 ? `0${seconds}` : seconds} minutes</span> 
-            </div> }
+                <span> {minutes}:{seconds < 10 ? `0${seconds}` : seconds} minutes</span> 
+              </div> 
+            }
 
             {this.renderErrors()}
             

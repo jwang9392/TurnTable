@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { deleteReservation, createReservation } from "../../actions/reservation_actions";
+import { deleteReservation, createReservation, fetchReservation } from "../../actions/reservation_actions";
 import { closeModal } from '../../actions/modal_actions';
 import { parseHash } from '../../util/util';
 import ReservationConflict from "./reservation_conflict";
@@ -34,6 +34,7 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    fetchReservation: (resId) => dispatch(fetchReservation(resId)),
     deleteReservation: (resId) => dispatch(deleteReservation(resId)),
     createReservation: reservation => dispatch(createReservation(reservation)), 
     closeModal: () => dispatch(closeModal())
