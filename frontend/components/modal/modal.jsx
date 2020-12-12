@@ -15,7 +15,7 @@ function Modal({ modal, closeModal }) {
   let modalType;
   let clickAction;
 
-  switch (modal) {
+  switch (modal.type) {
     case 'login':
       component = <LoginFormContainer />;
       modalType = "modal-session";

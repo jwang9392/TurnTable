@@ -1,26 +1,26 @@
+input.res-checkbox {
+  text-decoration: none;
+  transform: scale(1.2); 
+}
+
 .res-create-container {
   width: 976px;
   display: flex;
   flex-direction: row;
   margin: auto;
-}
+}  
 
 .res-create-container > * {
   margin: 0 16px;
-}
+}  
 
 .res-contact-options {
   margin-top: 35px;
-}
+}  
 
 .res-contact-options > * {
   margin-top: 10px;
-}
-
-input.res-checkbox {
-  text-decoration: none;
-  transform: scale(1.2); 
-}
+}  
 
 .res-details {
   display: flex;

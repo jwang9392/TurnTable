@@ -6,6 +6,7 @@ class ReservationForm extends React.Component {
     super(props);
     this.state = {
       loggedIn: this.props.loggedIn,
+      res: {},
       fname: "",
       lname: "",
       email: "",
@@ -15,10 +16,17 @@ class ReservationForm extends React.Component {
       venue_id: "",
       user_id: "",
       minutes: 5,
-      seconds: 0
+      seconds: 0, 
+      errors: {
+        fname: false,
+        lname: false,
+        email: false,
+        phone_number: false
+      }
     };
     
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.update = this.update.bind(this);
     this.modalTrigger = this.modalTrigger.bind(this);
   }
 
@@ -74,20 +82,79 @@ class ReservationForm extends React.Component {
     }
   }
 
-  update(field) {
-    return e => this.setState({ 
-      [field]: e.target.value 
-    })
+  // checkInputError(name, field) {
+  //   // CHANGE LOGIC TO ACCEPT OBJECT THEN ITERATE THROUGH KEYS AND CHECK VALUES?
+  //   if (field.length === 0) {
+  //     debugger
+  //     this.setState({
+  //       errors: {
+  //         ...this.state.errors,
+  //         [name]: true
+  //       }
+  //     });
+  //   } else {
+  //     this.setState({
+  //       errors: {
+  //         ...this.state.errors,
+  //         [name]: false
+  //       }
+  //     });
+  //   };
+  // }
+
+  update(e) {
+    const field = e.target.name;
+    this.setState({
+      [field]: e.target.value
+    });
+
+    // this.checkInputError(e.target.name, e.target.value)
+    
+    if (e.target.value.length === 0) {
+
+      this.setState({
+        errors: {
+          ...this.state.errors,
+          [field]: true
+        }
+      });
+    } else {
+      this.setState({
+        errors: {
+          ...this.state.errors,
+          [field]: false
+        }
+      });
+    }
   }
 
   handleSubmit(e) {
     e.preventDefault();
+    // TRY MAKING FUNC THAT SETS STATE THEN RETURNS TRUE AND MAKING IT THE CONDITIONAL IN IF STATEMENT
+    // OR TRY ONCLICK WITH NEW FUNC
+
+
+    // if (!this.props.loggedIn) {
+    //     this.checkInputError("fname", this.state.fname);
+    //     this.checkInputError("lname", this.state.lname);
+    //   return
+    // }
+    debugger
+
+    if (Object.values(this.state.errors).includes(true)) {
+      return
+    }
+debugger
     const reservation = {
       time: this.props.reservationInfo["time"],
       date: this.props.date,
       party_size: this.props.reservationInfo["partySize"],
+      occasion: this.state.occasion,
+      special_request: this.state.special_request,
       venue_id: this.state.venue_id
     }
+
+    this.setState({ res: reservation });
 
     if (this.props.loggedIn) {
       reservation.user_id = this.state.user_id
@@ -100,29 +167,32 @@ class ReservationForm extends React.Component {
         `/reservations/${resId}`
       )
     }, err => {
-        this.props.openModal("res");
+        this.handleSubmitErrors(err.errors[0]);
       }
     );
   }
 
-  renderErrors() {
-    // debugger
-    // this.props.errors.forEach(err => {
-    //   switch (err) {
-    //     case "User must exist":
-    //       return <li>{err}</li>;
-    //   }
-    // });
+  handleSubmitErrors(err) {
+    const user = {
+      username: `${[this.state.fname]} ${[this.state.lname]}`,
+      fname: this.state.fname,
+      lname: this.state.lname,
+      email: this.state.email,
+      phone_number: this.state.fname
+    };
+    const data = {
+      res: this.state.res, 
+      user: user
+    };
 
-    return (
-      <ul>
-        {this.props.errors.map((error, i) => (
-          <li key={`error-${i}`}>
-            {error}
-          </li>
-        ))}
-      </ul>
-    );
+    switch (err) {
+      case "User has already been taken":
+        this.props.openModal("res");
+        break;
+      case "User must exist":
+        this.props.openModal("res-signup", data);
+        break;
+    };
   }
 
   loggedInComponent() {
@@ -139,32 +209,43 @@ class ReservationForm extends React.Component {
         </div>
         <div className="res-create-input-fields">
           <div className="res-input-row">
+            <div className={`input-field ${
+              this.state.errors.phone_number ? "input-error":""
+            }`}>
+              <input 
+                name="phone_number"
+                className="res-input-field" 
+                type="text" 
+                placeholder="Phone Number" 
+                onChange={this.update} 
+                defaultValue={this.props.currentUser.phone_number} 
+              />
+              <div className={`input-error-message ${
+                this.state.errors.phone_number ? "" : "hidden"
+              }`}>Phone number is required.</div>
+            </div>
             <input 
-              className="res-input-field" 
-              type="text" 
-              placeholder="Phone Number" 
-              onChange={this.update("phone_number")} 
-              defaultValue={this.props.currentUser.phone_number} 
-            />
-            <input 
-              className="res-input-field" 
+              name="email"
+              className="res-input-field input-read-only" 
               defaultValue={this.props.currentUser.email} 
               readOnly 
             />
           </div><br/>
           <div className="res-input-row">
             <input 
+              name="occasion"
               className="res-input-field" 
               type="text" 
               placeholder="Select an occasion (optional)" 
-              onChange={this.update("occasion")} 
+              onChange={this.update} 
               defaultValue=""
             />
             <input 
+              name="special_request"
               className="res-input-field" 
               type="textarea" 
               placeholder="Add a special request (optional)" 
-              onChange={this.update("special_request")} 
+              onChange={this.update} 
               defaultValue=""
             />
           </div>
@@ -196,50 +277,84 @@ class ReservationForm extends React.Component {
         </div>
         <div className="res-create-input-fields">
           <div className="res-input-row">
-            <input 
-              className="res-input-field" 
-              type="text" 
-              placeholder="First name" 
-              onChange={this.update("fname")} 
-              defaultValue=""
-            />
-            <input 
-              className="res-input-field" 
-              type="text" 
-              placeholder="Last name" 
-              onChange={this.update("lname")}
-              defaultValue=""
-            />
+            <div className={`input-field ${
+              this.state.errors.fname ? "input-error" : ""
+            }`}>
+              <input 
+                name="fname"
+                className="res-input-field" 
+                type="text" 
+                placeholder="First name" 
+                onChange={this.update} 
+                defaultValue=""
+              />
+              <div className={`input-error-message ${
+                this.state.errors.fname ? "" : "hidden"
+              }`}>First name is required.</div>
+            </div>
+            <div className={`input-field ${
+              this.state.errors.lname ? "input-error" : ""
+            }`}>
+              <input 
+                name="lname"
+                className="res-input-field" 
+                type="text" 
+                placeholder="Last name" 
+                onChange={this.update}
+                defaultValue=""
+              />
+              <div className={`input-error-message ${
+                this.state.errors.lname ? "" : "hidden"
+              }`}>Last name is required.</div>
+            </div>
+          </div><br/>
+          <div className="res-input-row">
+            <div className={`input-field ${
+              this.state.errors.phone_number ? "input-error" : ""
+            }`}>
+              <input 
+                name="phone_number"
+                className="res-input-field" 
+                type="text" 
+                placeholder="Phone number" 
+                onChange={this.update}
+                defaultValue=""
+              />
+              <div className={`input-error-message ${
+                this.state.errors.phone_number ? "" : "hidden"
+              }`}>Phone number is required.</div>
+            </div>
+            <div className={`input-field ${
+              this.state.errors.email ? "input-error" : ""
+            }`}>
+              <input 
+                name="email"
+                className="res-input-field" 
+                type="email" 
+                placeholder="Email" 
+                onChange={this.update}
+                defaultValue=""
+              />
+              <div className={`input-error-message ${
+                this.state.errors.email ? "" : "hidden"
+              }`}>Email is required.</div>
+            </div>
           </div><br/>
           <div className="res-input-row">
             <input 
-              className="res-input-field" 
-              type="text" 
-              placeholder="Phone number" 
-              onChange={this.update("phone_number")}
-              defaultValue=""
-            />
-            <input 
-              className="res-input-field" 
-              type="email" 
-              placeholder="Email" 
-              onChange={this.update("email")}
-              defaultValue=""
-            />
-          </div><br/>
-          <div className="res-input-row">
-            <input 
+              name="occasion"
               className="res-input-field" 
               type="text" 
               placeholder="Select an occasion (optional)" 
-              onChange={this.update("occasion")}
+              onChange={this.update}
               defaultValue=""
             />
             <input 
+              name="special_request"
               className="res-input-field" 
               type="textarea" 
               placeholder="Add a special request (optional)" 
-              onChange={this.update("special_request")}
+              onChange={this.update}
               defaultValue=""
             />
           </div>
@@ -289,8 +404,6 @@ class ReservationForm extends React.Component {
                 <span> {minutes}:{seconds < 10 ? `0${seconds}` : seconds} minutes</span> 
               </div> 
             }
-
-            {this.renderErrors()}
             
             <form className="res-form" onSubmit={this.handleSubmit}>
               <>{this.props.loggedIn ? this.loggedInComponent() : this.loggedOutComponent()}</>
