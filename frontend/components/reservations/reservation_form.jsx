@@ -5,6 +5,7 @@ class ReservationForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      visited: false,
       loggedIn: this.props.loggedIn,
       res: {},
       fname: "",
@@ -17,7 +18,7 @@ class ReservationForm extends React.Component {
       user_id: "",
       minutes: 5,
       seconds: 0, 
-      errors: {
+      inputErrors: {
         fname: false,
         lname: false,
         email: false,
@@ -27,6 +28,8 @@ class ReservationForm extends React.Component {
     
     this.handleSubmit = this.handleSubmit.bind(this);
     this.update = this.update.bind(this);
+    this.errorMessage = this.errorMessage.bind(this);
+    this.inputVisited = this.inputVisited.bind(this);
     this.modalTrigger = this.modalTrigger.bind(this);
   }
 
@@ -53,7 +56,7 @@ class ReservationForm extends React.Component {
 
     this.props.clearErrors;
     const {venue, currentUser} = this.props
-
+debugger
     this.setState({
       venue_id: venue.id,
     })
@@ -64,12 +67,11 @@ class ReservationForm extends React.Component {
         lname: currentUser.lname,
         email: currentUser.email,
         phone_number: currentUser.phone_number,
-        venue_id: venue.id,
         user_id: currentUser.id
       })
 
       this.props.fetchReservations(currentUser.id);
-    }
+    };
   }
 
   componentWillUnmount() {
@@ -82,69 +84,104 @@ class ReservationForm extends React.Component {
     }
   }
 
-  // checkInputError(name, field) {
-  //   // CHANGE LOGIC TO ACCEPT OBJECT THEN ITERATE THROUGH KEYS AND CHECK VALUES?
-  //   if (field.length === 0) {
-  //     debugger
-  //     this.setState({
-  //       errors: {
-  //         ...this.state.errors,
-  //         [name]: true
-  //       }
-  //     });
-  //   } else {
-  //     this.setState({
-  //       errors: {
-  //         ...this.state.errors,
-  //         [name]: false
-  //       }
-  //     });
-  //   };
-  // }
+  checkInputError() {
+    let errorStateKeys = Object.keys(this.state.inputErrors)
+    const newErrorsState = {};
+    const newStateVals = [];
+
+    if (this.props.loggedIn) {
+      errorStateKeys = [errorStateKeys.shift()]
+    }
+
+    errorStateKeys.forEach(type => {
+      if (this.state[type] === "") {
+        newErrorsState[type] = true;
+        newStateVals.push(true);
+      } else if (type === "email" && !this.validateEmail(this.state[type])) {
+        newErrorsState[type] = true;
+        newStateVals.push(true);
+      } else {
+        newStateVals.push(false);
+      }
+    });
+
+    if (newStateVals.includes(true)) {
+      this.setState({ inputErrors: newErrorsState });        
+    } 
+
+    return newStateVals;
+  }
+
+  errorMessage(type) {
+    const val = {
+      "fname": "First name",
+      "lname": "Last name",
+      "phone_number": "Phone number",
+      "email": "Email"
+    }
+debugger
+    if (this.state[type] === "") {
+      return val[type].concat(" is required.");
+    } else if (type === "email" && !this.validateEmail(this.state[type])) {
+      return "Please enter a valid email address."
+    }
+  }
+
+  validateEmail(inputText) {
+    var mailformat = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    if (inputText.match(mailformat)) {
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
+
+  inputVisited(e) {
+    debugger
+    this.setState({ visited: true })
+  }
 
   update(e) {
     const field = e.target.name;
     this.setState({
       [field]: e.target.value
     });
-
-    // this.checkInputError(e.target.name, e.target.value)
-    
+  
     if (e.target.value.length === 0) {
-
       this.setState({
-        errors: {
-          ...this.state.errors,
+        inputErrors: {
+          ...this.state.inputErrors,
+          [field]: true
+        }
+      });
+    } else if (e.target.name === "email" && !this.validateEmail(e.target.value) && this.state.visited) {
+      this.setState({
+        inputErrors: {
+          ...this.state.inputErrors,
           [field]: true
         }
       });
     } else {
       this.setState({
-        errors: {
-          ...this.state.errors,
+        inputErrors: {
+          ...this.state.inputErrors,
           [field]: false
         }
       });
     }
   }
 
+
+
   handleSubmit(e) {
     e.preventDefault();
-    // TRY MAKING FUNC THAT SETS STATE THEN RETURNS TRUE AND MAKING IT THE CONDITIONAL IN IF STATEMENT
-    // OR TRY ONCLICK WITH NEW FUNC
 
-
-    // if (!this.props.loggedIn) {
-    //     this.checkInputError("fname", this.state.fname);
-    //     this.checkInputError("lname", this.state.lname);
-    //   return
-    // }
-    debugger
-
-    if (Object.values(this.state.errors).includes(true)) {
+    const errorVals = this.checkInputError();
+    if (errorVals.includes(true)) {
       return
     }
-debugger
+
     const reservation = {
       time: this.props.reservationInfo["time"],
       date: this.props.date,
@@ -210,7 +247,7 @@ debugger
         <div className="res-create-input-fields">
           <div className="res-input-row">
             <div className={`input-field ${
-              this.state.errors.phone_number ? "input-error":""
+              this.state.inputErrors.phone_number ? "input-error":""
             }`}>
               <input 
                 name="phone_number"
@@ -221,8 +258,8 @@ debugger
                 defaultValue={this.props.currentUser.phone_number} 
               />
               <div className={`input-error-message ${
-                this.state.errors.phone_number ? "" : "hidden"
-              }`}>Phone number is required.</div>
+                this.state.inputErrors.phone_number ? "" : "hidden"
+              }`}>{this.errorMessage("phone_number")}</div>
             </div>
             <input 
               name="email"
@@ -278,7 +315,7 @@ debugger
         <div className="res-create-input-fields">
           <div className="res-input-row">
             <div className={`input-field ${
-              this.state.errors.fname ? "input-error" : ""
+              this.state.inputErrors.fname ? "input-error" : ""
             }`}>
               <input 
                 name="fname"
@@ -289,11 +326,11 @@ debugger
                 defaultValue=""
               />
               <div className={`input-error-message ${
-                this.state.errors.fname ? "" : "hidden"
-              }`}>First name is required.</div>
+                this.state.inputErrors.fname ? "" : "hidden"
+              }`}>{this.errorMessage("fname")}</div>
             </div>
             <div className={`input-field ${
-              this.state.errors.lname ? "input-error" : ""
+              this.state.inputErrors.lname ? "input-error" : ""
             }`}>
               <input 
                 name="lname"
@@ -304,13 +341,13 @@ debugger
                 defaultValue=""
               />
               <div className={`input-error-message ${
-                this.state.errors.lname ? "" : "hidden"
-              }`}>Last name is required.</div>
+                this.state.inputErrors.lname ? "" : "hidden"
+              }`}>{this.errorMessage("lname")}</div>
             </div>
           </div><br/>
           <div className="res-input-row">
             <div className={`input-field ${
-              this.state.errors.phone_number ? "input-error" : ""
+              this.state.inputErrors.phone_number ? "input-error" : ""
             }`}>
               <input 
                 name="phone_number"
@@ -321,11 +358,11 @@ debugger
                 defaultValue=""
               />
               <div className={`input-error-message ${
-                this.state.errors.phone_number ? "" : "hidden"
-              }`}>Phone number is required.</div>
+                this.state.inputErrors.phone_number ? "" : "hidden"
+              }`}>{this.errorMessage("phone_number")}</div>
             </div>
             <div className={`input-field ${
-              this.state.errors.email ? "input-error" : ""
+              this.state.inputErrors.email ? "input-error" : ""
             }`}>
               <input 
                 name="email"
@@ -333,11 +370,12 @@ debugger
                 type="email" 
                 placeholder="Email" 
                 onChange={this.update}
+                onBlur={this.inputVisited}
                 defaultValue=""
               />
               <div className={`input-error-message ${
-                this.state.errors.email ? "" : "hidden"
-              }`}>Email is required.</div>
+                this.state.inputErrors.email ? "" : "hidden"
+              }`}>{this.errorMessage("email")}</div>
             </div>
           </div><br/>
           <div className="res-input-row">
@@ -405,7 +443,7 @@ debugger
               </div> 
             }
             
-            <form className="res-form" onSubmit={this.handleSubmit}>
+            <form className="res-form" onSubmit={this.handleSubmit} noValidate>
               <>{this.props.loggedIn ? this.loggedInComponent() : this.loggedOutComponent()}</>
               <div className="res-contact-options">
                   <div>
