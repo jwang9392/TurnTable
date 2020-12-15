@@ -232,7 +232,6 @@ class ReservationForm extends React.Component {
   }
 
   handleSubmitErrors(err) {
-    debugger
     const user = {
       username: `${[this.state.fname]} ${[this.state.lname]}`,
       fname: this.state.fname,
@@ -250,8 +249,7 @@ class ReservationForm extends React.Component {
         const currentUser = {
           ...this.props.currentUser, 
           ...user
-        }
-        debugger
+        };
         this.props.updateUser(currentUser);
         this.props.openModal("res");
         break;
