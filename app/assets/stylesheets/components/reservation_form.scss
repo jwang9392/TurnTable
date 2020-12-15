@@ -150,6 +150,53 @@ input.res-checkbox {
   margin: 0 0 13px 0;
 }
 
+.res-signup {
+  display: flex;
+  flex-direction: column;
+}
+
+.res-signup > * {
+  font-weight: normal;
+}
+
+.res-signup > h2 {
+  margin: 10px 0;
+}
+
+.res-signup > h4 {
+  margin: 0;
+  font-size: 15px;
+}
+
+.res-signup > p {
+  font-size: 12px;
+  font-weight: lighter;
+}
+
+.res-signup-password {
+  margin: 14px 0;
+  position: relative;
+}
+
+.res-signup-input {
+  width: 405px;
+  height: 48px;
+  padding-left: 20px;
+  border-radius: 3px;
+  outline: none;
+  -webkit-appearance: none; 
+  -moz-appearance: none; 
+  border: 1px solid lightgray;
+  font-size: 16px;
+}
+
+.password-icon {
+  z-index: 10;
+  position: absolute;
+  top: 18px;
+  right: 20px;
+}
+
 .submit-res-btn {
   margin-top: 20px;
   margin-bottom: 20px;

@@ -34,29 +34,29 @@ class ReservationForm extends React.Component {
   }
 
   componentDidMount() {
-    // this.myInterval = setInterval( () => {
-    //   const { seconds, minutes } = this.state
+    this.myInterval = setInterval( () => {
+      const { seconds, minutes } = this.state
 
-    //   if (seconds > 0) {
-    //     this.setState(({ seconds }) => ({
-    //       seconds: seconds - 1
-    //     }))
-    //   }
-    //   if (seconds === 0) {
-    //     if (minutes === 0) {
-    //       clearInterval(this.myInterval)
-    //     } else {
-    //       this.setState(({ minutes }) => ({
-    //         minutes: minutes - 1,
-    //         seconds: 59
-    //       }))
-    //     }
-    //   }
-    // }, 1000)
+      if (seconds > 0) {
+        this.setState(({ seconds }) => ({
+          seconds: seconds - 1
+        }))
+      }
+      if (seconds === 0) {
+        if (minutes === 0) {
+          clearInterval(this.myInterval)
+        } else {
+          this.setState(({ minutes }) => ({
+            minutes: minutes - 1,
+            seconds: 59
+          }))
+        }
+      }
+    }, 1000)
 
     this.props.clearErrors;
     const {venue, currentUser} = this.props
-debugger
+
     this.setState({
       venue_id: venue.id,
     })
@@ -119,7 +119,7 @@ debugger
       "phone_number": "Phone number",
       "email": "Email"
     }
-debugger
+
     if (this.state[type] === "") {
       return val[type].concat(" is required.");
     } else if (type === "email" && !this.validateEmail(this.state[type])) {
@@ -131,14 +131,12 @@ debugger
     var mailformat = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     if (inputText.match(mailformat)) {
       return true;
-    }
-    else {
+    } else {
       return false;
     }
   }
 
   inputVisited(e) {
-    debugger
     this.setState({ visited: true })
   }
 
