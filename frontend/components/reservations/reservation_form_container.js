@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { createReservation, fetchReservations } from "../../actions/reservation_actions";
-import { logout, signup } from '../../actions/session_actions';
+import { logout, signup, updateUser } from '../../actions/session_actions';
 import { openModal } from '../../actions/modal_actions';
 import { parseHash } from '../../util/util';
 import ReservationForm from "./reservation_form";
@@ -31,7 +31,8 @@ const mapDispatchToProps = dispatch => ({
   fetchReservations: userId => dispatch(fetchReservations(userId)),
   openModal: (modal, data) => dispatch(openModal(modal, data)),
   signup: (user) => dispatch(signup(user)),
-  logout: () => dispatch(logout())
+  logout: () => dispatch(logout()),
+  updateUser: (user) => dispatch(updateUser(user))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(ReservationForm)

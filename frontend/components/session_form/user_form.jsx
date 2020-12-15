@@ -14,10 +14,6 @@ class UserForm extends React.Component {
     this.demoSubmit = this.demoSubmit.bind(this);
   }
 
-  // componentDidMount() {
-  //   this.props.clearErrors;
-  // }
-
   update(field) {
     return e => this.setState({
       [field]: e.currentTarget.value

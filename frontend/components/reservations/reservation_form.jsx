@@ -215,6 +215,12 @@ class ReservationForm extends React.Component {
     
     this.props.createReservation(reservation).then(data => {
       const resId = data.reservation.id;
+      const user = {
+        ...this.props.currentUser, 
+        "phone_number": this.state.phone_number
+      }
+
+      this.props.updateUser(user)
 
       this.props.history.push(
         `/reservations/${resId}`
@@ -226,12 +232,13 @@ class ReservationForm extends React.Component {
   }
 
   handleSubmitErrors(err) {
+    debugger
     const user = {
       username: `${[this.state.fname]} ${[this.state.lname]}`,
       fname: this.state.fname,
       lname: this.state.lname,
       email: this.state.email,
-      phone_number: this.state.fname
+      phone_number: this.state.phone_number
     };
     const data = {
       res: this.state.res, 
@@ -240,11 +247,17 @@ class ReservationForm extends React.Component {
 
     switch (err.errors[0]) {
       case "User has already been taken":
+        const currentUser = {
+          ...this.props.currentUser, 
+          ...user
+        }
+        debugger
+        this.props.updateUser(currentUser);
         this.props.openModal("res");
         break;
         case "User must exist":
           this.props.signup(user).then( (data) => {
-            
+          
           }, errors => {
             if (errors.errors[0] === "Email has already been taken") {
               this.setState({

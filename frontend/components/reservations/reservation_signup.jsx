@@ -17,7 +17,7 @@ class ReservationSignup extends React.Component {
 
   handleOnClick() {
     const user = {...this.props.user, password: this.state.password};
-debugger
+
     this.props.signup(user).then((user) => {
       const res = {...this.props.reservation, user_id: user.currentUser.id};
 
@@ -67,7 +67,6 @@ debugger
   }
 
   render() {
-    debugger
     return (
       <div className="res-signup">
         <h2>Thanks, {this.props.user.fname}.</h2>
