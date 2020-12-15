@@ -88,9 +88,9 @@ class ReservationForm extends React.Component {
         "loggedIn": true,
         "fname": nextProps.currentUser.fname,
         "lname": nextProps.currentUser.lname,
+        "email": nextProps.currentUser.email,
         "phone_number": nextProps.currentUser.phone_number,
         "user_id": nextProps.currentUser.id
-
       })
     }
     return null
@@ -292,7 +292,7 @@ class ReservationForm extends React.Component {
                 type="text" 
                 placeholder="Phone Number" 
                 onChange={this.update} 
-                defaultValue={this.props.currentUser.phone_number} 
+                defaultValue={this.state.phone_number} 
               />
               <div className={`input-error-message ${
                 this.state.inputErrors.phone_number ? "" : "hidden"
