@@ -17,13 +17,13 @@ class ReservationSignup extends React.Component {
 
   handleOnClick() {
     const user = {...this.props.user, password: this.state.password};
-
+debugger
     this.props.signup(user).then((user) => {
       const res = {...this.props.reservation, user_id: user.currentUser.id};
 
       this.props.createReservation(res).then(data => {
         const resId = data.reservation.id;
-        
+
         this.props.closeModal();
         this.props.history.push(
           `/reservations/${resId}`
@@ -67,6 +67,7 @@ class ReservationSignup extends React.Component {
   }
 
   render() {
+    debugger
     return (
       <div className="res-signup">
         <h2>Thanks, {this.props.user.fname}.</h2>

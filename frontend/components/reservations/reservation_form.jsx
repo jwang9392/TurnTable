@@ -6,6 +6,7 @@ class ReservationForm extends React.Component {
     super(props);
     this.state = {
       visited: false,
+      userExists: false,
       loggedIn: this.props.loggedIn,
       res: {},
       fname: "",
@@ -55,6 +56,7 @@ class ReservationForm extends React.Component {
     }, 1000)
 
     this.props.clearErrors;
+    
     const {venue, currentUser} = this.props
 
     this.setState({
@@ -78,6 +80,22 @@ class ReservationForm extends React.Component {
     clearInterval(this.myInterval)
   }
 
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (prevState.loggedIn === false && nextProps.currentUser != undefined) {
+      nextProps.fetchReservations(nextProps.currentUser.id);
+
+      return ({ 
+        "loggedIn": true,
+        "fname": nextProps.currentUser.fname,
+        "lname": nextProps.currentUser.lname,
+        "phone_number": nextProps.currentUser.phone_number,
+        "user_id": nextProps.currentUser.id
+
+      })
+    }
+    return null
+  }
+  
   modalTrigger(action) {
     return () => {
       this.props.openModal(action);
@@ -90,7 +108,7 @@ class ReservationForm extends React.Component {
     const newStateVals = [];
 
     if (this.props.loggedIn) {
-      errorStateKeys = [errorStateKeys.shift()]
+      errorStateKeys = [errorStateKeys.pop()]
     }
 
     errorStateKeys.forEach(type => {
@@ -108,7 +126,6 @@ class ReservationForm extends React.Component {
     if (newStateVals.includes(true)) {
       this.setState({ inputErrors: newErrorsState });        
     } 
-
     return newStateVals;
   }
 
@@ -143,7 +160,8 @@ class ReservationForm extends React.Component {
   update(e) {
     const field = e.target.name;
     this.setState({
-      [field]: e.target.value
+      [field]: e.target.value, 
+      "userExists": false
     });
   
     if (e.target.value.length === 0) {
@@ -202,7 +220,7 @@ class ReservationForm extends React.Component {
         `/reservations/${resId}`
       )
     }, err => {
-        this.handleSubmitErrors(err.errors[0]);
+        this.handleSubmitErrors(err);
       }
     );
   }
@@ -220,12 +238,22 @@ class ReservationForm extends React.Component {
       user: user
     };
 
-    switch (err) {
+    switch (err.errors[0]) {
       case "User has already been taken":
         this.props.openModal("res");
         break;
-      case "User must exist":
-        this.props.openModal("res-signup", data);
+        case "User must exist":
+          this.props.signup(user).then( (data) => {
+            
+          }, errors => {
+            if (errors.errors[0] === "Email has already been taken") {
+              this.setState({
+                userExists: true
+              })
+            } else if (errors.errors[0] === "Password digest can't be blank") {
+              this.props.openModal("res-signup", data);
+            }
+          })
         break;
     };
   }
@@ -440,6 +468,8 @@ class ReservationForm extends React.Component {
                 <span> {minutes}:{seconds < 10 ? `0${seconds}` : seconds} minutes</span> 
               </div> 
             }
+
+            <div className={`res-user-exists ${this.state.userExists ? "" : "hidden"}`}>This email address is already registered. Please sign in to complete your reservation.</div>
             
             <form className="res-form" onSubmit={this.handleSubmit} noValidate>
               <>{this.props.loggedIn ? this.loggedInComponent() : this.loggedOutComponent()}</>

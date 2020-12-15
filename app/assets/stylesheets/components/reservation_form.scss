@@ -190,6 +190,16 @@ input.res-checkbox {
   font-size: 16px;
 }
 
+.res-user-exists {
+  margin: 15px 0;
+  padding: 11px;
+  font-size: 13px;
+  font-weight: lighter;
+  border: 2px solid #da3743;
+  border-radius: 3px;
+  background-color: rgb(252,237,239)
+}
+
 .password-icon {
   z-index: 10;
   position: absolute;

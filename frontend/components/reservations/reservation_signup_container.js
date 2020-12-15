@@ -6,7 +6,6 @@ import ReservationSignup from './reservation_signup';
 import { withRouter } from "react-router-dom";
 
 const mapStateToProps = (state) => {
-  debugger
   return {
     reservation: state.ui.modal.data.res,
     user: state.ui.modal.data.user
