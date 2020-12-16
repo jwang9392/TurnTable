@@ -1,6 +1,8 @@
 .search-bar {
   display: flex;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
   height: 73px;
   background-image: image-url('index-searchbar.jpg');
   background-repeat: no-repeat;  
@@ -10,63 +12,4 @@
 
 .search-bar > form {
   display: flex;
-  align-items: center;
-}
-
-.search-bar > form > * {
-  height: 48px;
-  margin: 7px 0 0 0;
-}
-
-.search-bar select {
-  border: none;
-  background-color: white;
-  font-size: 16px;
-  -o-appearance: none;
-  -ms-appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-}
-
-.search-bar label {
-  background-color: white;
-}
-
-.search-bar label.reservation-time {
-  display: flex;
-  align-items: center;
-  width: 146px;
-}
-
-.search-bar label.reservation-party {
-  display: flex;
-  align-items: center;
-  width: 146px;
-  border-radius: 3px 0 0 3px;
-  border-right: 1px solid rgb(224,224,224);
-}
-
-.search-bar label.reservation-date {
-  display: flex;
-  align-items: center;
-  border-radius: 0;
-  width: 224px;
-}
-
-.search-bar button {
-  width: 158px;
-  border-radius: 0 3px 3px 0;
-}
-
-.search-bar div.search-field {
-  width: 300px;
-  border-radius: 0;
-}
-
-.search-bar select#time-selector {
-  padding-left: 8px;
-}
-
-.search-bar select#party-selector {
-  padding-left: 8px;
 }

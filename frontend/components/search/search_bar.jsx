@@ -45,34 +45,43 @@ class SearchBar extends React.Component {
     return (
       <div className='search-bar'>
         <form onSubmit={this.handleSubmit}> 
-          <label className="reservation-party">
-            <select id="party-selector" defaultValue={this.state.partySize === "" ? parsedHash["partySize"] : this.state.partySize}
-              onChange={this.update("partySize")}>
-              {createPartySizeOptions()}
-              <option value="larger">Larger party</option>
-            </select>
-            <i id='dropdown' className="fas fa-chevron-down"></i>
-          </label>
-          <label className="reservation-date">
-            <div>
-              <DatePicker
-                className="datepicker"
-                useWeekdaysShort={true}
-                onFocus={e => e.target.blur()}
-                dateFormat="MMM d, yyyy"
-                selected={new Date(this.state.date === "" ? parsedHash["date"] : this.state.date)}
-                onChange={this.handleChange}
-              />
-            </div>
-            <i id='dropdown' className="fas fa-chevron-down"></i>
-          </label>
-          <label className="reservation-time">
-            <select id="time-selector" defaultValue={this.state.time === "" ? parsedHash["time"] : this.state.time}
-              onChange={this.update("time")}>
-              {makeTimeOptions()}
-            </select>
-            <i id='dropdown' className="fas fa-chevron-down"></i>
-          </label>
+          <div className="reservation-options custom-select">
+            <label className="reservation-date">
+              <div>
+                <i id="date" className="far fa-calendar"></i>
+                <DatePicker
+                  className="datepicker"
+                  useWeekdaysShort={true}
+                  onFocus={e => e.target.blur()}
+                  dateFormat="MMM d, yyyy"
+                  selected={new Date(this.state.date === "" ? parsedHash["date"] : this.state.date)}
+                  onChange={this.handleChange}
+                />
+              </div>
+              <i id='dropdown' className="fas fa-chevron-down"></i>
+            </label>
+            <label className="reservation-time">
+              <div>
+                <i id="ticker" className="far fa-clock"></i>
+                <select id="time-selector" defaultValue={this.state.time === "" ? parsedHash["time"] : this.state.time}
+                  onChange={this.update("time")}>
+                  {makeTimeOptions()}
+                </select>
+              </div>
+              <i id='dropdown' className="fas fa-chevron-down"></i>
+            </label>
+            <label className="reservation-party">
+              <div>
+                <i id="user-icon" className="far fa-user"></i>
+                <select id="party-selector" defaultValue={this.state.partySize === "" ? parsedHash["partySize"] : this.state.partySize}
+                  onChange={this.update("partySize")}>
+                  {createPartySizeOptions()}
+                  <option value="larger">Larger party</option>
+                </select>
+              </div>
+              <i id='dropdown' className="fas fa-chevron-down"></i>
+            </label>
+          </div>
           <div className="search-field">
             <i className="fas fa-search"></i>
             <input className="search-input"
