@@ -139,7 +139,9 @@
   overflow: hidden;
 
   &--previous {
-    left: 10px;
+    outline: none;
+    top: 15px;
+    left: 20px;
     border-right-color: $datepicker__muted-color;
 
     &:hover {
@@ -154,7 +156,9 @@
   }
 
   &--next {
-    right: 10px;
+    outline: none;
+    top: 15px;
+    right: 20px;
     border-left-color: $datepicker__muted-color;
     &--with-time:not(&--with-today-button) {
       right: 80px;
@@ -649,7 +653,6 @@
 
   .react-datepicker__navigation--previous {
     border-right-color: $datepicker__muted-color;
-    outline: none;
 
     &:hover {
       border-right-color: darken($datepicker__muted-color, 10%);
@@ -664,9 +667,6 @@
 
   .react-datepicker__navigation--next {
     border-left-color: $datepicker__muted-color;
-    outline: none !important;
-    top: 15px !important;
-    right: 20px !important;
 
     &:hover {
       border-left-color: darken($datepicker__muted-color, 10%);
