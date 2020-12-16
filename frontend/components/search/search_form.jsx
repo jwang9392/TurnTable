@@ -44,7 +44,7 @@ class SearchForm extends React.Component {
         <p>Where will you be tonight?</p>
         <form onSubmit={this.handleSubmit}>
           <div className="reservation-options custom-select">
-            <label className="reservation-date">
+            <label className="reservation-date" onClick={e => e.preventDefault()}>
               <div>
                 <i id="date" className="far fa-calendar"></i>
                 <DatePicker
