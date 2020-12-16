@@ -54,6 +54,7 @@ class SearchForm extends React.Component {
                   dateFormat="MMM d, yyyy"
                   selected={this.state.date}
                   onChange={this.handleChange}
+                  shouldCloseOnSelect={true}
                 />
               </div>
               <i id='dropdown' className="fas fa-chevron-down"></i>

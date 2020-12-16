@@ -50,7 +50,6 @@ export const parseHash = hash => {
   const keywordObject = {}
 
   keywordObject["date"] = keywords[1];
-    // .concat(" 00:00")
   keywordObject["time"] = keywords[2];
   keywordObject["partySize"] = keywords[3];
 
