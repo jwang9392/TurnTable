@@ -40,10 +40,6 @@ class SearchBar extends React.Component {
     })
   }
 
-  handleClick() {
-    
-  }
-
   handleSubmit(e) {
     e.preventDefault();
     this.props.processSearch(this.state.searchParams).then(() => {

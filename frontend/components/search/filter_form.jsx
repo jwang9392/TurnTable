@@ -6,9 +6,9 @@ class FilterForm extends React.Component {
     super(props);
     this.filters = props.filters;
     this.state = {
-      price1: false, 
-      price2: false, 
-      price3: false
+      priceToggle1: false, 
+      priceToggle2: false, 
+      priceToggle3: false
     };
     this.createFilterList = this.createFilterList.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -42,9 +42,9 @@ class FilterForm extends React.Component {
     }
   };
 
-  // handleClick = () => e => {
-    
-  // };
+  //             <button name="priceToggle1" value="$100 and under" onClick={this.handleClick()}>$</button>
+  // <button name="priceToggle2" value="$101 to $300" onClick={this.handleClick()}>$$</button>
+  // <button name="priceToggle3" value="$400 and over" onClick={this.handleClick()}>$$$</button>
 
   render() {
     return (
@@ -59,11 +59,9 @@ class FilterForm extends React.Component {
         </div>
         <div>
           <span>Price</span>
-          <div>
-            <button>$</button>
-            <button>$$</button>
-            <button>$$$</button>
-          </div>
+          <ul>
+            {this.createFilterList("Price")}
+          </ul>
         </div>
         <div>
           <span>Genre</span>
