@@ -17,6 +17,10 @@ class SearchForm extends React.Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
+  // componentDidMount() {
+    
+  // }
+
   update(field) {
     return e => this.setState({ 
       [field]: e.target.value 

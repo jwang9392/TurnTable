@@ -34,12 +34,17 @@ const ReservationTimes = (props) => {
     <ul>
       {timeslots.map(time => 
         <li key={time}>
-          <button onClick={
-            () => props.history.push({
-              pathname: `/venues/${props.venueId}/reservations`,
-              state: { reservationHash: props.location.hash }
-            })
-          }>
+          <button 
+            onClick={
+              () => props.history.push({
+                pathname: `/venues/${props.venueId}/reservations`,
+                state: { 
+                  reservationHash: props.location.hash,
+                  time: time
+                }
+              })
+            }
+          >
             {time}
           </button>
         </li>)

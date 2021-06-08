@@ -5,14 +5,13 @@ import { Link, withRouter } from 'react-router-dom';
 const Home = () => (
   <>
     <SearchContainer />
-    <div className="featured-areas">
-      <div className="featured-areas-container">
-        <h2 className="featured-areas-header">Featured Areas</h2>
-        <div className="search-links-container">
-          
+
+        <div>
+          <button className="custom-arrow">
+            <i id="chevron-right" className="fas fa-chevron-right"></i>
+          </button>
         </div>
-      </div>
-    </div>
+
   </>
 )
 

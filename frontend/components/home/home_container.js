@@ -5,7 +5,7 @@ import Home from './home';
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchVenues: () => dispatch(fetchVenues()),
+    fetchVenues: filters => dispatch(fetchVenues(filters)),
     fetchVenue: (venueId) => dispatch(fetchVenue(venueId))
   };
 };

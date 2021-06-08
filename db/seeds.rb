@@ -21,6 +21,8 @@ User.create!({
 
 100.times do
     location = Venue::CITIES.sample
+    price_range = Venue::PRICE_RANGES.sample
+    genre = Venue::GENRES.sample
     
     Venue.create!({
         name: Faker::Beer.hop,
@@ -29,7 +31,9 @@ User.create!({
         city: location.first,
         state: location.last,
         zipcode: Faker::Address.zip,
-        capacity: (rand(2..20) * 10)
+        capacity: (rand(2..20) * 10),
+        price: price_range,
+        genre: genre
     })
 end
 

@@ -30,6 +30,20 @@ class Venue < ApplicationRecord
     ['Dallas', 'TX']
   ]
 
+  GENRES = [
+    "Jazz Clubs", 
+    "Dance Clubs",
+    "Live Music Venues",
+    "Sports-Themed Clubs",
+    "Comedy Club"
+  ]
+
+  PRICE_RANGES = [
+    "$100 and under",
+    "$101 to $300",
+    "$400 and over"
+  ] 
+
   validates :name, :address, :city, :state, :zipcode, :phone_number, :capacity, presence: true
   
   has_many :reservations

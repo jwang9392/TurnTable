@@ -14,7 +14,14 @@ document.addEventListener('DOMContentLoaded', () => {
         // reservations: currentUser.reservations,
         // venues: currentUser.venues
       },
-      session: { currentUserId: window.currentUser.id } 
+      session: { currentUserId: window.currentUser.id }, 
+      ui: {
+        filter: {
+          City: [],
+          Price: [],
+          Genre: []
+        }
+      }
     };
     store = configureStore(preloadedState);
     delete window.currentUser;

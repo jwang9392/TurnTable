@@ -1,17 +1,80 @@
 import React from 'react';
 import SearchBarContainer from './search_bar_container';
 import SearchIndexItem from './search_index_item';
+import FilterForm from './filter_form_container';
 import { Link, withRouter } from 'react-router-dom';
 
 class SearchIndex extends React.Component {
 
   constructor(props) {
     super(props);
-    this.searchParam = this.props.match.params.searchParams;
+    this.searchQuery = props.searchQuery;
+    this.searchParam = props.searchParams;
+    this.state = {
+      venues: props.venues,
+    };
+    this.createVenueList = this.createVenueList.bind(this);
+    this.filter = this.filter.bind(this);
+  }
+
+  filter(filterList, type, venues) {
+    let filtered = {};
+    let currentType, typeFilters;
+    if (type === 0) {
+      typeFilters = filterList[0];
+      currentType = "city";
+    } else if (type === 1) {
+      typeFilters = filterList[1];
+      currentType = "price";
+    } else if (type === 2) {
+      typeFilters = filterList[2];
+      currentType = "genre";
+    }
+
+    typeFilters.forEach((filter) => {
+      for (let key in venues) {
+        if (venues[key][currentType] === filter) {
+          filtered[key] = venues[key];
+        }
+      }
+    })
+
+    return filtered;
+  }
+
+  createVenueList() {
+    let venues = this.state.venues;
+    let filterList = Object.values(this.props.filters);
+    let filterLen = [].concat(...filterList).length;
+
+    if (filterLen > 0) {
+      let filteredVenues = {};
+      debugger
+      for (let i = 0; i < filterList.length; i++) {
+        let currFilter = this.filter(filterList, i, venues);
+        filteredVenues = Object.assign({}, currFilter);
+        debugger
+        if (Object.values(filteredVenues).length != 0) {
+          venues = filteredVenues;
+        }
+      }
+    }
+    
+    let venueLis = Object.values(venues).map((venue) => {
+      return (
+        <SearchIndexItem
+          key={venue.id}
+          venue={venue}
+          openModal={this.props.openModal}
+        />
+      );
+    })
+
+    return venueLis;
   }
 
   render() {
-    if (Object.keys(this.props.venues).length < 1) {
+    if (Object.keys(this.state.venues).length < 1) {
       return (
         <div>
           <SearchBarContainer />
@@ -30,23 +93,17 @@ class SearchIndex extends React.Component {
         </div>  
       )
     } else {
-      const venueLis = Object.values(this.props.venues).map((venue) => {
-        return (
-          <SearchIndexItem
-            key={venue.id}
-            venue={venue}
-            openModal={this.props.openModal}
-          />
-        );
-      })
-
       return (
         <div>
           <SearchBarContainer />
-          <div className='filter-column'></div>
-          <ul className='search-result-list'>
-            {venueLis}
-          </ul>
+          <div className="search-columns">
+            <div className='filter-column'>
+              <FilterForm />
+            </div>
+            <ul className='search-result-list'>
+              {this.createVenueList()}
+            </ul>
+          </div>
         </div>
       )
     }

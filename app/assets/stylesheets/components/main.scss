@@ -4,6 +4,27 @@
   margin: auto;
 }
 
+#chevron-right, #chevron-left {
+  font-size:12px;
+}
+
+.custom-arrow {
+  border: 2px solid black;
+  border-width: 2px;
+  border-color: rgba(0,0,0,0.2);
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background-color: #fff;
+  border-radius: 20px;
+}
+
+.custom-arrow:hover {
+  border-color: red;
+  border-width: 2px;
+}
+
 html {
   background-color: whitesmoke;
   min-height: 100%;

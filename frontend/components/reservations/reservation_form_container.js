@@ -1,5 +1,4 @@
 import { connect } from "react-redux";
-import { withRouter } from "react-router-dom";
 import { createReservation, fetchReservations } from "../../actions/reservation_actions";
 import { logout, signup, updateUser } from '../../actions/session_actions';
 import { openModal } from '../../actions/modal_actions';
@@ -19,8 +18,9 @@ const mapStateToProps = (state, ownProps) => {
     currentUser: state.entities.users[state.session.currentUserId],
     venue: state.entities.venues[ownProps.match.params.venue_id],
     loggedIn: Boolean(state.session.currentUserId),
-    reservationInfo: reservationInfo,
     date: resDate,
+    time: ownProps.location.state.time,
+    partySize: reservationInfo["partySize"],
     errors: state.errors,
     clearErrors: clearErrors()
   }

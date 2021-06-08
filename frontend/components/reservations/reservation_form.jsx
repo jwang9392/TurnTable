@@ -199,9 +199,9 @@ class ReservationForm extends React.Component {
     }
 
     const reservation = {
-      time: this.props.reservationInfo["time"],
+      time: this.props.time,
       date: this.props.date,
-      party_size: this.props.reservationInfo["partySize"],
+      party_size: this.props.partySize,
       occasion: this.state.occasion,
       special_request: this.state.special_request,
       venue_id: this.state.venue_id
@@ -460,11 +460,11 @@ class ReservationForm extends React.Component {
                   </div>
                   <div>
                     <i id="ticker" className="far fa-clock"></i>
-                    &nbsp;&nbsp;{this.props.reservationInfo["time"]}
+                    &nbsp;&nbsp;{this.props.time}
                   </div>
                   <div>
                     <i id="user-icon" className="far fa-user"></i>
-                    &nbsp;&nbsp;{this.props.reservationInfo["partySize"]}
+                    &nbsp;&nbsp;{this.props.partySize}
                   </div>  
                 </div>
               </div>

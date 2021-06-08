@@ -2,13 +2,23 @@
   color: #DA3743;
 }
 
+.filter-column {
+  width: 225px;
+  margin-right: 32px;
+  border: 1px solid black;
+}
+
+.search-columns {
+  display: flex;
+  justify-content: center;
+}
+
 .search-item {
   display: flex;
 }
 
 .search-result-list {
-  width: 767px;
-  margin: auto;
+  width: 800px;
 }
 
 .search-result-list li {

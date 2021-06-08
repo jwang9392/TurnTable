@@ -25,8 +25,8 @@ const receiveVenueSearch = venues => ({
   venues
 })
 
-export const fetchVenues = () => dispatch => (
-  ApiUtil.fetchVenues().then(
+export const fetchVenues = filters => dispatch => (
+  ApiUtil.fetchVenues(filters).then(
     venues => dispatch(receiveVenues(venues)),
     err => (dispatch(receiveVenueErrors(err.responseJSON)))
   )

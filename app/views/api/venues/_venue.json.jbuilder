@@ -6,4 +6,6 @@ json.extract! venue,
   :state,
   :zipcode,
   :phone_number,
-  :capacity
+  :capacity, 
+  :price,
+  :genre
