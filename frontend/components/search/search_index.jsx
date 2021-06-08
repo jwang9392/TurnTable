@@ -49,11 +49,9 @@ class SearchIndex extends React.Component {
 
     if (filterLen > 0) {
       let filteredVenues = {};
-      debugger
       for (let i = 0; i < filterList.length; i++) {
         let currFilter = this.filter(filterList, i, venues);
         filteredVenues = Object.assign({}, currFilter);
-        debugger
         if (Object.values(filteredVenues).length != 0) {
           venues = filteredVenues;
         }
