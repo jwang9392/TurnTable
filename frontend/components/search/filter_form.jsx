@@ -5,11 +5,6 @@ class FilterForm extends React.Component {
   constructor(props) {
     super(props);
     this.filters = props.filters;
-    this.state = {
-      priceToggle1: false, 
-      priceToggle2: false, 
-      priceToggle3: false
-    };
     this.createFilterList = this.createFilterList.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
@@ -20,14 +15,12 @@ class FilterForm extends React.Component {
         return (
           <li key={i}>
             <div>
-              <label>
-                <input
-                  type="checkbox"
-                  value={val}
-                  onChange={this.handleChange(type, val)}
-                />
-                {val}
-              </label>
+              <input
+                type="checkbox"
+                value={val}
+                onChange={this.handleChange(type, val)}
+              />
+              <label>{val}</label>
               <br />
             </div>
           </li>
@@ -44,10 +37,14 @@ class FilterForm extends React.Component {
     }
   };
 
+  //             <button name="priceToggle1" value="$100 and under" onClick={this.handleClick()}>$</button>
+  // <button name="priceToggle2" value="$101 to $300" onClick={this.handleClick()}>$$</button>
+  // <button name="priceToggle3" value="$400 and over" onClick={this.handleClick()}>$$$</button>
+
   render() {
     return (
-      <div className="filter">
-        <span>Filter results:</span>
+      <div>
+        <span className="filter">Filter results:</span>
         <br />
         <div>
           <span>City</span>
@@ -58,7 +55,7 @@ class FilterForm extends React.Component {
         <div>
           <span>Price</span>
           <ul>
-            {this.createFilterList("Price")}
+            {this.createFilterList("City")}
           </ul>
         </div>
         <div>

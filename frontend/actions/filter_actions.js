@@ -1,5 +1,3 @@
-import { searchVenues } from '../util/venue_api_util';
-
 export const UPDATE_FILTER = 'UPDATE_FILTER';
 export const REMOVE_FILTER = 'REMOVE_FILTER';
 
@@ -15,10 +13,10 @@ export const removeFilter = (filter, value) => ({
   value
 })
 
-export const updateFilter = (filter, value) => (dispatch, getState) => {
+export const updateFilter = (filter, value) => dispatch => {
   dispatch(changeFilter(filter, value));
 };
 
-export const deleteFilter = (filter, value) => (dispatch) => {
+export const deleteFilter = (filter, value) => dispatch => {
   dispatch(removeFilter(filter, value));
 }
