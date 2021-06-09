@@ -1,5 +1,6 @@
 import { connect } from "react-redux";
 import { searchVenues } from "../../actions/venue_actions"
+import { deleteAllFilters } from "../../actions/filter_actions"
 import { parseHash } from '../../util/util';
 import { withRouter } from 'react-router-dom';
 import SearchBar from "./search_bar";
@@ -19,6 +20,7 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     processSearch: (searchParams) => dispatch(searchVenues(searchParams)),
+    clearFilters: () => dispatch(deleteAllFilters())
   }
 }
 

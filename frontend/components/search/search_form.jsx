@@ -17,10 +17,6 @@ class SearchForm extends React.Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
-  // componentDidMount() {
-    
-  // }
-
   update(field) {
     return e => this.setState({ 
       [field]: e.target.value 
@@ -35,7 +31,6 @@ class SearchForm extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    debugger
     this.props.clearFilters();
     this.props.processSearch(this.state.searchParams).then(() => {
       this.props.history.push(
