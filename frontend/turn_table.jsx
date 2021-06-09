@@ -17,16 +17,25 @@ document.addEventListener('DOMContentLoaded', () => {
       session: { currentUserId: window.currentUser.id }, 
       ui: {
         filter: {
-          City: [],
-          Price: [],
-          Genre: []
+          'City': [],
+          'Price': [],
+          'Genre': []
         }
       }
     };
     store = configureStore(preloadedState);
     delete window.currentUser;
   } else {
-    store = configureStore();
+    const preloadedState = {
+      ui: {
+        filter: {
+          'City': [],
+          'Price': [],
+          'Genre': []
+        }
+      }
+    };
+    store = configureStore(preloadedState);
   }
 
   window.getState = store.getState;

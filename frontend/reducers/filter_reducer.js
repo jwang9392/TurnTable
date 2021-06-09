@@ -6,6 +6,7 @@ const filtersReducer = (state = {}, action) => {
   switch (action.type) {
     case UPDATE_FILTER:
       let filterVal = state[action.filter];
+      console.log(state, 123, action, 234, filterVal ,123123)
       filterVal.push(action.value);
       const newFilter = {
         [action.filter]: filterVal
