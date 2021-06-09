@@ -31,9 +31,10 @@ const filters = {
   ]
 }
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state, ownProps) => {  
   return {
-    filters: filters
+    filters: filters,
+    selectedFilters: state.ui.filter
   };
 };
 

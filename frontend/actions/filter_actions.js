@@ -1,16 +1,21 @@
 export const UPDATE_FILTER = 'UPDATE_FILTER';
 export const REMOVE_FILTER = 'REMOVE_FILTER';
+export const REMOVE_ALL_FILTERS = 'REMOVE_ALL_FILTERS';
 
-export const changeFilter = (filter, value) => ({
+const changeFilter = (filter, value) => ({
   type: UPDATE_FILTER,
   filter,
   value
 });
 
-export const removeFilter = (filter, value) => ({
+const removeFilter = (filter, value) => ({
   type: REMOVE_FILTER, 
   filter, 
   value
+})
+
+const removeAllFilters = () => ({
+  type: REMOVE_ALL_FILTERS
 })
 
 export const updateFilter = (filter, value) => dispatch => {
@@ -19,4 +24,8 @@ export const updateFilter = (filter, value) => dispatch => {
 
 export const deleteFilter = (filter, value) => dispatch => {
   dispatch(removeFilter(filter, value));
+}
+
+export const deleteAllFilters = () => dispatch => {
+  dispatch(removeAllFilters());
 }

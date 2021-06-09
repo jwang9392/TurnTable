@@ -7,6 +7,15 @@ class FilterForm extends React.Component {
     this.filters = props.filters;
     this.createFilterList = this.createFilterList.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.checkFilter = this.checkFilter.bind(this);
+  }
+
+  checkFilter(filter) {
+    const filterList = Object.values(this.props.selectedFilters).flat();
+    if (filterList.includes(filter)) {
+      return true;
+    }
+    return false;
   }
 
   createFilterList = (type) => {
@@ -18,7 +27,8 @@ class FilterForm extends React.Component {
               <input
                 type="checkbox"
                 value={val}
-                onChange={this.handleChange(type, val)}
+                onChange={this.handleChange(type, val)} 
+                checked={this.checkFilter(val) ? 'checked' : ''}
               />
               <label>{val}</label>
               <br />
@@ -37,10 +47,6 @@ class FilterForm extends React.Component {
     }
   };
 
-  //             <button name="priceToggle1" value="$100 and under" onClick={this.handleClick()}>$</button>
-  // <button name="priceToggle2" value="$101 to $300" onClick={this.handleClick()}>$$</button>
-  // <button name="priceToggle3" value="$400 and over" onClick={this.handleClick()}>$$$</button>
-
   render() {
     return (
       <div>
@@ -55,7 +61,7 @@ class FilterForm extends React.Component {
         <div>
           <span>Price</span>
           <ul>
-            {this.createFilterList("City")}
+            {this.createFilterList("Price")}
           </ul>
         </div>
         <div>
