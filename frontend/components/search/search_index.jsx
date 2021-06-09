@@ -46,13 +46,14 @@ class SearchIndex extends React.Component {
     let venues = this.state.venues;
     let filterList = Object.values(this.props.filters);
     let filterLen = [].concat(...filterList).length;
+    let genreLen = this.props.filters.Genre.length;
 
     if (filterLen > 0) {
       let filteredVenues = {};
       for (let i = 0; i < filterList.length; i++) {
         let currFilter = this.filter(filterList, i, venues);
         filteredVenues = Object.assign({}, currFilter);
-        if (Object.values(filteredVenues).length != 0) {
+        if (Object.values(filteredVenues).length != 0 || (genreLen != 0 && i === 2)) {
           venues = filteredVenues;
         }
       }
