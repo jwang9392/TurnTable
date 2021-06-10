@@ -8,13 +8,10 @@ class SearchIndex extends React.Component {
 
   constructor(props) {
     super(props);
-    this.searchQuery = props.searchQuery;
     this.searchParam = props.searchParams;
-    this.state = {
-      venues: props.venues,
-    };
     this.createVenueList = this.createVenueList.bind(this);
     this.filter = this.filter.bind(this);
+    this.renderChoice = this.renderChoice.bind(this);
   }
 
   filter(filterList, type, venues) {
@@ -42,23 +39,7 @@ class SearchIndex extends React.Component {
     return filtered;
   }
 
-  createVenueList() {
-    let venues = this.state.venues;
-    let filterList = Object.values(this.props.filters);
-    let filterLen = [].concat(...filterList).length;
-    let genreLen = this.props.filters.Genre.length;
-
-    if (filterLen > 0) {
-      let filteredVenues = {};
-      for (let i = 0; i < filterList.length; i++) {
-        let currFilter = this.filter(filterList, i, venues);
-        filteredVenues = Object.assign({}, currFilter);
-        if (Object.values(filteredVenues).length != 0 || (genreLen != 0 && i === 2)) {
-          venues = filteredVenues;
-        }
-      }
-    }
-    
+  createVenueList(venues) {
     let venueLis = Object.values(venues).map((venue) => {
       return (
         <SearchIndexItem
@@ -72,15 +53,14 @@ class SearchIndex extends React.Component {
     return venueLis;
   }
 
-  render() {
-    if (Object.keys(this.state.venues).length < 1) {
+  renderChoice(venues) {
+    if (Object.keys(venues).length < 1) {
       return (
         <div>
-          <SearchBarContainer />
           <div className='search-content-section'>
             <h3>WE DID NOT FIND A MATCH FOR YOUR SEARCH</h3>
             <p>
-              Sorry, we couldn't find any results for 
+              Sorry, we couldn't find any results for
                 <span className='noresult-term'> {this.searchParam}</span>
               . Try checking your spelling or using less specific keywords. There are no restaurants with availability within 30 miles of your search.
             </p>
@@ -89,23 +69,50 @@ class SearchIndex extends React.Component {
           <h3>Other Suggestions</h3>
           <p>Browse the list of all New York / Tri-State Area restaurants</p>
           <p>Or deselect any checked filters to broaden your search</p>
-        </div>  
+        </div>
       )
     } else {
       return (
         <div>
-          <SearchBarContainer />
-          <div className="search-columns">
-            <div className='filter-column'>
-              <FilterForm />
-            </div>
-            <ul className='search-result-list'>
-              {this.createVenueList()}
-            </ul>
-          </div>
+          <ul className='search-result-list'>
+            {this.createVenueList(venues)}
+          </ul>
         </div>
       )
     }
+  }
+
+  render() {
+    let venues = this.props.venues;
+    let filterList = Object.values(this.props.filters);
+    let genreLen = this.props.filters.Genre.length;
+
+    if (filterList.length != 0) {
+      let filteredVenues = {};
+      for (let i = 0; i < filterList.length; i++) {
+        let currFilter = this.filter(filterList, i, venues);
+        filteredVenues = Object.assign({}, currFilter);
+        if (Object.values(filteredVenues).length != 0 || (genreLen != 0 && i === 2)) {
+          venues = filteredVenues;
+        }
+      }
+    }
+
+debugger
+
+    return (
+      <div>
+        <SearchBarContainer />
+        <div className="search-columns">
+          <div className='filter-column'>
+            <FilterForm />
+          </div>
+          <ul className='search-result-list'>
+            {this.renderChoice(venues)}
+          </ul>
+        </div>
+      </div>
+    )
   }
 
 }
