@@ -19,24 +19,61 @@ class FilterForm extends React.Component {
   }
 
   createFilterList = (type) => {
-    return (
-      this.filters[type].map((val, i) => {
-        return (
-          <li key={i}>
-            <div>
-              <input
-                type="checkbox"
-                value={val}
-                onChange={this.handleChange(type, val)} 
-                checked={this.checkFilter(val) ? 'checked' : ''}
-              />
-              <label>{val}</label>
-              <br />
-            </div>
-          </li>
-        )
-      })
-    )
+    if (type === "Price") {
+      return (
+        this.filters[type].map((val, i) => {
+          let display;
+          
+          switch (i) {
+            case 0:
+              display = " $ ";
+              break;
+            case 1:
+              display = "$$"
+              break;
+            case 2:
+              display = "$$$"
+              break;
+          }
+
+          return (
+            <span key={i}>
+              <label className="filter-input-button">
+                <input
+                  type="checkbox"
+                  value={val}
+                  onChange={this.handleChange(type, val)}
+                  checked={this.checkFilter(val) ? 'checked' : ''}
+                />
+                <span className="filter-custom-button">{display}</span>
+              </label>
+            </span>
+          )
+        })
+      )
+    } else {
+      return (
+        this.filters[type].map((val, i) => {
+          return (
+            <li key={i}>
+              <div>
+                <label className="filter-input">
+                  <input
+                    type="checkbox"
+                    value={val}
+                    onChange={this.handleChange(type, val)} 
+                    checked={this.checkFilter(val) ? 'checked' : ''}
+                  />
+                  <span className="filter-custom-checkbox"></span>
+                  {val}
+                </label>
+                <br />
+              </div>
+            </li>
+          )
+        })
+      )
+    }
   }
 
   handleChange = (filter, value) => e => {
@@ -50,22 +87,29 @@ class FilterForm extends React.Component {
   render() {
     return (
       <div>
-        <span className="filter">Filter results:</span>
-        <br />
-        <div>
-          <span>City</span>
+        <div className="filter-category">
+          <div className="filter-header">
+            <i className="filter-icon fas fa-map-marker-alt"></i>
+            <span>City</span>
+          </div>
           <ul>
             {this.createFilterList("City")}
           </ul>
         </div>
-        <div>
-          <span>Price</span>
-          <ul>
+        <div className="filter-category">
+          <div className="filter-header">
+            <i className="filter-icon fas fa-money-bill-alt"></i>
+            <span>Price</span>
+          </div>
+          <div className="filter-price">
             {this.createFilterList("Price")}
-          </ul>
+          </div>
         </div>
-        <div>
-          <span>Genre</span>
+        <div className="filter-category">
+          <div className="filter-header">
+            <i className="filter-icon fas fa-headphones"></i>
+            <span>Genre</span>
+          </div>
           <ul>
             {this.createFilterList("Genre")}
           </ul>

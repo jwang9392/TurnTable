@@ -1,11 +1,91 @@
+input[type=checkbox] {
+    display: none;
+}
+
 .fa-chart-line {
   color: #DA3743;
 }
 
+.filter-category {
+  padding: 25px 0 25px 0;
+  border-bottom: 1px solid lightgray;
+}
+
 .filter-column {
   width: 225px;
+  margin-top: 14px;
   margin-right: 32px;
-  border: 1px solid black;
+}
+
+.filter-custom-button {
+  padding: 13px 26px;
+  margin-top: 20px;
+  border: 1px solid lightgray;
+  color: #434953;
+}
+
+.filter-custom-button:not(:first-child) {
+  margin-left: -1px;
+}
+
+.filter-custom-checkbox {
+  height: 13px;
+  width: 13px;
+  top: 6px;
+  margin: 3px 6px 3px 1px;
+  border: 2px solid #2d343f;
+  border-radius: 3px;
+  display: inline-block;
+  position: relative;
+}
+
+.filter-header {
+  padding-bottom:4px;
+  font-size: 16px;
+}
+
+.filter-input {
+  position: relative;
+  font-weight: lighter;
+}
+
+.filter-input span:after {
+    opacity: 1;
+    content: '';
+    position: absolute;
+    width: 6px;
+    height: 3px;
+    background: transparent;
+    top:3px;
+    left: 3px;
+    border: 2px solid white;
+    border-top: none;
+    border-right: none;
+
+    transform: rotate(-45deg);
+}
+
+.filter-input:hover {
+  text-decoration: underline;
+}
+
+.filter-input input:checked + span{
+  border: 2px solid rgb(218,54,67);
+  background-color: rgb(218,54,67);
+}
+
+.filter-input-button {
+  position: relative;
+  font-weight: lighter;  
+}
+
+.filter-icon {
+  font-size: 16px;
+  padding-right: 8px;
+}
+
+.filter-price {
+  padding: 24px 0 14px 0;
 }
 
 .search-columns {
@@ -22,8 +102,9 @@
 }
 
 .search-result-list li {
-  padding: 14px 0;
+  padding: 14px 0 26px 0;
   height: 205.45px;
+  border-bottom: 1px solid lightgray;
 }
 
 .search-venue-details {

@@ -8,7 +8,6 @@ import { deleteFilter, updateFilter } from "../../actions/filter_actions";
 const mapStateToProps = ( state, ownProps) => {
   return {
     searchQuery: ownProps.location.search.slice(1),
-    searchParams: ownProps.match.params.searchParams,
     venues: state.entities.venues,
     filters: state.ui.filter
   };

@@ -8,7 +8,7 @@ class SearchIndex extends React.Component {
 
   constructor(props) {
     super(props);
-    this.searchParam = props.searchParams;
+    this.searchQuery = props.searchQuery;
     this.createVenueList = this.createVenueList.bind(this);
     this.filter = this.filter.bind(this);
     this.renderChoice = this.renderChoice.bind(this);
@@ -61,7 +61,7 @@ class SearchIndex extends React.Component {
             <h3>WE DID NOT FIND A MATCH FOR YOUR SEARCH</h3>
             <p>
               Sorry, we couldn't find any results for
-                <span className='noresult-term'> {this.searchParam}</span>
+                <span className='noresult-term'> {this.searchQuery}</span>
               . Try checking your spelling or using less specific keywords. There are no restaurants with availability within 30 miles of your search.
             </p>
             <button onClick={() => this.props.history.push('/')}>Start Over</button>
@@ -97,8 +97,6 @@ class SearchIndex extends React.Component {
         }
       }
     }
-
-debugger
 
     return (
       <div>
