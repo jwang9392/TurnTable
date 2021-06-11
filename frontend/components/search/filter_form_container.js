@@ -26,8 +26,8 @@ const filters = {
   ],
   "Price": [
     "$100 and under",
-    "$101 to $300",
-    "$400 and over"
+    "$101 to $400",
+    "$401 and over"
   ]
 }
 

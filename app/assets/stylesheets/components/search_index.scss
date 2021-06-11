@@ -1,3 +1,7 @@
+.hidden-price {
+  display: none;
+}
+
 input[type=checkbox] {
     display: none;
 }
@@ -17,15 +21,38 @@ input[type=checkbox] {
   margin-right: 32px;
 }
 
+$tab-border-width: 1px;
 .filter-custom-button {
-  padding: 13px 26px;
-  margin-top: 20px;
-  border: 1px solid lightgray;
+  position: relative;
+  display: inline-block;
+  text-align: center;
+  width: 73px;
+  padding: 13px 0;
+  margin-top: 10px;
+  margin-right: 0-$tab-border-width;
+  border: $tab-border-width solid lightgray;
+  border-radius: 2px;
   color: #434953;
 }
 
-.filter-custom-button:not(:first-child) {
-  margin-left: -1px;
+.filter-custom-button:hover {
+  width: 71px;
+  padding: 12px 0;
+  background-color: whitesmoke;
+  border: 2px solid blue;
+  border-radius: 2px;
+}
+
+.filter-custom-button:hover + .hidden-price {
+  position: absolute;
+  display: block;
+  text-align: center;
+  width: 114px;
+  padding: 16px;
+  margin-top: 10px;
+  color: white;
+  background-color: black;
+  border-radius: 3px;
 }
 
 .filter-custom-checkbox {
@@ -79,13 +106,18 @@ input[type=checkbox] {
   font-weight: lighter;  
 }
 
+.filter-input-button input:checked + span {
+  color: white;
+  background-color: rgb(45,52,63);
+}
+
 .filter-icon {
   font-size: 16px;
   padding-right: 8px;
 }
 
 .filter-price {
-  padding: 24px 0 14px 0;
+  padding: 4px 0 0 0;
 }
 
 .search-columns {

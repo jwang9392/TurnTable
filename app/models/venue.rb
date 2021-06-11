@@ -40,8 +40,8 @@ class Venue < ApplicationRecord
 
   PRICE_RANGES = [
     "$100 and under",
-    "$101 to $300",
-    "$400 and over"
+    "$101 to $400",
+    "$401 and over"
   ] 
 
   validates :name, :address, :city, :state, :zipcode, :phone_number, :capacity, presence: true

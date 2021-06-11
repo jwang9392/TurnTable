@@ -46,6 +46,7 @@ class FilterForm extends React.Component {
                   checked={this.checkFilter(val) ? 'checked' : ''}
                 />
                 <span className="filter-custom-button">{display}</span>
+                <div className="hidden-price">{val}</div>
               </label>
             </span>
           )
