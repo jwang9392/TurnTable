@@ -3,8 +3,29 @@ import { Link, withRouter} from 'react-router-dom';
 import ReservationTimes from '../reservations/reservation_times_container';
 
 const SearchIndexItem = (props) => {
-  const { venue } = props
-  const numBooked = Math.ceil(Math.random() * 100);
+  const { venue, reservations, hash } = props
+  const time = hash.split("#")[2];
+
+  let numBooked = 0;
+  if (reservations) {
+    Object.values(reservations).forEach(reservation => {
+      if (reservation.venue_id === venue.id) {
+        numBooked++;
+      }
+    });
+  }
+
+  const timesBooked = () => {
+    if (numBooked > 0) {
+      return (
+        <div className="times-booked">
+          <i className="fas fa-chart-line"></i>
+          {numBooked > 0 ? ` Booked ${numBooked} times today` : ""}
+          {/* PLACEHOLDER */}
+        </div>
+      )
+    }
+  }
 
   return (
     <li className="search-item" key={venue.id}>
@@ -12,7 +33,13 @@ const SearchIndexItem = (props) => {
         <div className='venue-search-image'></div>
       </Link>
       <div className="search-venue-details">
-        <Link className="venue-name" to={`/venues/${venue.id}`}>
+        <Link className="venue-name" to={{
+            pathname: `/venues/${venue.id}`, 
+            state: {
+              timesBooked: numBooked,
+              hash
+            }
+          }}>
           {venue.name}
         </Link>
         <div className="venue-rating">
@@ -27,13 +54,13 @@ const SearchIndexItem = (props) => {
         <p className="event-subdetail">
           {venue.city}
         </p>
-        <div className="times-booked">
-          <i className="fas fa-chart-line"></i>
-          {` Booked ${numBooked} times today`}
-          {/* PLACEHOLDER */}
-        </div>
+        {timesBooked()}
         <div className="timeslots">
-          <ReservationTimes venueId={venue.id}/>
+          <ReservationTimes 
+            venueId={venue.id} 
+            time={time}
+            hash={hash}
+          />
         </div>
       </div>
     </li>

@@ -71,8 +71,7 @@ class ReservationForm extends React.Component {
         phone_number: currentUser.phone_number,
         user_id: currentUser.id
       })
-
-      this.props.fetchReservations(currentUser.id);
+      // this.props.fetchReservations(currentUser.id);
     };
   }
 

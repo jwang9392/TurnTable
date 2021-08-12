@@ -85,7 +85,6 @@ class SearchBar extends React.Component {
                 <select id="party-selector" defaultValue={this.state.partySize === "" ? this.props.partySize : this.state.partySize}
                   onChange={this.update("partySize")}>
                   {createPartySizeOptions()}
-                  <option value="larger">Larger party</option>
                 </select>
               </div>
               <i id='dropdown' className="fas fa-chevron-down"></i>

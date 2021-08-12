@@ -1,7 +1,11 @@
 class Api::ReservationsController < ApplicationController
   def index
-    @reservations = Reservation.includes(:venue).where("user_id = ?", params[:userId])
-
+    date = Date.today
+    if params[:userId] != "0"
+      @reservations = Reservation.includes(:venue).where("user_id = ?", params[:userId])
+    else 
+      @reservations = Reservation.where("date = ?", date)
+    end
     render :index
   end
 

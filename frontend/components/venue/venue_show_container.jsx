@@ -1,12 +1,17 @@
 import { connect } from 'react-redux';
 import VenueShow from './venue_show';
+import { parseHash } from '../../util/util';
 
-const mapStateToProps = (state, { match }) => {
+const mapStateToProps = (state, { match, location}) => {
   const venueId = match.params.id
   const venue = state.entities.venues[venueId]
+  const resInfo = parseHash(location.state.hash);
+
   return {
     venueId,
-    venue
+    venue, 
+    resInfo,
+    timesBooked: location.state.timesBooked
   }
 }
 

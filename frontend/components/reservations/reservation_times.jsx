@@ -3,6 +3,8 @@ import { withRouter } from 'react-router-dom';
 
 
 const ReservationTimes = (props) => {
+  const { venueId, time } = props
+
   const times = Array.from(Array(24).keys()).map(n => {
     if (n === 0) {
       return "12:00AM";
@@ -14,7 +16,7 @@ const ReservationTimes = (props) => {
       return `${n - 12}:00PM`;
     }
   })
-  const time = props.location.hash.split("#")[2]
+  const hash = props.location.hash || props.location.state.hash;
   const currentTimeIdx = times.indexOf(time)
   let timeslots = [];
 
@@ -37,9 +39,9 @@ const ReservationTimes = (props) => {
           <button 
             onClick={
               () => props.history.push({
-                pathname: `/venues/${props.venueId}/reservations`,
+                pathname: `/venues/${venueId}/reservations`,
                 state: { 
-                  reservationHash: props.location.hash,
+                  reservationHash: hash,
                   time: time
                 }
               })

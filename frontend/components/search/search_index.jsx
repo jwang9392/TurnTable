@@ -3,15 +3,24 @@ import SearchBarContainer from './search_bar_container';
 import SearchIndexItem from './search_index_item';
 import FilterForm from './filter_form_container';
 import { Link, withRouter } from 'react-router-dom';
+import { fetchReservations } from '../../actions/reservation_actions';
 
 class SearchIndex extends React.Component {
 
   constructor(props) {
     super(props);
     this.searchQuery = props.searchQuery;
+    this.searchHash = props.searchHash;
     this.createVenueList = this.createVenueList.bind(this);
     this.filter = this.filter.bind(this);
     this.renderChoice = this.renderChoice.bind(this);
+  }
+
+  componentDidMount() {
+    let reservations = this.props.reservations;
+    if (Object.keys(reservations).length === 0) {
+      this.props.fetchReservations();
+    }
   }
 
   filter(filterList, type, venues) {
@@ -45,6 +54,8 @@ class SearchIndex extends React.Component {
         <SearchIndexItem
           key={venue.id}
           venue={venue}
+          reservations={this.props.reservations}
+          hash={this.props.searchHash}
           openModal={this.props.openModal}
         />
       );

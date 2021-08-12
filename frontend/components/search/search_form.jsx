@@ -76,7 +76,7 @@ class SearchForm extends React.Component {
                 <select id="party-selector" defaultValue={this.state.partySize}
                   onChange={this.update("partySize")}>
                   {createPartySizeOptions()}
-                  <option value="larger">Larger party</option>
+                  {/* <option value="larger">Larger party</option> */}
                 </select>
               </div>
               <i id='dropdown' className="fas fa-chevron-down"></i>
