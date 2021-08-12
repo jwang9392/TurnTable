@@ -9,7 +9,7 @@ const mapStateToProps = (state, ownProps) => {
   const clearErrors = () => {
     return state.errors['reservation'] = [];
   }
-debugger
+
   const reservationInfo = parseHash(ownProps.location.state.reservationHash);
   const dateParts = reservationInfo["date"].split("-");
   const resDate = new Date(dateParts[0], dateParts[1] - 1, dateParts[2])
