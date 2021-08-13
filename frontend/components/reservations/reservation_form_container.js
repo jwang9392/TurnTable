@@ -2,25 +2,23 @@ import { connect } from "react-redux";
 import { createReservation, fetchReservations } from "../../actions/reservation_actions";
 import { logout, signup, updateUser } from '../../actions/session_actions';
 import { openModal } from '../../actions/modal_actions';
-import { parseHash } from '../../util/util';
 import ReservationForm from "./reservation_form";
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state, {match, location}) => {
   const clearErrors = () => {
     return state.errors['reservation'] = [];
   }
 
-  const reservationInfo = parseHash(ownProps.location.state.reservationHash);
-  const dateParts = reservationInfo["date"].split("-");
+  const dateParts = location.state.date.split("-");
   const resDate = new Date(dateParts[0], dateParts[1] - 1, dateParts[2])
   
   return {
     currentUser: state.entities.users[state.session.currentUserId],
-    venue: state.entities.venues[ownProps.match.params.venue_id],
+    venue: state.entities.venues[match.params.venue_id],
     loggedIn: Boolean(state.session.currentUserId),
     date: resDate,
-    time: ownProps.location.state.time,
-    partySize: reservationInfo["partySize"],
+    time: location.state.time,
+    partySize: location.state.partySize,
     errors: state.errors,
     clearErrors: clearErrors()
   }

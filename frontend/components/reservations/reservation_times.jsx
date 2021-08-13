@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom';
 
 
 const ReservationTimes = (props) => {
-  const { venueId, time } = props
+  const { venueId, date, time, partySize } = props
 
   const times = Array.from(Array(24).keys()).map(n => {
     if (n === 0) {
@@ -41,8 +41,9 @@ const ReservationTimes = (props) => {
               () => props.history.push({
                 pathname: `/venues/${venueId}/reservations`,
                 state: { 
-                  reservationHash: hash,
-                  time: time
+                  date,
+                  time,
+                  partySize
                 }
               })
             }

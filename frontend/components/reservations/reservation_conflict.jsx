@@ -53,11 +53,11 @@ class ReservationConflict extends React.Component {
     return (
       <div className="conflict-modal">
         <h3>You already have a reservation at this time</h3>
-        <p>Looks like you have a reservation at {this.props.oldRes.venue.name} at {this.props.time}.</p>
+        <p>Looks like you have a reservation at {this.props.oldVenue.name} at {this.props.time}.</p>
         <p>Do you want to keep this reservation or book a new reservation instead?</p>
         <div className="conflict-res">
           <div className="old-res">
-            <h3>{this.props.oldRes.venue.name}</h3>
+            <h3>{this.props.oldVenue.name}</h3>
             <div className="res-conflict-detail">
               <div>
                 <i id="date" className="far fa-calendar"></i>

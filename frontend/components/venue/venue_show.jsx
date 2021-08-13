@@ -9,9 +9,9 @@ class VenueShow extends React.Component {
     super(props);
     this.state = {
       scrolled: false,
-      date: props.resInfo.date,
-      time: props.resInfo.time,
-      partySize: props.resInfo.partySize
+      date: props.date,
+      time: props.time,
+      partySize: props.partySize
     }
     this.scroll = this.scroll.bind(this);
     this.handleScroll = this.handleScroll.bind(this);
@@ -210,7 +210,9 @@ class VenueShow extends React.Component {
                   <span>Select a time:</span>
                   <ReservationTimes 
                     venueId={this.props.venueId} 
+                    date={this.state.date}
                     time={this.state.time}
+                    partySize={this.state.partySize}
                   />
                 </div>
               </div>

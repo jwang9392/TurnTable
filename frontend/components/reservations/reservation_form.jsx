@@ -187,8 +187,6 @@ class ReservationForm extends React.Component {
     }
   }
 
-
-
   handleSubmit(e) {
     e.preventDefault();
 

@@ -3,8 +3,7 @@ import { Link, withRouter} from 'react-router-dom';
 import ReservationTimes from '../reservations/reservation_times_container';
 
 const SearchIndexItem = (props) => {
-  const { venue, reservations, hash } = props
-  const time = hash.split("#")[2];
+  const { venue, reservations, date, time, partySize } = props
 
   let numBooked = 0;
   if (reservations) {
@@ -37,7 +36,9 @@ const SearchIndexItem = (props) => {
             pathname: `/venues/${venue.id}`, 
             state: {
               timesBooked: numBooked,
-              hash
+              date, 
+              time, 
+              partySize
             }
           }}>
           {venue.name}
@@ -58,8 +59,9 @@ const SearchIndexItem = (props) => {
         <div className="timeslots">
           <ReservationTimes 
             venueId={venue.id} 
+            date={date}
             time={time}
-            hash={hash}
+            partySize={partySize}
           />
         </div>
       </div>

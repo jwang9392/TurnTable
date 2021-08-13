@@ -2,8 +2,8 @@ import React from 'react';
 import SearchBarContainer from './search_bar_container';
 import SearchIndexItem from './search_index_item';
 import FilterForm from './filter_form_container';
-import { Link, withRouter } from 'react-router-dom';
-import { fetchReservations } from '../../actions/reservation_actions';
+import { withRouter } from 'react-router-dom';
+import { parseHash } from '../../util/util';
 
 class SearchIndex extends React.Component {
 
@@ -49,13 +49,16 @@ class SearchIndex extends React.Component {
   }
 
   createVenueList(venues) {
+    let parsed = parseHash(this.props.searchHash)
     let venueLis = Object.values(venues).map((venue) => {
       return (
         <SearchIndexItem
           key={venue.id}
           venue={venue}
           reservations={this.props.reservations}
-          hash={this.props.searchHash}
+          date={parsed.date}
+          time={parsed.time}
+          partySize={parsed.partySize}
           openModal={this.props.openModal}
         />
       );
