@@ -87,6 +87,7 @@ class VenueShow extends React.Component {
   }
 
   componentDidMount() {
+    scrollTo(0, 0);
     window.addEventListener('scroll', this.handleScroll);
   }
 

@@ -1,13 +1,17 @@
 import { connect } from 'react-redux';
 import { fetchVenues } from '../../actions/venue_actions';
-import { fetchVenue } from '../../util/venues_util';
 import Home from './home';
+
+const mapStateToProps = ({entities}) => {
+  return {
+    venues: entities.venues
+  }
+}
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchVenues: filters => dispatch(fetchVenues(filters)),
-    fetchVenue: (venueId) => dispatch(fetchVenue(venueId))
+    fetchVenues: () => dispatch(fetchVenues())
   };
 };
 
-export default connect(null, mapDispatchToProps)(Home);
+export default connect(mapStateToProps, mapDispatchToProps)(Home);
