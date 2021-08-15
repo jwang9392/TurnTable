@@ -97,7 +97,6 @@ class SearchIndex extends React.Component {
   }
 
   render() {
-    debugger
     let venues = this.props.venues;
     let filterList = Object.values(this.props.filters);
     let genreLen = this.props.filters.Genre.length;
