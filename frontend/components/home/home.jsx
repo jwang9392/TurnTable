@@ -7,7 +7,6 @@ class Home extends React.Component {
   constructor(props) {
     super(props)
     this.state = {empty: true, dance:[]};
-    // createCarousel = this.createCarousel.bind(this)
   }
 
   componentDidMount() {

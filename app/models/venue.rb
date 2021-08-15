@@ -52,7 +52,7 @@ class Venue < ApplicationRecord
 
   def reservation_count
     self.reservations
-      .where(created_at: Time.zone.now.beginning_of_day..Time.zone.now.end_of_day)
+      .where(created_at: Time.now.beginning_of_day..Time.now.end_of_day)
       .count
   end
 

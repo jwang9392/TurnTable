@@ -16,13 +16,6 @@ class SearchIndex extends React.Component {
     this.renderChoice = this.renderChoice.bind(this);
   }
 
-  componentDidMount() {
-    let reservations = this.props.reservations;
-    if (Object.keys(reservations).length === 0) {
-      this.props.fetchReservations();
-    }
-  }
-
   filter(filterList, type, venues) {
     let filtered = {};
     let currentType, typeFilters;
@@ -51,11 +44,12 @@ class SearchIndex extends React.Component {
   createVenueList(venues) {
     let parsed = parseHash(this.props.searchHash)
     let venueLis = Object.values(venues).map((venue) => {
+    
       return (
         <SearchIndexItem
           key={venue.id}
           venue={venue}
-          reservations={this.props.reservations}
+          reservationsToday={venue.reservationsToday}
           date={parsed.date}
           time={parsed.time}
           partySize={parsed.partySize}

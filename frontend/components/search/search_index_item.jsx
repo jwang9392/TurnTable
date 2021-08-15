@@ -3,16 +3,9 @@ import { Link, withRouter} from 'react-router-dom';
 import ReservationTimes from '../reservations/reservation_times_container';
 
 const SearchIndexItem = (props) => {
-  const { venue, reservations, date, time, partySize } = props
+  const { venue, reservationsToday, date, time, partySize } = props
 
-  let numBooked = 0;
-  if (reservations) {
-    Object.values(reservations).forEach(reservation => {
-      if (reservation.venue_id === venue.id) {
-        numBooked++;
-      }
-    });
-  }
+  let numBooked = reservationsToday;
 
   const timesBooked = () => {
     if (numBooked > 0) {

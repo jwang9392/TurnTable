@@ -9,14 +9,6 @@ class Navbar extends React.Component {
     super(props);
   }
 
-  // componentDidUpdate() {
-  //   const { user, currentUserId } = this.props;
-
-  //   if (user.id === currentUserId) { 
-  //     this.props.fetchReservations(this.props.currentUserId) 
-  //   }
-  // }
-
   render() {
     return (
       <header className="header">
