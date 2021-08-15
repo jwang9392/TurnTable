@@ -50,6 +50,12 @@ class Venue < ApplicationRecord
 
   # ADD COLUMN FOR OVERALL RATING?
 
+  def reservation_count
+    self.reservations
+      .where(created_at: Time.zone.now.beginning_of_day..Time.zone.now.end_of_day)
+      .count
+  end
+
   def self.search(searchParams)
     where(
       "name ILIKE ? OR 

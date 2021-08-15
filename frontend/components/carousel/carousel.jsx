@@ -26,7 +26,7 @@ class Carousel extends React.Component {
   }
 
   next() {
-    if (this.state.currentIndex < (this.state.length - 5)) {
+    if (this.state.currentIndex < (this.state.length - 4)) {
       let newIdx = this.state.currentIndex + 4;
       this.setState({currentIndex: newIdx})
     }
@@ -41,6 +41,7 @@ class Carousel extends React.Component {
 
 
   render() {
+
     return (
       <div className="carousel-container">
         <div className="carousel-wrapper">
@@ -56,7 +57,7 @@ class Carousel extends React.Component {
             </div>
           </div>
           {
-            this.state.currentIndex < (this.state.length - 5) &&
+            this.state.currentIndex < (this.state.length - 4) &&
             <button onClick={this.next} className="custom-arrow-right">
               <i id="chevron-right" className="fas fa-chevron-right"></i>
             </button>

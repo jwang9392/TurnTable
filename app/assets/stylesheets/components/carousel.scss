@@ -1,8 +1,14 @@
+.carousel-header {
+  font-weight: normal;
+}
+
 .carousel-container {
-  max-width: 1215px;
+  max-width: 1220px;
   margin-left: auto;
   margin-right: auto;
-  margin-top: 64px;
+  padding-top: 18px;
+  padding-bottom: 28px;
+  border-top: 1px solid lightgray;
   display: flex;
   flex-direction: column;
 }
@@ -36,20 +42,52 @@
   flex-grow: 1;
 }
 
+.carousel-item:first-child {
+  margin-left: 0;
+}
+
 .carousel-item {
   list-style-type: none;
   border-radius: 2px;
   border: 1px solid lightgray;
-  width: 234px;
+  width: 230px;
   height: 268px;
+  margin: 0 8px;
+}
+
+.carousel-item-desc {
+  margin: 5px 0;
+  font-size: 14px;
+  line-height: 1.2;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 100%;
+}
+
+.carousel-item-name {
+  font-size: 18px;
+  margin: 5px 0;
+}
+
+.carousel-item-reviews {
+  font-size: 14px;
+}
+
+.carousel-item-body {
+  padding: 10px;
 }
 
 .carousel-item-image {
   height: 130px;
-  width: 234px;
+  width: 230px;
   border-radius: 2px 2px 0 0;
   background-image: image-url('index1.jpg');
   background-size: cover;
+}
+
+.cost-light {
+  color: rgb(225,225,225);
 }
 
 .custom-arrow-right, .custom-arrow-left {
@@ -69,7 +107,7 @@
 }
 
 .custom-arrow-right:hover, .custom-arrow-left:hover{
-  border-color: red;
+  border-color: #DA3743;
   border-width: 2px;
 }
 

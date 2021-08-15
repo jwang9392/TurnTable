@@ -58,11 +58,11 @@ class Home extends React.Component {
     }
   }
 
-  createCarousel() {
+  createCarousel(category) {
     if (!this.state.empty) {
       return (
         <Carousel
-          venues={this.state.dance}
+          venues={this.state[category]}
         />
       )
     }
@@ -72,8 +72,28 @@ class Home extends React.Component {
     return (
       <>
         <SearchContainer />
-  
-        {this.createCarousel()}
+        <div className="home-body">
+          <div>
+            <h2 className="carousel-header">Dance Clubs</h2>
+          </div>
+          {this.createCarousel("dance")}
+          <div>
+            <h2 className="carousel-header">Jazz Clubs</h2>
+          </div>
+          {this.createCarousel("jazz")}
+          <div>
+            <h2 className="carousel-header">Comedy Clubs</h2>
+          </div>
+          {this.createCarousel("comedy")}
+          <div>
+            <h2 className="carousel-header">Easy on the wallet</h2>
+          </div>
+          {this.createCarousel("low")}
+          <div>
+            <h2 className="carousel-header">Premium Nightlife</h2>
+          </div>
+          {this.createCarousel("high")}
+        </div>
       </>
     )
   }
