@@ -41,7 +41,6 @@ class Carousel extends React.Component {
 
 
   render() {
-
     return (
       <div className="carousel-container">
         <div className="carousel-wrapper">

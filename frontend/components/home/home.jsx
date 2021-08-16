@@ -16,6 +16,8 @@ class Home extends React.Component {
         this.setState({empty: false});
       });
     } 
+
+    this.parseVenues();
   }
 
   isEmpty(venues) {

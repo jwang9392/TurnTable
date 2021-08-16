@@ -1,22 +1,31 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import ProfileReservation from './profile_reservation';
 
 class UserProfile extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      date: new Date()
-    };
   }
 
   componentDidMount() {
     this.props.fetchReservations(this.props.currentUser.id);
   }
 
+  toggleNav(location) {
+    const {reservations} = this.props;
+
+    if (location === "res") {
+      return (
+        <ProfileReservation 
+          reservations={reservations}
+        />  
+      )
+    }
+  }
+
   render() {
     const { currentUser } = this.props;
-
-    debugger
+  
     return (
       <>
         <div className="name-container">
@@ -24,21 +33,19 @@ class UserProfile extends React.Component {
             {currentUser.fname} {currentUser.lname}
           </h1>
         </div>
-        <section className="profile-container">
-          <div className="profile-navbar">
-            <button className="profile-navbar-item">Reservations</button>
-            <button className="profile-navbar-item">Saved Venues</button>
-            <button className="profile-navbar-item">Account Details</button>
-          </div>
-          <main className="profile-content">
-            <ul className="upcoming-res">
-              <h1>Upcoming Reservations</h1>
-            </ul>
-            <ul className="past-res">
-              <h1>Past Reservations</h1>
-            </ul>
-          </main>
-        </section>
+
+        <div className="profile-container">
+          <section className="profile-details">
+            <div className="profile-navbar">
+              <button className="profile-navbar-item">Reservations</button>
+              <button className="profile-navbar-item">Saved Venues</button>
+              <button className="profile-navbar-item">Account Details</button>
+            </div>
+            <main className="profile-content">
+              {this.toggleNav("res")}
+            </main>
+          </section>
+        </div>
       </>
     );
   }
