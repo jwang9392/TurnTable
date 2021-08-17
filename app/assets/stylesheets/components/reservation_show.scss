@@ -1,18 +1,102 @@
+.profile-input {
+  font-size: 16px;
+  padding: 18px 10px;
+  border-radius: 4px;
+}
+
+.profile-occasion {
+  margin: 20px 0;
+  width: 100%;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: transparent url("http://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/br_down.png") no-repeat;
+  background-size: 9px 9px;
+  background-position: right 10px center;
+  border-color: lightgray;
+}
+
+.profile-occasion:hover, .profile-special-request:hover {
+  border: 1px solid black;
+}
+
+.profile-occasion:focus, .profile-special-request:focus {
+  border: 1px solid black;
+  outline: none;
+}
+
+.profile-special-request:focus {
+  height: 100px;
+  transition-duration: 300ms;
+}
+
+.profile-special-request {
+  font-family: 'Noto Sans JP', sans-serif;
+  height: 55px;
+  width: 100%;
+  border: 1px solid lightgray;
+  resize: none;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  transition-duration: 300ms;
+  text-overflow: ellipsis;
+  overflow-y: scroll;
+}
+
+.profile-venue-link {
+  text-decoration: none;
+  color: #DA3743;
+}
+
+.res-show-user-container {
+  margin-left: 38px;
+  height: 50px;
+  width: 304px;
+}
+
+.res-show-user-detail {
+  padding: 28px;
+  background-color: white;
+}
+
+.res-show-columns {
+  display: flex;
+}
+
 .res-show-body {
+  display: flex;
+  justify-content: center;
   background-color: rgb(245,245,245);
-  padding: 20px;
+  padding: 24px;
+}
+
+.res-show-created {
+  padding: 8px 26px;
+  color: lightslategray;
 }
 
 .res-show-header {
   margin: auto;
   background-color: white;
-  width: 744px;
+  width: 635px;
+}
+
+.res-show-user-name {
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.res-show-user-name i {
+  font-size: 18px;
+  margin-right: 10px;
 }
 
 .res-confirm-success {
-  color: white;
   height: 72px;
-  background-color: rgb(86,182,141);
+  background-color: rgb(240,250,242);
   display: flex;
   align-items: center;
 }
@@ -25,13 +109,142 @@
   font-size: 14px;
 }
 
-.res-show-detail-container {
-  padding: 16px;
+.res-show-detail {
+  height: 120px;
 }
 
-.res-show-detail {
-  height: 106px;
-  
+.res-show-details {
+  display: flex;
+  margin-top: 16px;
+}
+
+.res-show-details > * {
+  margin-right: 36px;
+}
+
+.res-show-details i {
+  margin-right: 12px;
+}
+
+.res-show-history-sidebar {
+  margin-top: 24px;
+}
+
+.res-show-history-container {
+  padding: 28px;
+  background-color: white;
+}
+
+.res-show-history-sidebar h3 {
+  margin: 0;
+  font-weight: normal;
+}
+
+.history-item {
+  display: flex;
+  margin-top: 24px;
+  margin-bottom: 12px;
+}
+
+.history-item-image {
+  margin-right: 18px;
+  height: 80px;
+  width: 80px;
+  background-image: image-url('index1.jpg');
+  background-size: cover;
+  border-radius: 3px;
+}
+
+.history-item-detail {
+  font-size: 14px;
+  color: lightslategray;
+}
+
+.history-item-details > * {
+  margin: 5px 0;
+}
+
+.history-rebook-btn {
+  padding: 7px 18px;
+  background-color: white;
+  border: 1px solid #DA3743;
+  border-radius: 3px;
+  color: #DA3743;
+  font-size: 15px;
+  text-decoration: none;
+}
+
+.res-optionals-container {
+  margin: 24px auto;
+  background-color: white;
+  height: fit-content;
+  width: 635px;
+}
+
+.res-optionals-content {
+  padding: 32px;
+}
+
+.res-section-header {
+  margin: 0;
+  font-size: 18px;
+  font-weight: normal;
+}
+
+.res-show-links {
+  display: flex;
+  margin-left: -88px;
+}
+
+.res-show-link {
+  margin-top: 18px;
+  padding: 0 8px;
+  color: #DA3743;
+  text-decoration: none;
+}
+
+.res-show-link:first-child {
+  border-right: 1px solid lightgray;
+}
+
+.res-venue-summary-container {
+  margin: 18px auto;
+  background-color: white;
+  // height: fit-content;
+  height: 200px;
+  width: 635px;
+}
+
+.res-venue-summary {
+  margin: 20px 0;
+}
+
+.res-venue-summary > * {
+  margin: 5px 0;
+  font-weight: lighter;
+}
+
+.res-venue-container {
+  padding: 32px;
+}
+
+.res-venue-detail {
+  display: flex;
+  margin: 16px 32px;
+}
+
+.res-venue-image {
+  margin-right: 16px;
+  height: 64px;
+  width: 64px;
+  background-image: image-url('index1.jpg');
+  background-size: cover;
+  border-radius: 3px;
+}
+
+.res-show-body h2 {
+  font-weight: normal;
+  margin: 5px 0;
 }
 
 .conflict-modal > h3 {
@@ -107,7 +320,8 @@
 }
 
 .fa-check-circle {
-  font-size: 48px;
+  color: green;
+  font-size: 38px;
   padding: 12px;
   margin-left: 10px;
 }

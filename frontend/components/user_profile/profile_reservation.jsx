@@ -46,7 +46,7 @@ const ProfileReservation = (props) => {
     }
   });
   
-  const createItemList = (resList, type) => {
+  const createItemList = (resList, type, historyList) => {
     let resItems;
 
     if (type === "upcoming") {
@@ -56,6 +56,7 @@ const ProfileReservation = (props) => {
             key={res.id}
             type="upcoming"
             reservation={res}
+            past={historyList}
           />
         );
       })
@@ -73,14 +74,14 @@ const ProfileReservation = (props) => {
 
     return resItems;
   };
-
+  
   return (
     <>
       <ul className="upcoming-res">
         <h1>Upcoming Reservations</h1>
-        {upcoming.length ? createItemList(upcoming, "upcoming") : ""}
+        {upcoming.length ? createItemList(upcoming, "upcoming", past) : ""}
       </ul>
-      <ul className="past-res">
+      <ul id="past"className="past-res">
         <h1>Past Reservations</h1>
         {past.length ? createItemList(past, "past") : ""}
       </ul>

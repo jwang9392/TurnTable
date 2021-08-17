@@ -28,7 +28,6 @@ const SearchIndexItem = (props) => {
         <Link className="venue-name" to={{
             pathname: `/venues/${venue.id}`, 
             state: {
-              timesBooked: numBooked,
               date, 
               time, 
               partySize

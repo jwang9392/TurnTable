@@ -3,11 +3,12 @@ import { updateReservation, deleteReservation, fetchReservation } from '../../ac
 import ReservationShow from './reservation_show';
 
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = ({entities, session}, {match, location}) => {
   return {
-    state: state,
-    resId: ownProps.match.params.id,
-    user: state.entities.users[state.session.currentUserId]
+    res: entities.reservations[match.params.id],
+    venues: entities.venues,
+    user: entities.users[session.currentUserId],
+    past: location.state.past
   };
 };
 

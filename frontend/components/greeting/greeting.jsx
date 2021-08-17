@@ -35,7 +35,8 @@ class Greeting extends React.Component {
               <div className="dropdown-container">
                 <div className='arrow-up'></div>
                 <Link to="/my/Profile" className="dropdown-item">My Profile</Link>
-                <Link to="" className="dropdown-item">My Dining History</Link>
+                <Link to={{ pathname: "/my/Profile", scroll: "past"}} className="dropdown-item">My Dining History</Link>
+                {/* to="/my/Profile" className="dropdown-item"> */}
 
                 {/* BONUS FEATURE FOR ABOVE DINING HISTORY - SHOW PAGE BUT AT THE DINING HISTORY*/}
                 {/* HOW TO ROUTE TO FAVORITES? THROUGH ASSOCIATION */}

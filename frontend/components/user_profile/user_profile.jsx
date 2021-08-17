@@ -9,6 +9,9 @@ class UserProfile extends React.Component {
 
   componentDidMount() {
     this.props.fetchReservations(this.props.currentUser.id);
+    const {scroll} = this.props;
+    if (scroll) document.getElementById('past').scrollIntoView();
+    
   }
 
   toggleNav(location) {
@@ -25,7 +28,7 @@ class UserProfile extends React.Component {
 
   render() {
     const { currentUser } = this.props;
-  
+
     return (
       <>
         <div className="name-container">
