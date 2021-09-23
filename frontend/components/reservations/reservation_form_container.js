@@ -15,6 +15,7 @@ const mapStateToProps = (state, {match, location}) => {
   return {
     currentUser: state.entities.users[state.session.currentUserId],
     venue: state.entities.venues[match.params.venue_id],
+    reservations: state.entities.reservations,
     loggedIn: Boolean(state.session.currentUserId),
     date: resDate,
     time: location.state.time,

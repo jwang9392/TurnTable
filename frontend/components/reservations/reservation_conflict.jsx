@@ -11,6 +11,42 @@ class ReservationConflict extends React.Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
+  past(reservations) {
+    const { loggedIn } = this.state;
+    let past = [];
+
+    for (let resId in reservations) {
+      let res = reservations[resId];
+      let dateParts = res.date.split("-");
+      let hours = res.time.slice(0, -5);
+      let period = res.time.slice(-2);
+      if (res.time === "12:00AM") {
+        hours = 0;
+      } else if (period === "PM") {
+        hours = 12 + parseInt(hours);
+      } else {
+        hours = parseInt(hours);
+      }
+      let resDate = new Date(dateParts[0], dateParts[1] - 1, dateParts[2], hours + 1, 0, 0);
+      let currDate = new Date();
+      res["dateTime"] = resDate;
+
+      if (resDate < currDate) {
+        past.push(res);
+      }
+    };
+
+    past.sort((a, b) => {
+      if (a.dateTime < b.dateTime) {
+        return 1;
+      } else {
+        return -1;
+      }
+    });
+
+    return past;
+  }
+
   handleKeep(e) {
     e.preventDefault();
 
@@ -27,6 +63,8 @@ class ReservationConflict extends React.Component {
       party_size: this.props.newPartySize,
       venue_id: this.props.newVenue.id,
     };
+    const {reservations} = this.props;
+    const past = this.past(reservations);
 
     if (this.props.loggedIn) {
       reservation.user_id = this.props.currentUser.id
@@ -39,9 +77,12 @@ class ReservationConflict extends React.Component {
       this.props.createReservation(reservation).then(data => {
         const resId = data.reservation.id;
 
-        this.props.history.push(
-          `/reservations/${resId}`
-        )
+        this.props.history.replace({
+          pathname: `/reservations/${resId}`,
+          state: {
+            past: past
+          }
+        })
       });
     }, 50);
   }

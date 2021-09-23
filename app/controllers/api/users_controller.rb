@@ -23,9 +23,14 @@ class Api::UsersController < ApplicationController
 
   def update
     @user = User.find_by(id: params[:id])
+    password = user_params[:password]
     @action = 'UPDATE'
 
-    if @user.update(user_params)
+    if @user.update(user_params.except(:password))
+      if !!password
+        @user.password=(password)
+      end
+
         @user.save
         render :show
     else

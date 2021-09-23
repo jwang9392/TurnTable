@@ -25,9 +25,12 @@ class ReservationSignup extends React.Component {
         const resId = data.reservation.id;
 
         this.props.closeModal();
-        this.props.history.push(
-          `/reservations/${resId}`
-        )
+        this.props.history.replace({
+          pathname: `/reservations/${resId}`,
+          state: {
+            past: []
+          }
+        })
       })
     });
   }

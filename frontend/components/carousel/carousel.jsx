@@ -5,28 +5,33 @@ class Carousel extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      currentIndex: 0, 
-      length: this.props.venues.length
+      currentIndex: 0
     };
     this.prev = this.prev.bind(this);
     this.next = this.next.bind(this);
   }
 
   createCarouselItems(venues) {
-    let venueLis = venues.map(venue => {
+    if (venues && venues.length > 0) {
       return (
-        <CarouselItem
-          key={venue.id}
-          venue={venue}
-        />
+        venues.map(venue => {
+          return (
+            <CarouselItem
+              key={venue.id}
+              venue={venue}
+            />
+          )
+        })
       )
-    })
-    
-    return venueLis;
+    } else {
+      return (
+        <div />
+      )
+    }
   }
 
   next() {
-    if (this.state.currentIndex < (this.state.length - 4)) {
+    if (this.state.currentIndex < 7) {
       let newIdx = this.state.currentIndex + 4;
       this.setState({currentIndex: newIdx})
     }
@@ -56,7 +61,7 @@ class Carousel extends React.Component {
             </div>
           </div>
           {
-            this.state.currentIndex < (this.state.length - 4) &&
+            this.state.currentIndex < 7 &&
             <button onClick={this.next} className="custom-arrow-right">
               <i id="chevron-right" className="fas fa-chevron-right"></i>
             </button>

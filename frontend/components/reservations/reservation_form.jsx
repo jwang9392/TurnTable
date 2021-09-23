@@ -5,6 +5,7 @@ class ReservationForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      updated: false,
       visited: false,
       userExists: false,
       loggedIn: this.props.loggedIn,
@@ -17,6 +18,7 @@ class ReservationForm extends React.Component {
       special_request: "",
       venue_id: "",
       user_id: "",
+      past: [],
       minutes: 5,
       seconds: 0, 
       inputErrors: {
@@ -57,7 +59,7 @@ class ReservationForm extends React.Component {
 
     this.props.clearErrors;
     
-    const {venue, currentUser} = this.props
+    const {venue, currentUser, fetchReservations} = this.props
 
     this.setState({
       venue_id: venue.id,
@@ -71,6 +73,7 @@ class ReservationForm extends React.Component {
         phone_number: currentUser.phone_number,
         user_id: currentUser.id
       })
+      fetchReservations(currentUser.id);
     };
   }
 
@@ -155,10 +158,49 @@ class ReservationForm extends React.Component {
     this.setState({ visited: true })
   }
 
+  past(reservations) {
+    const {loggedIn} = this.state;
+    let past = [];
+
+    if (loggedIn) {
+      for (let resId in reservations) {
+        let res = reservations[resId];
+        let dateParts = res.date.split("-");
+        let hours = res.time.slice(0, -5);
+        let period = res.time.slice(-2);
+        if (res.time === "12:00AM") {
+          hours = 0;
+        } else if (period === "PM") {
+          hours = 12 + parseInt(hours);
+        } else {
+          hours = parseInt(hours);
+        }
+        let resDate = new Date(dateParts[0], dateParts[1] - 1, dateParts[2], hours + 1, 0, 0);
+        let currDate = new Date();
+        res["dateTime"] = resDate;
+  
+        if (resDate < currDate) {
+          past.push(res);
+        }
+      };
+  
+      past.sort((a, b) => {
+        if (a.dateTime < b.dateTime) {
+          return 1;
+        } else {
+          return -1;
+        }
+      });
+    }
+
+    return past;
+  }
+
   update(e) {
     const field = e.target.name;
     this.setState({
       [field]: e.target.value, 
+      "changed": true,
       "userExists": false
     });
   
@@ -202,6 +244,8 @@ class ReservationForm extends React.Component {
       special_request: this.state.special_request,
       venue_id: this.state.venue_id
     }
+    const {reservations} = this.props
+    const past = this.past(reservations);
 
     this.setState({ res: reservation });
 
@@ -216,11 +260,16 @@ class ReservationForm extends React.Component {
         "phone_number": this.state.phone_number
       }
 
-      this.props.updateUser(user)
+      if (this.state.changed) {
+        this.props.updateUser(user)
+      }
 
-      this.props.history.push(
-        `/reservations/${resId}`
-      )
+      this.props.history.replace({
+        pathname: `/reservations/${resId}`,
+        state: {
+          past: past
+        }
+      })
     }, err => {
         this.handleSubmitErrors(err);
       }
@@ -247,7 +296,9 @@ class ReservationForm extends React.Component {
           ...user
         };
         this.props.updateUser(currentUser);
-        this.props.openModal("res");
+        this.props.fetchReservations(currentUser.id).then(() => {
+          this.props.openModal("res");
+        })
         break;
         case "User must exist":
           this.props.signup(user).then( (data) => {

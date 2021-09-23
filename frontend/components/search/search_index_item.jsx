@@ -21,7 +21,14 @@ const SearchIndexItem = (props) => {
 
   return (
     <li className="search-item" key={venue.id}>
-      <Link to={`/venues/${venue.id}`}>
+      <Link className="venue-name" to={{
+        pathname: `/venues/${venue.id}`,
+        state: {
+          date,
+          time,
+          partySize
+        }
+      }}>
         <div className='venue-search-image'></div>
       </Link>
       <div className="search-venue-details">

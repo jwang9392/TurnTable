@@ -54,6 +54,7 @@ class ReservationShow extends React.Component {
   createHistory(past) {
     const { venues } = this.props;
     const { presetDate, presetTime, presetSize } = this.state;
+
     if (past.length > 3) past = past.slice(0, 3);
 
     let historyItems = past.map((res) => {

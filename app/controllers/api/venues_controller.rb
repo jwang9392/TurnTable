@@ -1,7 +1,7 @@
 class Api::VenuesController < ApplicationController
 
   def index
-    @venues = Venue.includes(:reservations).all
+    @venues = Venue.all.includes(:reservations)
 
     render :index
   end

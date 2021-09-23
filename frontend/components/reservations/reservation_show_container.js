@@ -4,11 +4,13 @@ import ReservationShow from './reservation_show';
 
 
 const mapStateToProps = ({entities, session}, {match, location}) => {
+  const locState = location.state || {};
+
   return {
     res: entities.reservations[match.params.id],
     venues: entities.venues,
     user: entities.users[session.currentUserId],
-    past: location.state.past
+    past: locState.past
   };
 };
 

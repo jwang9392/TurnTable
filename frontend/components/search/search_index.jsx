@@ -16,6 +16,11 @@ class SearchIndex extends React.Component {
     this.renderChoice = this.renderChoice.bind(this);
   }
 
+  componentDidMount() {
+    this.props.clearFilters();
+    this.props.processSearch(this.searchQuery);
+  }
+
   filter(filterList, type, venues) {
     let filtered = {};
     let currentType, typeFilters;
@@ -44,7 +49,6 @@ class SearchIndex extends React.Component {
   createVenueList(venues) {
     let parsed = parseHash(this.props.searchHash)
     let venueLis = Object.values(venues).map((venue) => {
-    
       return (
         <SearchIndexItem
           key={venue.id}
@@ -75,7 +79,6 @@ class SearchIndex extends React.Component {
             <button onClick={() => this.props.history.push('/')}>Start Over</button>
           </div>
           <h3>Other Suggestions</h3>
-          <p>Browse the list of all New York / Tri-State Area restaurants</p>
           <p>Or deselect any checked filters to broaden your search</p>
         </div>
       )

@@ -2,9 +2,9 @@ import { connect } from "react-redux";
 import { deleteReservation } from "../../actions/reservation_actions";
 import ProfileItem from "./profile_item";
 
-const mapStateToProps = ({entities}, {reservation, type, past}) => {
+const mapStateToProps = (state, {reservation, type, past, venue}) => {
   return {
-    venue: entities.venues[reservation.venue_id],
+    venue,
     reservation,
     type,
     past

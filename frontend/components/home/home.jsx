@@ -6,27 +6,13 @@ import { Link, withRouter } from 'react-router-dom';
 class Home extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {empty: true, dance:[]};
+    this.state = {dance:[]};
   }
 
   componentDidMount() {
-    if (this.isEmpty(this.props.venues)) {
-      this.props.fetchVenues().then(() => {
-        this.parseVenues();
-        this.setState({empty: false});
-      });
-    } 
-
-    this.parseVenues();
-  }
-
-  isEmpty(venues) {
-    for (let venue in venues) {
-      if (venues.hasOwnProperty(venue))
-        return false;
-    }
-
-    return true;
+    this.props.fetchVenues().then(() => {
+      this.parseVenues();
+    });
   }
 
   parseVenues() {
@@ -60,12 +46,14 @@ class Home extends React.Component {
   }
 
   createCarousel(category) {
-    if (!this.state.empty) {
+    if (this.props.venues && Object.values(this.props.venues).length > 0) {
       return (
         <Carousel
           venues={this.state[category]}
         />
       )
+    } else {
+      return <div />
     }
   }
 

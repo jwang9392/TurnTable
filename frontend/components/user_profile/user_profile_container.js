@@ -1,5 +1,6 @@
 import { connect } from "react-redux";
 import { fetchReservations } from "../../actions/reservation_actions";
+import { fetchVenues } from '../../actions/venue_actions';
 import UserProfile from "./user_profile";
 
 const mapStateToProps = ({entities, session}, {location}) => {
@@ -13,7 +14,8 @@ const mapStateToProps = ({entities, session}, {location}) => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchReservations: userId => dispatch(fetchReservations(userId))
+    fetchReservations: userId => dispatch(fetchReservations(userId)), 
+    fetchVenues: () => dispatch(fetchVenues())
   };
 };
 
