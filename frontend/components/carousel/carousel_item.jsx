@@ -1,8 +1,24 @@
 import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
+import { formatDate } from '../../util/util';
 
 const CarouselItem = (props) => {
   const { venue, key } = props;
+
+  const createDate = () => {
+    const date = new Date();
+    const hour = date.toString().slice(16, 18);
+    let today = formatDate(date);
+    let tomorrow = new Date(date);
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    tomorrow = formatDate(tomorrow);
+
+    if (parseInt(hour) > 21) {
+      return tomorrow;
+    } else {
+      return today;
+    }
+  }
 
   const createDollars = (venue) => {
     let price = venue.price
@@ -39,21 +55,32 @@ const CarouselItem = (props) => {
   }
 
   return (
-    <li className="carousel-item" key={key}>
-      <div className="carousel-item-container">
-        <div className='carousel-item-image'></div>
-        <div className="carousel-item-body">
-          <div className="carousel-item-name">{venue.name}</div>
-          <div className="carousel-item-reviews">
-            Reviews
+    <Link 
+      className="carousel-link" 
+      to={{
+        pathname: `/venues/${venue.id}`,
+        state: {
+          date: createDate(),
+          time: "9:00PM",
+          partySize: "2" }
+      }}
+    >
+      <li className="carousel-item" key={key}>
+        <div className="carousel-item-container">
+          <div className='carousel-item-image'></div>
+          <div className="carousel-item-body">
+            <div className="carousel-item-name">{venue.name}</div>
+            <div className="carousel-item-reviews">
+              Reviews
+            </div>
+            <div className="carousel-item-desc">
+              {venue.genre} <span> &#183; </span> {createDollars(venue)} <span> &#183; </span> {venue.city}
+            </div>
+            {todaysReservations()}
           </div>
-          <div className="carousel-item-desc">
-            {venue.genre} <span> &#183; </span> {createDollars(venue)} <span> &#183; </span> {venue.city}
-          </div>
-          {todaysReservations()}
         </div>
-      </div>
-    </li>
+      </li>
+    </Link>
   )
 }
 
