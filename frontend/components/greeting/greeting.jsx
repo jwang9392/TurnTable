@@ -28,7 +28,7 @@ class Greeting extends React.Component {
         <div className="header-group" onClick={() => this.toggle()}>
           <div className="header-greeting">
             <h4 className="header-name">Hi, {this.props.user.fname}!</h4>
-            <i id='dropdown' className="fas fa-chevron-down"></i>
+            <i className="fas fa-chevron-down"></i>
           </div>
           <div className="nav-dropdown hidden">
             <div className='dropdown-background'>

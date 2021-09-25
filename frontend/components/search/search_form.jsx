@@ -45,40 +45,34 @@ class SearchForm extends React.Component {
         <p>Where will you be tonight?</p>
         <form onSubmit={this.handleSubmit}>
           <div className="reservation-options custom-select">
-            <label className="reservation-date" onClick={e => e.preventDefault()}>
-              <div>
-                <i id="date" className="far fa-calendar"></i>
-                <DatePicker
-                  className="datepicker"
-                  useWeekdaysShort={true}
-                  onFocus={e => e.target.blur()}
-                  dateFormat="MMM d, yyyy"
-                  selected={this.state.date}
-                  onChange={this.handleChange}
-                  shouldCloseOnSelect={true}
-                />
-              </div>
+            <label className="reservation-date">
+              <i id="date" className="far fa-calendar"></i>
+              <DatePicker
+                className="datepicker"
+                useWeekdaysShort={true}
+                onFocus={e => e.target.blur()}
+                dateFormat="MMM d, yyyy"
+                selected={this.state.date}
+                onChange={this.handleChange}
+                shouldCloseOnSelect={true}
+              />
               <i id='dropdown' className="fas fa-chevron-down"></i>
             </label>
             <label className="reservation-time">
-              <div>
-                <i id="ticker" className="far fa-clock"></i>
-                <select id="time-selector" defaultValue={this.state.time}
-                  onChange={this.update("time")}>
-                  {makeTimeOptions()}
-                </select>
-              </div>
+              <i id="ticker" className="far fa-clock"></i>
+              <select id="time-selector" defaultValue={this.state.time}
+                onChange={this.update("time")}>
+                {makeTimeOptions()}
+              </select>
               <i id='dropdown' className="fas fa-chevron-down"></i>
             </label>
             <label className="reservation-party">
-              <div>
-                <i id="user-icon" className="far fa-user"></i>
-                <select id="party-selector" defaultValue={this.state.partySize}
-                  onChange={this.update("partySize")}>
-                  {createPartySizeOptions()}
-                  {/* <option value="larger">Larger party</option> */}
-                </select>
-              </div>
+              <i id="user-icon" className="far fa-user"></i>
+              <select id="party-selector" defaultValue={this.state.partySize}
+                onChange={this.update("partySize")}>
+                {createPartySizeOptions()}
+                {/* <option value="larger">Larger party</option> */}
+              </select>
               <i id='dropdown' className="fas fa-chevron-down"></i>
             </label>
           </div>

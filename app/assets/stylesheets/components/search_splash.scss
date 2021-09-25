@@ -26,10 +26,22 @@
 }
 
 .reservation-options > * {
+  position: relative;
   display: block;
-  width: 130px;
+  height: fit-content;
+  width: fit-content;
   background-color: white;
-  padding: 15px 15px;
+  // padding: 15px 15px;
+}
+
+.reservation-options > label > i:first-child {
+  top: 15px;
+  left: 14px;
+}
+
+.reservation-options i {
+  position: absolute;
+  z-index: 1;
 }
 
 .reservation-date {
@@ -40,13 +52,21 @@
   cursor: pointer;
 }
 
-.reservation-options i#dropdown{
-  margin: 4px 0 0 0;
-  font-size: 12px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+#dropdown {
+  top: 38%;
+  right: 18px;
+  font-size: 10px;
+  color: black;
+  margin: 0;
 }
+
+// .reservation-options i#dropdown{
+//   margin: 4px 0 0 0;
+//   font-size: 12px;
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+// }
 
 .reservation-party {
   border-radius: 0 3px 3px 0;
@@ -54,7 +74,9 @@
 
 .datepicker {
   width: 100px;
+  padding: 15px 50px 14px 42px;
   border: none;
+  border-radius: 3px 0 0 3px;
   text-align: center;
   font-size: 16px;
 }
@@ -67,26 +89,24 @@
   outline: none;
 }
 
-
-.custom-select select{
+.custom-select select {
+  position: relative;
   border: none;
-  background-color: white;
+  background-color: transparent;
   font-size: 16px;
+  padding: 15px 50px 15px 42px;
   -o-appearance: none;
   -ms-appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
-}
-
-.reservation-date, .reservation-time, .reservation-party {
-  display: flex;
-  justify-content: space-between;
-}
-
-.reservation-options label select {
-  margin-left: 10px;
+  z-index: 1;
   outline: none;
 }
+
+// .reservation-date, .reservation-time, .reservation-party {
+//   display: flex;
+//   justify-content: space-between;
+// }
 
 .reservation-time {
   border-left: 1px solid rgb(224,224,224);
