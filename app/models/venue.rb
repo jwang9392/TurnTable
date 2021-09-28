@@ -50,10 +50,10 @@ class Venue < ApplicationRecord
 
   # ADD COLUMN FOR OVERALL RATING?
 
-  def reservation_count
-    self.reservations
-      .where(created_at: Time.now.beginning_of_day..Time.now.end_of_day)
-      .count
+  def self.reservation_count
+    Reservation.where(created_at: Time.now.beginning_of_day..Time.now.end_of_day)
+      .group(:venue_id)
+      .count()
   end
 
   def self.search(searchParams)

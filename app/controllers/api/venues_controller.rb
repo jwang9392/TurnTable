@@ -2,6 +2,7 @@ class Api::VenuesController < ApplicationController
 
   def index
     @venues = Venue.all.includes(:reservations)
+    @res_today = Venue.reservation_count
 
     render :index
   end
@@ -18,6 +19,7 @@ class Api::VenuesController < ApplicationController
 
   def search
     @venues = Venue.search(params["searchParams"]) 
+    @res_today = Venue.reservation_count
 
     render :index
   end

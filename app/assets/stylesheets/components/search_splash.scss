@@ -31,7 +31,6 @@
   height: fit-content;
   width: fit-content;
   background-color: white;
-  // padding: 15px 15px;
 }
 
 .reservation-options > label > i:first-child {
@@ -59,14 +58,6 @@
   color: black;
   margin: 0;
 }
-
-// .reservation-options i#dropdown{
-//   margin: 4px 0 0 0;
-//   font-size: 12px;
-//   display: flex;
-//   justify-content: center;
-//   align-items: center;
-// }
 
 .reservation-party {
   border-radius: 0 3px 3px 0;
@@ -102,11 +93,6 @@
   z-index: 1;
   outline: none;
 }
-
-// .reservation-date, .reservation-time, .reservation-party {
-//   display: flex;
-//   justify-content: space-between;
-// }
 
 .reservation-time {
   border-left: 1px solid rgb(224,224,224);
@@ -148,7 +134,3 @@
   font-size: 16px;
   width: 100%;
 }
-
-// .search-field:hover {
-//   cursor: text;
-// }
