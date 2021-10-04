@@ -46,3 +46,4 @@ Reservation.create!({
   user_id: User.first.id,
   venue_id: Venue.first.id
 })
+

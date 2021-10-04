@@ -5,6 +5,7 @@ Rails.application.routes.draw do
     end
     resources :venues, only: [:index, :show] do
       resources :reservations, only: [:create]
+      resources :reviews, only: [:index, :create]
     end 
     resources :reservations, only: [:show, :update, :destroy]
     resource :session, only: [:create, :destroy]
