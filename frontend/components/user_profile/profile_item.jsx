@@ -2,7 +2,10 @@ import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
 
 const ProfileItem = (props) => {
-  const { venue, reservation, type, past } = props
+  const { user, venue, reservation, type, past } = props
+
+  let userReviews = {};
+  user.reviews.forEach(review => userReviews[review.venue_id] = review )
 
   const dateConversion = date => {
     let dateParts = date.split("-");
@@ -46,6 +49,14 @@ const ProfileItem = (props) => {
             <div className="profile-item-date">{dateConversion(res.date)}</div>
             <div className="profile-item-desc">
               <div>Table for {res.party_size} {res.party_size != 1 ? "people" : "person"}.</div>
+            </div>
+            <div className="review-link-container">
+              <Link className="review-link" to={{
+                pathname: `/feedback/rid=${venue.id}`,
+                state: {}
+              }}>
+                <i className="far fa-comment-alt"></i> Write Review
+              </Link>
             </div>
           </>
         )

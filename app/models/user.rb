@@ -27,6 +27,11 @@ class User < ApplicationRecord
     through: :reservations, 
     source: :venue
 
+  has_many :reviews
+  has_many :reviewed_venues, 
+    through: :reviews, 
+    source: :venue
+
   def self.find_by_credentials(email, password)
     user = User.find_by(email: email)
     user && user.is_password?(password) ? user : nil
