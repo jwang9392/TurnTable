@@ -4,7 +4,7 @@ class ReviewStars extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      rating: 0,
+      rating: props.rating,
       hover: 0
     };
 
@@ -23,8 +23,7 @@ class ReviewStars extends React.Component {
     const { category, categoryVal } = this.props;
 
     return (
-      <div className="form-group">
-        <label htmlFor={categoryVal}>{category}</label>
+      <div className="star-group">
         <div className="star-rating">
           {[...Array(5)].map((star, index) => {
             index += 1;

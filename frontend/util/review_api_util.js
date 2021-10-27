@@ -6,6 +6,14 @@ export const fetchReviews = venueId => {
   })
 }
 
+export const fetchUserReviews = userId => {
+  return $.ajax({
+    method: "GET",
+    url: `/api/users/${userId}/reviews`,
+    data: { userId }
+  })
+}
+
 export const createReview = review => {
   return $.ajax({
     method: "POST",

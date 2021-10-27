@@ -13,9 +13,12 @@ class UserProfile extends React.Component {
   }
 
   componentDidMount() {
-    this.props.fetchReservations(this.props.currentUser.id);
-    this.props.fetchVenues();
-    const {scroll} = this.props;
+    const { scroll, currentUser, fetchReservations, fetchVenues, fetchUserReviews } = this.props;
+
+    fetchReservations(this.props.currentUser.id);
+    fetchVenues();
+    fetchUserReviews(currentUser.id);
+
     if (scroll) document.getElementById('past').scrollIntoView();
   }
 
@@ -24,8 +27,8 @@ class UserProfile extends React.Component {
   }
 
   toggleNav(location) {
-    if (this.props.venues && Object.values(this.props.venues).length > 0) {
-      const {reservations, venues} = this.props;
+    if (this.props.venues && Object.values(this.props.venues).length > 0 && this.props.reviews && Object.values(this.props.reviews).length > 0) {
+      const {reservations, venues, reviews} = this.props;
   
       switch (location) {
         case "res":
@@ -33,6 +36,7 @@ class UserProfile extends React.Component {
             <ProfileReservation
               reservations={reservations}
               venues={venues}
+              reviews={reviews}
             />
           );
         case "det":

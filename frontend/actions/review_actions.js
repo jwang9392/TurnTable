@@ -1,5 +1,4 @@
 import * as ApiUtil from '../util/review_api_util';
-
 export const RECEIVE_REVIEWS = "RECEIVE_REVIEWS";
 export const RECEIVE_REVIEW_ERRORS = "RECEIVE_REVIEW_ERRORS";
 
@@ -21,9 +20,16 @@ export const fetchReviews = venueId => dispatch => (
   )
 )
 
+export const fetchUserReviews = userId => dispatch => (
+  ApiUtil.fetchUserReviews(userId).then(
+    reviews => dispatch(receiveReviews(reviews)),
+    err => (dispatch(receiveErrors(err.responseJSON)))
+  )
+)
+
 export const createReview = review => dispatch => (
   ApiUtil.createReview(review).then(
-    review => dispatch(receiveReview(review)),
+    review => dispatch(receiveReviews(review.user_id)),
     err => (dispatch(receiveErrors(err.responseJSON)))
   )
 )

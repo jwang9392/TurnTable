@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { formatDate } from '../../util/util';
 
 class ReservationShow extends React.Component {
@@ -212,4 +212,4 @@ class ReservationShow extends React.Component {
 
 }
 
-export default ReservationShow;
+export default withRouter(ReservationShow);

@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom';
 import ProfileItemContainer from './profile_item_container';
 
 const ProfileReservation = (props) => {
-  const { reservations, venues } = props
+  const { reservations, venues, reviews } = props
   const upcoming = [];
   const past = [];
 
@@ -69,6 +69,7 @@ const ProfileReservation = (props) => {
             type="past"
             reservation={res}
             venue={venues[res.venue_id]}
+            review={reviews[res.venue_id] ? reviews[res.venue_id] : ""}
           />
         );
       })

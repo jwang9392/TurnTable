@@ -2,6 +2,7 @@ import { connect } from 'react-redux';
 import VenueShow from './venue_show';
 
 const mapStateToProps = (state, { match, location}) => {
+  console.log(location , 1232131313)
   const venueId = match.params.id
   const venue = state.entities.venues[venueId]
 
