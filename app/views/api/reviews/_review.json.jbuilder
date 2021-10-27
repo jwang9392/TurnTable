@@ -6,4 +6,5 @@ json.extract! review,
   :music_rating, 
   :service_rating, 
   :ambience_rating, 
-  :review_body
+  :review_body, 
+  :created_at

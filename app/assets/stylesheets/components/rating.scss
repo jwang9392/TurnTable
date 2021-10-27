@@ -283,6 +283,14 @@ div.custom-input-container input.user-valid:focus{
   padding: 1.15rem 0;
 }
 
+.review-item-stars-container {
+  display: flex;
+}
+
+.review-item-stars-container > div {
+  margin-right: 45px;
+}
+
 .star-group {
   display: flex;
   justify-content: center;
@@ -292,6 +300,45 @@ div.custom-input-container input.user-valid:focus{
 
 .star-rating {
   width: max-content;
+}
+
+.stars {
+  margin-top: 8px;
+}
+
+.checked {
+  color: rgb(254,171,108);
+}
+
+.unchecked {
+  color: rgb(225,225,225);
+}
+
+.review-item {
+  height: auto;
+  width: auto;
+}
+
+.review-item > span , .review-item label {
+  color: rgb(153,153,153);
+}
+
+.review-item > p {
+  margin-top: 24px;
+  margin-bottom: 20px;
+  max-height: 80px;
+  overflow-wrap: break-word;
+  overflow: scroll;
+}
+
+.review-item-container {
+  margin: 20px 8px 0 0;
+  padding: 24px 16px;
+  height: fit-content;
+  width: auto;
+  border: 1px solid rgb(235,235,235);
+  border-radius: 4px;
+  box-sizing: border-box;
 }
 
 .label-hidden {

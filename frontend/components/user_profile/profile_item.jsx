@@ -1,9 +1,10 @@
 import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
+import ReviewItem from '../review/review_item';
 
 const ProfileItem = (props) => {
   const { user, venue, reservation, review, type, past } = props
-
+  
   const dateConversion = date => {
     let dateParts = date.split("-");
     let convertedParts = [dateParts[1], dateParts[2], dateParts[0]];
@@ -57,6 +58,11 @@ const ProfileItem = (props) => {
               }}>
                 <i className="far fa-comment-alt"></i> Write Review
               </Link>
+            </div>
+            <div className={review ? "review-item-container" : "hidden"}>
+              <ReviewItem
+                review={review}
+              />
             </div>
           </>
         )
