@@ -33,3 +33,10 @@ export const createReview = review => dispatch => (
     err => (dispatch(receiveErrors(err.responseJSON)))
   )
 )
+
+export const updateReview = review => dispatch => (
+  ApiUtil.updateReview(review).then(
+    review => dispatch(receiveReviews(review.user_id)),
+    err => (dispatch(receiveErrors(err.responseJSON)))
+  )
+)

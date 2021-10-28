@@ -43,6 +43,4 @@ const ReviewItem = (props) => {
   )
 }
 
-// rgb(225, 225, 225)
-
 export default ReviewItem;

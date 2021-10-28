@@ -9,6 +9,7 @@ Rails.application.routes.draw do
       resources :reviews, only: [:index, :create]
     end 
     resources :reservations, only: [:show, :update, :destroy]
+    resources :reviews, only: [:update]
     resource :session, only: [:create, :destroy]
 
     get '/search', to: 'venues#search'

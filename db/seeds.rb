@@ -15,7 +15,7 @@ User.create!({
     lname: 'User',
     email: 'hello@world.com',
     password: 'helloworld',
-    username: 'hello world',
+    username: 'GuestU',
     phone_number: '123-456-7890'
 })
 

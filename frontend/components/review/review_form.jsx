@@ -7,12 +7,12 @@ class ReviewForm extends React.Component {
     super(props);
     this.state = {
       current_step: 1, 
-      overall_rating: 0,
-      music_rating: 0, 
-      service_rating: 0, 
-      ambience_rating: 0, 
-      review_body: "", 
-      username: props.user.username ? props.user.fname + props.user.lname[0] : ""
+      overall_rating: props.review ? props.review.overall_rating : 0,
+      music_rating: props.review ? props.review.music_rating : 0,
+      service_rating: props.review ? props.review.service_rating : 0,
+      ambience_rating: props.review ? props.review.ambience_rating : 0,
+      review_body: props.review ? props.review.review_body : "",
+      username: props.user.username ? props.user.username : ""
     };
 
     this.next = this.next.bind(this);
@@ -127,9 +127,9 @@ class ReviewForm extends React.Component {
       ambience_rating,
       review_body, 
     } = this.state;
-    const { createReview, user, venue } = this.props;
+    const { createReview, updateReview, user, venue, review } = this.props;
 
-    const review = {
+    const newReview = {
       overall_rating: overall_rating, 
       music_rating: music_rating,
       service_rating: service_rating, 
@@ -139,14 +139,28 @@ class ReviewForm extends React.Component {
       venue_id: venue.id
     }
 
-    createReview(review).then(data => {
-      this.props.history.replace({
-        pathname: `/my/Profile`,
-        state: {
-          past: []
-        }
+    if (!review) {
+      createReview(newReview).then(data => {
+        this.props.history.replace({
+          pathname: `/my/Profile`,
+          state: {
+            past: []
+          }
+        })
       })
-    })
+    } else {
+      const updatedReview = Object.assign({}, review, newReview);
+      delete updatedReview["created_at"];
+
+      updateReview(updatedReview).then(data => {
+        this.props.history.replace({
+          pathname: `/my/Profile`,
+          state: {
+            past: []
+          }
+        })
+      })
+    }
   }
 
   render() {

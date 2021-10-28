@@ -53,10 +53,11 @@ const ProfileItem = (props) => {
                 pathname: `/feedback/vi=${venue.id}&rk=${res.id}`,
                 state: {
                   venue: venue,
-                  res: res
+                  res: res, 
+                  review: review
                 }
               }}>
-                <i className="far fa-comment-alt"></i> Write Review
+                <i className="far fa-comment-alt"></i> {review ? "Edit Review" : "Write Review"}
               </Link>
             </div>
             <div className={review ? "review-item-container" : "hidden"}>

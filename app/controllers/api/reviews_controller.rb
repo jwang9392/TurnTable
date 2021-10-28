@@ -1,3 +1,5 @@
+require 'byebug'
+
 class Api::ReviewsController < ApplicationController
   def index
     @param = ""
@@ -17,11 +19,25 @@ class Api::ReviewsController < ApplicationController
     @review = Review.new(review_params)
 
     if @review.save
-      render json: ["Review Created"]
+      render :show
     else
       render json: @reservation.errors.full_messages, status: 422
     end
   end
+
+  def update
+    @review = Review.find_by(id: params[:id])
+    debugger
+    @action = 'UPDATE'
+
+    if @review.update(review_params)
+        @review.save
+        render :show
+    else
+        render json: @review.errors.full_messages, status: 422
+    end
+  end
+
 
   private
 
