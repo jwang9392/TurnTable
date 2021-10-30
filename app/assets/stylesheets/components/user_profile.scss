@@ -4,6 +4,10 @@
   font-size: 25px;
 }
 
+.close-btn:hover {
+  cursor: pointer;
+}
+
 .close-btn::after {
   content: "\00d7";
 }
