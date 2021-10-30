@@ -1,3 +1,17 @@
+.close-btn {
+  margin-top: -5px;
+  margin-right: 10px;
+  font-size: 25px;
+}
+
+.close-btn:hover {
+  cursor: pointer;
+}
+
+.close-btn::after {
+  content: "\00d7";
+}
+
 .profile-container {
   display: flex;
   justify-content: center;
@@ -110,12 +124,13 @@
 .user-update-container {
   margin: 30px 0;
   background-color: white;
+  overflow: hidden;
 }
 
 .user-update-form {
   display: flex;
   flex-direction: column;
-  padding: 25px;
+  padding: 0 25px 25px;
 }
 
 .user-update-input {
@@ -166,6 +181,32 @@
   background-color: #fcedef;
   border: 1px solid rgb(189, 36, 46);
   outline: none;
+}
+
+.user-update-banner {
+  margin: 25px auto 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 52px;
+  width: 774px;
+  background-color: rgb(240,250,242);
+  border: 1px solid rgb(48,133,77);
+  border-radius: 3px;
+}
+
+.user-update-banner > div:first-child {
+  display: flex;
+  align-items: center;
+}
+
+.user-update-banner i {
+  font-size: 18px;
+}
+
+.user-update-banner p {
+  font-size: 14px;
+  font-weight: lighter;
 }
 
 .input-short {

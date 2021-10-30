@@ -27,7 +27,6 @@ class Api::ReviewsController < ApplicationController
 
   def update
     @review = Review.find_by(id: params[:id])
-    debugger
     @action = 'UPDATE'
 
     if @review.update(review_params)

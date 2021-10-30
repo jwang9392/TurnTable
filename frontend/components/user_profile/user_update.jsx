@@ -5,9 +5,11 @@ class UserUpdate extends React.Component {
     super(props);
     this.state = {
       visited: false,
+      updated: false,
       user: props.user,
       fname: props.user.fname,
       lname: props.user.lname,
+      username: props.user.username,
       email: props.user.email, 
       phone_number: props.user.phone_number,
       new_password: "", 
@@ -15,6 +17,7 @@ class UserUpdate extends React.Component {
       inputErrors: {
         fname: false,
         lname: false,
+        username: false,
         email: false,
         phone_number: false,
         new_password: false, 
@@ -24,6 +27,7 @@ class UserUpdate extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.update = this.update.bind(this);
     this.errorMessage = this.errorMessage.bind(this);
+    this.closeBanner = this.closeBanner.bind(this);
   }
 
   errorMessage(type) {
@@ -34,7 +38,9 @@ class UserUpdate extends React.Component {
       "email": "Email"
     };
 
-    if (this.state[type] === "" && type != "new_password" && type != "check_password") {
+    if (type === "username") {
+      return "Your review display name must be between 4 and 25 characters in length and only use letters and numbers."
+    } else if (this.state[type] === "" && type != "new_password" && type != "check_password") {
       return val[type].concat(" is required.");
     } else if (type === "email" && !this.validateEmail(this.state[type])) {
       return "Please enter a valid email address."
@@ -54,6 +60,10 @@ class UserUpdate extends React.Component {
     };
   }
 
+  validateUsername(username) {
+    return /^(?=.{4})[a-z]([_]?[a-z\d]+)*$/i.test(username);
+  }
+
   update(e) {
     let field = e.target.name;
     const val = e.target.value;
@@ -61,7 +71,14 @@ class UserUpdate extends React.Component {
       [field]: val
     });
 
-    if (field != "new_password" && field != "check_password" && val.length === 0) {
+    if (field === "username" && !this.validateUsername(val)) {
+      this.setState({
+        inputErrors: {
+          ...this.state.inputErrors,
+          [field]: true
+        }
+      });
+    } else if (field != "new_password" && field != "check_password" && val.length === 0) {
       this.setState({
         inputErrors: {
           ...this.state.inputErrors,
@@ -146,13 +163,14 @@ class UserUpdate extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    const { fname, lname, email, phone_number, new_password, check_password } = this.state;
+    const { fname, lname, username, email, phone_number, new_password, check_password } = this.state;
 
     if (Object.values(this.state.inputErrors).includes(true)) return;
     let user = {
       ...this.props.user,
       fname: fname, 
       lname: lname,
+      username: username,
       email: email,
       phone_number: phone_number
     };
@@ -163,15 +181,28 @@ class UserUpdate extends React.Component {
       });
     }
 
-    this.props.updateUser(user);
+    this.props.updateUser(user).then(() => {
+      this.setState({updated: true});
+      window.scrollTo(0, 0);
+    });
   }
 
+  closeBanner = () => {
+    this.setState({updated: false});
+  }
 
   render() {
-    let {fname, lname, email, phone_number, new_password, check_password, inputErrors} = this.state;
+    let {fname, lname, username, email, phone_number, new_password, check_password, inputErrors} = this.state;
 
     return (
       <div className="user-update-container">
+        <div className={this.state.updated ? "user-update-banner" : "hidden"}>
+          <div>
+            <i className="fas fa-check-circle"></i>
+            <p>Your changes are saved</p>
+          </div>
+          <div className="close-btn" onClick={this.closeBanner}></div>
+        </div>
         <form onSubmit={this.handleSubmit} className="user-update-form">
           <h2>About me</h2>
           <div className="user-update-name">
@@ -209,6 +240,19 @@ class UserUpdate extends React.Component {
             </div>
           </div>
           <label className="update-input-container">
+            Review display name
+            <input
+              name="username"
+              type="text"
+              defaultValue={username}
+              placeholder='Review display name'
+              onChange={this.update}
+              className={`user-update-input input-long ${inputErrors.username ? "update-input-error" : ""}`}
+            />
+          </label>
+          <div className={`input-error-message ${inputErrors.username ? "" : "hidden"
+            }`}>{this.errorMessage("username")}</div>
+          <label className="update-input-container">
             Email address
             <input 
               name="email"
@@ -220,7 +264,7 @@ class UserUpdate extends React.Component {
             />
           </label>
           <div className={`input-error-message ${
-            this.state.inputErrors.email ? "" : "hidden"
+            inputErrors.email ? "" : "hidden"
           }`}>{this.errorMessage("email")}</div>
           <label className="update-input-container">
             Phone
