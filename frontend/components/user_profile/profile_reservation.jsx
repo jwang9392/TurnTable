@@ -21,7 +21,6 @@ const ProfileReservation = (props) => {
     }
     let resDate = new Date(dateParts[0], dateParts[1] - 1, dateParts[2], hours + 1, 0, 0);
     let currDate = new Date();
-    res["dateTime"] = resDate;
 
     if (resDate >= currDate) {
       upcoming.push(res);
@@ -31,7 +30,7 @@ const ProfileReservation = (props) => {
   };
 
   upcoming.sort((a, b) => {
-    if (a.dateTime < b.dateTime) {
+    if (a.date < b.date) {
       return -1;
     } else {
       return 1;
@@ -39,7 +38,7 @@ const ProfileReservation = (props) => {
   });
   
   past.sort((a, b) => {
-    if (a.dateTime < b.dateTime) {
+    if (a.date < b.date) {
       return 1;
     } else {
       return -1;

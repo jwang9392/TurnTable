@@ -9,17 +9,19 @@ const mapStateToProps = (state, {match, location}) => {
     return state.errors['reservation'] = [];
   }
 
-  const dateParts = location.state.date.split("-");
-  const resDate = new Date(dateParts[0], dateParts[1] - 1, dateParts[2])
-  
+  let storedParams; 
+  if (!location.state) {
+    storedParams = JSON.parse(localStorage.getItem(`search-params-${state.session.currentUserId}`));
+  }
+
   return {
     currentUser: state.entities.users[state.session.currentUserId],
     venue: state.entities.venues[match.params.venue_id],
     reservations: state.entities.reservations,
     loggedIn: Boolean(state.session.currentUserId),
-    date: resDate,
-    time: location.state.time,
-    partySize: location.state.partySize,
+    date: location.state ? location.state.date : new Date(storedParams.date),
+    time: location.state ? location.state.time : storedParams.time,
+    partySize: location.state ? location.state.partySize : storedParams.partySize,
     errors: state.errors,
     clearErrors: clearErrors()
   }

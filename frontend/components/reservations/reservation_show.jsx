@@ -52,8 +52,40 @@ class ReservationShow extends React.Component {
   }
 
   createHistory(past) {
-    const { venues } = this.props;
+    const { venues, reservations } = this.props;
     const { presetDate, presetTime, presetSize } = this.state;
+
+    if (!past) {
+      past = [];
+
+      for (let resId in reservations) {
+        let res = reservations[resId];
+        let dateParts = res.date.split("-");
+        let hours = res.time.slice(0, -5);
+        let period = res.time.slice(-2);
+        if (res.time === "12:00AM") {
+          hours = 0;
+        } else if (period === "PM") {
+          hours = 12 + parseInt(hours);
+        } else {
+          hours = parseInt(hours);
+        }
+        let resDate = new Date(dateParts[0], dateParts[1] - 1, dateParts[2], hours + 1, 0, 0);
+        let currDate = new Date();
+
+        if (resDate < currDate) {
+          past.push(res);
+        };
+      };
+
+      past.sort((a, b) => {
+        if (a.date < b.date) {
+          return 1;
+        } else {
+          return -1;
+        }
+      });
+    };
 
     if (past.length > 3) past = past.slice(0, 3);
 
@@ -95,7 +127,7 @@ class ReservationShow extends React.Component {
     const {presetDate, presetTime, presetSize} = this.state;
     const venue = venues[res.venue_id];
     let dateParts = res.date.split("-");
-    let date = new Date(...dateParts, 0, 0, 0);
+    let date = new Date(dateParts);
     date = date.toString().split(" ").slice(0, 3);
     let dateFront = [date.slice(0, -1).join(', ')];
     date = dateFront.concat([date[2]]).join(" ");
@@ -195,9 +227,9 @@ class ReservationShow extends React.Component {
               </div>
               <div className="res-show-history-sidebar">
                 <div className="res-show-history-container">
-                  <div>
+                <div className="res-show-history-header">
                     <h3>Your dining history</h3>
-                    {/* link */}
+                  <Link to={{ pathname: "/my/Profile", scroll: "past" }} className="res-show-history-view">View all</Link>
                   </div>
                   <div>
                     {this.createHistory(past)}

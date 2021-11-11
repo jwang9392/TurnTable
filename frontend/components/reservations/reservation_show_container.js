@@ -8,6 +8,7 @@ const mapStateToProps = ({entities, session}, {match, location}) => {
 
   return {
     res: entities.reservations[match.params.id],
+    reservations: entities.reservations,
     venues: entities.venues,
     user: entities.users[session.currentUserId],
     past: locState.past
@@ -16,6 +17,7 @@ const mapStateToProps = ({entities, session}, {match, location}) => {
 
 const mapDispatchToProps = dispatch => {
   return {
+    fetchReservations: (userId) => dispatch(fetchReservations(userId)),
     fetchReservation: (resId) => dispatch(fetchReservation(resId)),
     deleteReservation: (resId) => dispatch(deleteReservation(resId)),
     updateReservation: (reservation) => dispatch(updateReservation(reservation))

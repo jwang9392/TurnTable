@@ -7,7 +7,7 @@ class UserProfile extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      display: "res"
+      display: props.display ? props.display : "res"
     }
     this.handleClick = this.handleClick.bind(this);
   }
@@ -16,8 +16,8 @@ class UserProfile extends React.Component {
     const { scroll, currentUser, fetchReservations, fetchVenues, fetchUserReviews } = this.props;
 
     fetchReservations(this.props.currentUser.id);
-    fetchVenues();
     fetchUserReviews(currentUser.id);
+    fetchVenues();
 
     if (scroll) document.getElementById('past').scrollIntoView();
   }
@@ -27,7 +27,7 @@ class UserProfile extends React.Component {
   }
 
   toggleNav(location) {
-    if (this.props.venues && Object.values(this.props.venues).length > 0 && this.props.reviews && Object.values(this.props.reviews).length > 0) {
+    if (this.props.venues && Object.values(this.props.venues).length > 0) {
       const {reservations, venues, reviews} = this.props;
   
       switch (location) {
@@ -50,7 +50,6 @@ class UserProfile extends React.Component {
     } else {
       return <div />;
     }
-
   }
 
   render() {

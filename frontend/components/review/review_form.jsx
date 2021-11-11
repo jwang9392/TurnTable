@@ -22,7 +22,7 @@ class ReviewForm extends React.Component {
   }
 
   componentWillUnmount() {
-    localStorage.clear();
+    localStorage.removeItem(this.props.revKey);
   }
 
   next() {
@@ -174,7 +174,7 @@ class ReviewForm extends React.Component {
       username
     } = this.state;
     const { user, venue, res, openModal } = this.props;
-  
+
     return (
       <form className="review-form" onSubmit={this.handleSubmit}>
         <div className="review-page-indicator">

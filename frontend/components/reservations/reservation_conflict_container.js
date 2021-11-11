@@ -6,16 +6,19 @@ import ReservationConflict from "./reservation_conflict";
 
 const mapStateToProps = (state, {location}) => {
   const reservations = state.entities.reservations;
-  const {date, time, partySize} = location.state;
-  const dateParts = date.split("-");
-  const resDate = new Date(dateParts[0], dateParts[1] - 1, dateParts[2])
+  let storedParams;
+  if (!location.state) {
+    storedParams = JSON.parse(localStorage.getItem(`search-params-${state.session.currentUserId}`));
+  }
+  const date = location.state ? location.state.date : new Date(storedParams.date)
+  const { time, partySize } = location.state ? location.state : storedParams;
   const newVenueId = parseInt(location.pathname.split("/")[2]);
 
   let oldRes;
   for (let key in reservations) {
     let res = reservations[key];
 
-    if (res.time === time && res.date === date) {
+    if (res.time === time && res.date === date.toISOString().slice(0, 10)) {
       oldRes = res;
     }
   }
@@ -26,7 +29,7 @@ const mapStateToProps = (state, {location}) => {
     newVenue: state.entities.venues[newVenueId],
     oldVenue: state.entities.venues[oldRes.venue_id],
     oldRes: oldRes,
-    date: resDate,
+    date: date,
     time: time,
     newPartySize: partySize,
     loggedIn: Boolean(state.session.currentUserId)

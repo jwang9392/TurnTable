@@ -8,25 +8,30 @@ const mapStateToProps = ({entities, session}, ownProps) => {
   const revKey = "revKey-" + resId + "-" + session.currentUserId;
   let venue;
   let res;
+  let review;
   
   if (ownProps.location.state && !localStorage.getItem(revKey)) {
     localStorage.setItem(revKey, JSON.stringify(ownProps.location.state));
     venue = ownProps.location.state.venue;
     res = ownProps.location.state.res;
+    review = ownProps.location.state.review;
   } else if (!ownProps.location.state) {
     let storedRes = JSON.parse(localStorage.getItem(revKey));
     venue = storedRes.venue;
     res = storedRes.res;
+    review = storedRes.review
   } else {
     venue = ownProps.location.state.venue;
     res = ownProps.location.state.res;
+    review = ownProps.location.state.review;
   }
   
   return {
     user: entities.users[session.currentUserId],
-    venue: venue, 
-    res: res, 
-    review: ownProps.location.state.review
+    venue, 
+    res, 
+    review, 
+    revKey
   }
 }
 

@@ -140,6 +140,17 @@
   font-weight: normal;
 }
 
+.res-show-history-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.res-show-history-view {
+  padding-top: 2px;
+  text-decoration: none;
+  color: #DA3743;
+}
+
 .history-item {
   display: flex;
   margin-top: 24px;

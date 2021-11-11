@@ -165,7 +165,6 @@ class ReservationForm extends React.Component {
     if (loggedIn) {
       for (let resId in reservations) {
         let res = reservations[resId];
-        let dateParts = res.date.split("-");
         let hours = res.time.slice(0, -5);
         let period = res.time.slice(-2);
         if (res.time === "12:00AM") {
@@ -175,17 +174,16 @@ class ReservationForm extends React.Component {
         } else {
           hours = parseInt(hours);
         }
-        let resDate = new Date(dateParts[0], dateParts[1] - 1, dateParts[2], hours + 1, 0, 0);
+
         let currDate = new Date();
-        res["dateTime"] = resDate;
   
-        if (resDate < currDate) {
+        if (res.date < currDate) {
           past.push(res);
         }
       };
   
       past.sort((a, b) => {
-        if (a.dateTime < b.dateTime) {
+        if (a.date < b.date) {
           return 1;
         } else {
           return -1;

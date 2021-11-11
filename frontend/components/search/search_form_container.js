@@ -3,6 +3,13 @@ import { searchVenues } from "../../actions/venue_actions"
 import { deleteAllFilters } from "../../actions/filter_actions"
 import SearchForm from "./search_form";
 
+const mapStateToProps = ({ entities, session }) => {
+  return {
+    currentUser: entities.users[session.currentUserId]
+  };
+};
+
+
 const mapDispatchToProps = (dispatch) => {
   return {
     processSearch: (searchParams) => dispatch(searchVenues(searchParams)),
@@ -10,4 +17,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default connect(null, mapDispatchToProps)(SearchForm);
+export default connect(mapStateToProps, mapDispatchToProps)(SearchForm);

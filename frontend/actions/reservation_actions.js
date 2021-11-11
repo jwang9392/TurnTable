@@ -25,7 +25,6 @@ const receiveErrors = errors => ({
   errors
 })
 
-
 export const fetchReservations = (userId=0) => dispatch => (
   ApiUtil.fetchReservations(userId).then(
     reservations => dispatch(receiveReservations(reservations)),

@@ -1,24 +1,72 @@
 import React from 'react';
-import SearchBarContainer from './search_bar_container';
+import SearchFields from './search_fields';
 import SearchIndexItem from './search_index_item';
 import FilterForm from './filter_form_container';
 import { withRouter } from 'react-router-dom';
-import { parseHash } from '../../util/util';
 
 class SearchIndex extends React.Component {
 
   constructor(props) {
     super(props);
-    this.searchQuery = props.searchQuery;
-    this.searchHash = props.searchHash;
+    this.state = {
+      date: props.date,
+      time: props.time,
+      partySize: props.partySize,
+      searchQuery: props.searchQuery
+    };
+
     this.createVenueList = this.createVenueList.bind(this);
     this.filter = this.filter.bind(this);
     this.renderChoice = this.renderChoice.bind(this);
+    this.update = this.update.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   componentDidMount() {
     this.props.clearFilters();
-    this.props.processSearch(this.searchQuery);
+    this.props.processSearch(this.state.searchQuery);
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.location !== prevProps.location) {
+      const { date, time, partySize } = this.props;
+
+      if (this.state.date.valueOf() != date.valueOf() || this.state.time != time || this.state.partySize != partySize ) {
+        this.setState({
+          date, 
+          time, 
+          partySize
+        });
+      }
+    }
+  }
+
+  update(field) {
+    return e => this.setState({
+      [field]: e.target.value
+    });
+  }
+
+  handleChange(selectedDate) {
+    return this.setState({
+      "date": selectedDate
+    })
+  }
+
+  handleSubmit(e) {
+    e.preventDefault();
+    const { date, time, partySize, searchQuery } = this.state;
+    const formattedDate = this.props.formatDate(date)
+
+    this.props.clearFilters();
+    this.props.processSearch(searchQuery).then(() => {
+      localStorage.setItem(`search-params-${this.props.currentUser.id}`, (JSON.stringify(this.state)));
+
+      this.props.history.push(
+        `/search/query?${searchQuery}#${formattedDate}#${time}#${partySize}`
+      )
+    });
   }
 
   filter(filterList, type, venues) {
@@ -47,16 +95,17 @@ class SearchIndex extends React.Component {
   }
 
   createVenueList(venues) {
-    let parsed = parseHash(this.props.searchHash)
+    const { date, time, partySize } = this.props;
+    
     let venueLis = Object.values(venues).map((venue) => {
       return (
         <SearchIndexItem
           key={venue.id}
           venue={venue}
           reservationsToday={venue.reservationsToday}
-          date={parsed.date}
-          time={parsed.time}
-          partySize={parsed.partySize}
+          date={date}
+          time={time}
+          partySize={partySize}
           openModal={this.props.openModal}
         />
       );
@@ -97,6 +146,7 @@ class SearchIndex extends React.Component {
     let venues = this.props.venues;
     let filterList = Object.values(this.props.filters);
     let genreLen = this.props.filters.Genre.length;
+    const {date, time, partySize, searchQuery} = this.state;
 
     if (filterList.length != 0) {
       let filteredVenues = {};
@@ -111,7 +161,19 @@ class SearchIndex extends React.Component {
 
     return (
       <div>
-        <SearchBarContainer />
+        <div className='search-bar'>
+          <form onSubmit={this.handleSubmit}> 
+            <SearchFields 
+              date={date}
+              time={time}
+              partySize={partySize}
+              searchQuery={searchQuery}
+              update={this.update}
+              handleChange={this.handleChange}
+            />
+            <button className="search-submit">Find a Table</button>
+          </form>
+        </div>
         <div className="search-columns">
           <div className='filter-column'>
             <FilterForm />
