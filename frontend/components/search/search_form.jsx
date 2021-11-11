@@ -7,10 +7,10 @@ class SearchForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      searchQuery: "",
-      date: new Date(),
-      time: "9:00PM",
-      partySize: 2
+      date: props.date,
+      time: props.time,
+      partySize: props.partySize,
+      searchQuery: ""
     };
 
     this.update = this.update.bind(this);

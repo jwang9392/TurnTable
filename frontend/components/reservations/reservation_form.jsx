@@ -234,32 +234,33 @@ class ReservationForm extends React.Component {
       return
     }
 
+    const { time, date, partySize, reservations, currentUser, loggedIn, createReservation, updateUser } = this.props
     const reservation = {
-      time: this.props.time,
-      date: this.props.date,
-      party_size: this.props.partySize,
+      time: time,
+      date: date,
+      party_size: partySize,
       occasion: this.state.occasion,
       special_request: this.state.special_request,
       venue_id: this.state.venue_id
     }
-    const {reservations} = this.props
     const past = this.past(reservations);
 
     this.setState({ res: reservation });
 
-    if (this.props.loggedIn) {
+    if (loggedIn) {
       reservation.user_id = this.state.user_id
     }
     
-    this.props.createReservation(reservation).then(data => {
+    createReservation(reservation).then(data => {
+      localStorage.removeItem(`search-params-${currentUser.id}`);
       const resId = data.reservation.id;
       const user = {
-        ...this.props.currentUser, 
+        ...currentUser, 
         "phone_number": this.state.phone_number
       }
 
       if (this.state.changed) {
-        this.props.updateUser(user)
+        updateUser(user)
       }
 
       this.props.history.replace({

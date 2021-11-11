@@ -4,8 +4,13 @@ import { deleteAllFilters } from "../../actions/filter_actions"
 import SearchForm from "./search_form";
 
 const mapStateToProps = ({ entities, session }) => {
+  let storedParams = JSON.parse(localStorage.getItem(`search-params-${session.currentUserId}`));
+  
   return {
-    currentUser: entities.users[session.currentUserId]
+    currentUser: entities.users[session.currentUserId], 
+    date: storedParams ? new Date(storedParams.date) : new Date(), 
+    time: storedParams ? storedParams.time : "9:00PM",
+    partySize: storedParams ? storedParams.partySize : 2
   };
 };
 
