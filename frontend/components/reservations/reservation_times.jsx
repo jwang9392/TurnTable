@@ -48,7 +48,7 @@ const ReservationTimes = (props) => {
               })
             }
           >
-            {time}
+            {time.slice(0, -2)} {time.slice(-2)}
           </button>
         </li>)
       }

@@ -484,7 +484,8 @@ class ReservationForm extends React.Component {
   }
 
   render() {
-    const { minutes, seconds } = this.state
+    const { minutes, seconds, userExists } = this.state;
+    const { time, partySize, venue, loggedIn } = this.props;
     let date = this.props.date.toString().split(" ").slice(0, 3);
     let dateFront = [date.slice(0, -1).join(', ')];
     date = dateFront.concat([date[2]]).join(" ");
@@ -497,7 +498,7 @@ class ReservationForm extends React.Component {
             <div className="res-left-header">
               <div className='res-img'></div>
               <div>
-                <p className="res-venue-name">{this.props.venue.name}</p>
+                <p className="res-venue-name">{venue.name}</p>
                 <div className="res-details">
                   <div>
                     <i id="date" className="far fa-calendar"></i>
@@ -505,11 +506,11 @@ class ReservationForm extends React.Component {
                   </div>
                   <div>
                     <i id="ticker" className="far fa-clock"></i>
-                    &nbsp;&nbsp;{this.props.time}
+                    &nbsp;&nbsp;{time.slice(0, -2)} {time.slice(-2)}
                   </div>
                   <div>
                     <i id="user-icon" className="far fa-user"></i>
-                    &nbsp;&nbsp;{this.props.partySize}
+                    &nbsp;&nbsp;{partySize}
                   </div>  
                 </div>
               </div>
@@ -525,10 +526,10 @@ class ReservationForm extends React.Component {
               </div> 
             }
 
-            <div className={`res-user-exists ${this.state.userExists ? "" : "hidden"}`}>This email address is already registered. Please sign in to complete your reservation.</div>
+            <div className={`res-user-exists ${userExists ? "" : "hidden"}`}>This email address is already registered. Please sign in to complete your reservation.</div>
             
             <form className="res-form" onSubmit={this.handleSubmit} noValidate>
-              <>{this.props.loggedIn ? this.loggedInComponent() : this.loggedOutComponent()}</>
+              <>{loggedIn ? this.loggedInComponent() : this.loggedOutComponent()}</>
               <div className="res-contact-options">
                   <div>
                     <input className="res-checkbox" type="checkbox" />&nbsp;
@@ -553,8 +554,8 @@ class ReservationForm extends React.Component {
             <p>We may contact you about this reservation, so please ensure your email and phone number are up to date.</p>
             <br /><br />
             <p>Your table will be reserved for 1 hour 30 minutes for parties of up to 2; 2 hours for parties of up to 4; and 2 hours 30 minutes for parties of 5+.</p>
-            <div>A note from {this.props.venue.name}</div>
-            <p>Thank you for making your reservation at {this.props.venue.name}. Please note that we try our best to accommodate all reservations as received; however we cannot guarantee seating in any specific room unless specified and agreed upon. Kindly call if you are delayed 30 minutes after your reservation time. Furthermore, if you do not see your preferred time slot, please call us at {this.props.venue.phone_number}; we will try our best to accommodate you!</p>
+            <div>A note from {venue.name}</div>
+            <p>Thank you for making your reservation at {venue.name}. Please note that we try our best to accommodate all reservations as received; however we cannot guarantee seating in any specific room unless specified and agreed upon. Kindly call if you are delayed 30 minutes after your reservation time. Furthermore, if you do not see your preferred time slot, please call us at {this.props.venue.phone_number}; we will try our best to accommodate you!</p>
           </div>
         </section>
       </div>

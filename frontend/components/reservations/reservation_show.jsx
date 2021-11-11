@@ -55,7 +55,7 @@ class ReservationShow extends React.Component {
     const { venues, reservations } = this.props;
     const { presetDate, presetTime, presetSize } = this.state;
 
-    if (!past) {
+    if (!past || Object.values(past).length === 0) {
       past = [];
 
       for (let resId in reservations) {
