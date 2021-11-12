@@ -252,7 +252,7 @@ class ReservationForm extends React.Component {
     }
     
     createReservation(reservation).then(data => {
-      localStorage.removeItem(`search-params-${currentUser.id}`);
+      localStorage.removeItem(`search-params`);
       const resId = data.reservation.id;
       const user = {
         ...currentUser, 

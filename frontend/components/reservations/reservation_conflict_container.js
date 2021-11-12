@@ -8,7 +8,7 @@ const mapStateToProps = (state, {location}) => {
   const reservations = state.entities.reservations;
   let storedParams;
   if (!location.state) {
-    storedParams = JSON.parse(localStorage.getItem(`search-params-${state.session.currentUserId}`));
+    storedParams = JSON.parse(localStorage.getItem(`search-params`));
   }
   const date = location.state ? location.state.date : new Date(storedParams.date)
   const { time, partySize } = location.state ? location.state : storedParams;

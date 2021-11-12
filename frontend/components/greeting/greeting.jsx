@@ -4,6 +4,15 @@ import { Link, withRouter } from "react-router-dom";
 class Greeting extends React.Component {
   constructor(props) {
     super(props);
+
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleClick() {
+    const { currentUserId, logout } = this.props;
+
+    localStorage.removeItem(`search-params`);
+    logout();
   }
 
   toggle() {
@@ -42,7 +51,7 @@ class Greeting extends React.Component {
                 {/* HOW TO ROUTE TO FAVORITES? THROUGH ASSOCIATION */}
 
                 <Link to="" className="dropdown-item">My Saved Venues</Link>
-                <Link to="/" className="dropdown-item" onClick={this.props.logout}>Sign Out</Link>
+                <Link to="/" className="dropdown-item" onClick={this.handleClick}>Sign Out</Link>
               </div>
             </div>
           </div>

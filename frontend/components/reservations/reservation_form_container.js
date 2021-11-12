@@ -11,7 +11,7 @@ const mapStateToProps = (state, {match, location}) => {
 
   let storedParams; 
   if (!location.state) {
-    storedParams = JSON.parse(localStorage.getItem(`search-params-${state.session.currentUserId}`));
+    storedParams = JSON.parse(localStorage.getItem(`search-params`));
   }
 
   return {
