@@ -109,11 +109,11 @@
 .react-datepicker__current-month,
 .react-datepicker-time__header,
 .react-datepicker-year-header {
-  margin-top: 0;
+  margin-top: 10px;
   color: $datepicker__header-color;
   font-weight: bold;
   font-size: $datepicker__font-size * 1.18;
-  padding-bottom: 10px;
+  padding-bottom: 16px;
 }
 
 .react-datepicker-time__header {
@@ -123,29 +123,56 @@
 }
 
 .react-datepicker__navigation {
-  background: none;
+  position: absolute;
+  z-index: 1;
+  // background: none;
   line-height: $datepicker__item-size;
   text-align: center;
   cursor: pointer;
-  position: absolute;
   top: 10px;
   width: 0;
   padding: 0;
-  border: $datepicker__navigation-size solid transparent;
-  z-index: 1;
-  height: 10px;
-  width: 10px;
+  // border: $datepicker__navigation-size solid transparent;
+  transform: translateY(-50%);
+  border: 1px solid rgb(220,220,220);
+  // border-width: 2px;
+  // border-color: rgba(0,0,0,0.2);
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(245,245,245);
+  border-radius: 20px;
+
+  height: 30px;
+  width: 30px;
   text-indent: -999em;
-  overflow: hidden;
+  // overflow: hidden;
+  
 
   &--previous {
     outline: none;
-    top: 15px;
+    top: 32px;
     left: 20px;
-    border-right-color: $datepicker__muted-color;
+    // border-right-color: $datepicker__muted-color;
+
+    &::after {
+      position: absolute;
+      background-image: image-url('chevron-left.png');
+      background-size: 30%;
+      background-position: center;
+      background-repeat: no-repeat;
+      content: "";
+      top: 9px;
+      right: 7px;
+      height: 9px;
+      width: 15px;
+      z-index: 100;
+      background-color: rgb(245,245,245);
+    }
 
     &:hover {
-      border-right-color: darken($datepicker__muted-color, 10%);
+      border-width: 1px;
+      border-color: rgb(189, 36, 46);
+      box-shadow: inset 0px 0px 0px 1px rgb(189, 36, 46);
     }
 
     &--disabled,
@@ -157,20 +184,37 @@
 
   &--next {
     outline: none;
-    top: 15px;
+    top: 32px;
     right: 20px;
-    border-left-color: $datepicker__muted-color;
+    // border-left-color: $datepicker__muted-color;
     &--with-time:not(&--with-today-button) {
       right: 80px;
     }
 
+    &::after {
+      position: absolute;
+      background-image: image-url('chevron-right.png');
+      background-size: 30%;
+      background-position: center;
+      background-repeat: no-repeat;
+      content: "";
+      top: 9px;
+      left: 7px;
+      height: 9px;
+      width: 15px;
+      z-index: 100;
+      background-color: rgb(245,245,245);
+    }
+
     &:hover {
-      border-left-color: darken($datepicker__muted-color, 10%);
+      border-width: 1px;
+      border-color: rgb(189, 36, 46);
+      box-shadow: inset 0px 0px 0px 1px rgb(189, 36, 46);
     }
 
     &--disabled,
     &--disabled:hover {
-      border-left-color: $datepicker__navigation-disabled-color;
+      // border-left-color: $datepicker__navigation-disabled-color;
       cursor: default;
     }
   }
@@ -453,7 +497,10 @@
     color: $datepicker__muted-color;
 
     &:hover {
-      background-color: transparent;
+      cursor: default;
+      padding: 2px;
+      border: 1px solid gainsboro;
+      background-color: white;
     }
   }
 

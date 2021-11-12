@@ -34,7 +34,7 @@ class SearchForm extends React.Component {
     e.preventDefault();
     this.props.clearFilters();
     this.props.processSearch(this.state.searchQuery).then(() => {
-      localStorage.setItem(`search-params-${this.props.currentUser.id}`, (JSON.stringify(this.state)));
+      localStorage.setItem(`search-params-${this.props.currentUser ? this.props.currentUser.id : "guest"}`, (JSON.stringify(this.state)));
 
       this.props.history.push(
         `/search/query?${this.state.searchQuery}#${formatDate(this.state.date)}#${this.state.time}#${this.state.partySize}`

@@ -15,6 +15,7 @@ const SearchFields = ({ date, time, partySize, handleChange, update }) => {
             onFocus={e => e.target.blur()}
             dateFormat="MMM d, yyyy"
             selected={date}
+            minDate={new Date()}
             onChange={handleChange}
           />
           <i id='dropdown' className="fas fa-chevron-down"></i>

@@ -61,7 +61,7 @@ class SearchIndex extends React.Component {
 
     this.props.clearFilters();
     this.props.processSearch(searchQuery).then(() => {
-      localStorage.setItem(`search-params-${this.props.currentUser.id}`, (JSON.stringify(this.state)));
+      localStorage.setItem(`search-params-${this.props.currentUser ? this.props.currentUser.id : "guest"}`, (JSON.stringify(this.state)));
 
       this.props.history.push(
         `/search/query?${searchQuery}#${formattedDate}#${time}#${partySize}`
