@@ -3,7 +3,8 @@ import { Link, withRouter } from 'react-router-dom';
 import { formatDate } from '../../util/util';
 
 const CarouselItem = (props) => {
-  const { venue, key } = props;
+  const { venue, key, idx, type } = props;
+  const id = `${type}-carousel-${idx}`;
 
   const createDate = () => {
     const date = new Date();
@@ -55,17 +56,17 @@ const CarouselItem = (props) => {
   }
 
   return (
-    <Link 
-      className="carousel-link" 
-      to={{
-        pathname: `/venues/${venue.id}`,
-        state: {
-          date: createDate(),
-          time: "9:00PM",
-          partySize: "2" }
-      }}
-    >
-      <li className="carousel-item" key={key}>
+    <li id={id} className="carousel-item" key={key}>
+      <Link 
+        className="carousel-link" 
+        to={{
+          pathname: `/venues/${venue.id}`,
+          state: {
+            date: createDate(),
+            time: "9:00PM",
+            partySize: "2" }
+        }}
+      >
         <div className="carousel-item-container">
           <div className='carousel-item-image'></div>
           <div className="carousel-item-body">
@@ -79,8 +80,8 @@ const CarouselItem = (props) => {
             {todaysReservations()}
           </div>
         </div>
-      </li>
-    </Link>
+      </Link>
+    </li>
   )
 }
 

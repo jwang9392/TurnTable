@@ -49,6 +49,7 @@ class Home extends React.Component {
     if (this.props.venues && Object.values(this.props.venues).length > 0) {
       return (
         <Carousel
+          type={category}
           venues={this.state[category]}
         />
       )

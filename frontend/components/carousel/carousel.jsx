@@ -5,7 +5,10 @@ class Carousel extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      currentIndex: 0
+      currentIndex: 0,
+      position: 0, 
+      start: true,
+      end: false
     };
     this.prev = this.prev.bind(this);
     this.next = this.next.bind(this);
@@ -14,11 +17,13 @@ class Carousel extends React.Component {
   createCarouselItems(venues) {
     if (venues && venues.length > 0) {
       return (
-        venues.map(venue => {
+        venues.map((venue, i) => {
           return (
             <CarouselItem
               key={venue.id}
               venue={venue}
+              idx={i}
+              type={this.props.type}
             />
           )
         })
@@ -31,37 +36,90 @@ class Carousel extends React.Component {
   }
 
   next() {
-    if (this.state.currentIndex < 7) {
-      let newIdx = this.state.currentIndex + 4;
-      this.setState({currentIndex: newIdx})
+    const { currentIndex, position } = this.state;
+    let lastShowing;
+    let newIdx = currentIndex + 1;
+    let container = document.getElementsByClassName('carousel-content-wrapper')[0].getBoundingClientRect();
+    let carouselEndPos = document.getElementById(`${this.props.type}-carousel-10`).getBoundingClientRect().right;
+    
+    while (!lastShowing) {
+      const itemLoc = document.getElementById(`${this.props.type}-carousel-${newIdx}`).getBoundingClientRect();
+      
+      if (itemLoc.left > container.right || itemLoc.right > container.right && itemLoc.left < container.right) {
+        lastShowing = itemLoc;
+        if ((container.width + position) > carouselEndPos) {
+          let newPos = position + (carouselEndPos - container.width - container.left);
+          this.setState({ 
+            currentIndex: newIdx, 
+            position: newPos, 
+            end: true
+          })
+        } else {
+          this.setState({
+            currentIndex: newIdx, 
+            position: (position + itemLoc.left - container.left),
+            start: false
+          })
+        }
+      }
+
+      newIdx++;
     }
   }
 
   prev() {
-    if (this.state.currentIndex > 0) {
-      let newIdx = this.state.currentIndex - 4;
-      this.setState({ currentIndex: newIdx })
+    const { currentIndex, position, end } = this.state;
+    let firstShowing;
+    let newIdx = currentIndex;
+    let container = document.getElementsByClassName('carousel-content-wrapper')[0].getBoundingClientRect();
+
+    while (!firstShowing) {
+      const itemLoc = document.getElementById(`${this.props.type}-carousel-${newIdx}`).getBoundingClientRect();
+
+      if (itemLoc.right < container.left || itemLoc.right > container.left && itemLoc.left < container.left) {
+        firstShowing = itemLoc;
+        if (container.width > position) {
+          this.setState({
+            currentIndex: newIdx,
+            position: 0,
+            start: true
+          })
+        } else if (end) {
+          this.setState({
+            currentIndex: newIdx,
+            position: (position + itemLoc.right - container.width),
+            end: false
+          })
+        } else {
+          this.setState({
+            currentIndex: newIdx,
+            position: (position + container.left - container.width),
+            end: false
+          })
+        }
+      }
+
+      newIdx--;
     }
   }
-
 
   render() {
     return (
       <div className="carousel-container">
         <div className="carousel-wrapper">
           {
-            this.state.currentIndex > 0 &&
+            !this.state.start &&
             <button onClick={this.prev} className="custom-arrow-left">
               <i id="chevron-left" className="fas fa-chevron-left"></i>
             </button>
           }
           <div className="carousel-content-wrapper">
-            <div className="carousel-content" style={{ transform: `translateX(-${this.state.currentIndex * 20}%)` }}>
+            <div className="carousel-content" style={{ transform: `translateX(-${this.state.position}px)` }}>
                 {this.createCarouselItems(this.props.venues)}
             </div>
           </div>
           {
-            this.state.currentIndex < 7 &&
+            !this.state.end &&
             <button onClick={this.next} className="custom-arrow-right">
               <i id="chevron-right" className="fas fa-chevron-right"></i>
             </button>
