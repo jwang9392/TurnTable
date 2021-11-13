@@ -8,7 +8,8 @@ class Carousel extends React.Component {
       currentIndex: 0,
       position: 0, 
       start: true,
-      end: false
+      end: false, 
+      clicked: false
     };
     this.prev = this.prev.bind(this);
     this.next = this.next.bind(this);
@@ -36,70 +37,88 @@ class Carousel extends React.Component {
   }
 
   next() {
-    const { currentIndex, position } = this.state;
-    let lastShowing;
-    let newIdx = currentIndex + 1;
-    let container = document.getElementsByClassName('carousel-content-wrapper')[0].getBoundingClientRect();
-    let carouselEndPos = document.getElementById(`${this.props.type}-carousel-10`).getBoundingClientRect().right;
+    const { currentIndex, position, clicked } = this.state;
     
-    while (!lastShowing) {
-      const itemLoc = document.getElementById(`${this.props.type}-carousel-${newIdx}`).getBoundingClientRect();
-      
-      if (itemLoc.left > container.right || itemLoc.right > container.right && itemLoc.left < container.right) {
-        lastShowing = itemLoc;
-        if ((container.width + position) > carouselEndPos) {
-          let newPos = position + (carouselEndPos - container.width - container.left);
-          this.setState({ 
-            currentIndex: newIdx, 
-            position: newPos, 
-            end: true
-          })
-        } else {
-          this.setState({
-            currentIndex: newIdx, 
-            position: (position + itemLoc.left - container.left),
-            start: false
-          })
+    if (!clicked) {
+      this.setState({clicked: true});
+
+      let lastShowing;
+      let newIdx = currentIndex + 1;
+      let container = document.getElementsByClassName('carousel-content-wrapper')[0].getBoundingClientRect();
+      let carouselEndPos = document.getElementById(`${this.props.type}-carousel-10`).getBoundingClientRect().right;
+
+      while (!lastShowing) {
+        const itemLoc = document.getElementById(`${this.props.type}-carousel-${newIdx}`).getBoundingClientRect();
+        
+        if (itemLoc.left > container.right || itemLoc.right > container.right && itemLoc.left < container.right) {
+          lastShowing = itemLoc;
+          if ((container.width + position) > carouselEndPos) {
+            let newPos = position + (carouselEndPos - container.width - container.left);
+            this.setState({ 
+              currentIndex: newIdx, 
+              position: newPos, 
+              end: true
+            })
+          } else {
+            this.setState({
+              currentIndex: newIdx, 
+              position: (position + itemLoc.left - container.left),
+              start: false
+            })
+          }
         }
+  
+        newIdx++;
       }
 
-      newIdx++;
+      setTimeout(() => {
+        this.setState({ clicked: false });
+      }, 500);
     }
   }
 
   prev() {
     const { currentIndex, position, end } = this.state;
-    let firstShowing;
-    let newIdx = currentIndex;
-    let container = document.getElementsByClassName('carousel-content-wrapper')[0].getBoundingClientRect();
 
-    while (!firstShowing) {
-      const itemLoc = document.getElementById(`${this.props.type}-carousel-${newIdx}`).getBoundingClientRect();
+    if (!clicked) {
+      this.setState({ clicked: true });
 
-      if (itemLoc.right < container.left || itemLoc.right > container.left && itemLoc.left < container.left) {
-        firstShowing = itemLoc;
-        if (container.width > position) {
-          this.setState({
-            currentIndex: newIdx,
-            position: 0,
-            start: true
-          })
-        } else if (end) {
-          this.setState({
-            currentIndex: newIdx,
-            position: (position + itemLoc.right - container.width),
-            end: false
-          })
-        } else {
-          this.setState({
-            currentIndex: newIdx,
-            position: (position + container.left - container.width),
-            end: false
-          })
+      let firstShowing;
+      let newIdx = currentIndex;
+      let container = document.getElementsByClassName('carousel-content-wrapper')[0].getBoundingClientRect();
+  
+      while (!firstShowing) {
+        const itemLoc = document.getElementById(`${this.props.type}-carousel-${newIdx}`).getBoundingClientRect();
+  
+        if (itemLoc.right < container.left || itemLoc.right > container.left && itemLoc.left < container.left) {
+          firstShowing = itemLoc;
+          if (container.width > position) {
+            this.setState({
+              currentIndex: newIdx,
+              position: 0,
+              start: true
+            })
+          } else if (end) {
+            this.setState({
+              currentIndex: newIdx,
+              position: (position + itemLoc.right - container.width),
+              end: false
+            })
+          } else {
+            this.setState({
+              currentIndex: newIdx,
+              position: (position + container.left - container.width),
+              end: false
+            })
+          }
         }
+  
+        newIdx--;
       }
 
-      newIdx--;
+      setTimeout(() => {
+        this.setState({ clicked: false });
+      }, 500);
     }
   }
 
