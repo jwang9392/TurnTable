@@ -45,10 +45,11 @@ class Home extends React.Component {
     }
   }
 
-  createCarousel(category) {
+  createCarousel(category, idx) {
     if (this.props.venues && Object.values(this.props.venues).length > 0) {
       return (
         <Carousel
+          idx={idx}
           type={category}
           venues={this.state[category]}
         />
@@ -66,23 +67,23 @@ class Home extends React.Component {
           <div>
             <h2 className="carousel-header">Dance Clubs</h2>
           </div>
-          {this.createCarousel("dance")}
+          {this.createCarousel("dance", 0)}
           <div>
             <h2 className="carousel-header">Jazz Clubs</h2>
           </div>
-          {this.createCarousel("jazz")}
+          {this.createCarousel("jazz", 1)}
           <div>
             <h2 className="carousel-header">Comedy Clubs</h2>
           </div>
-          {this.createCarousel("comedy")}
+          {this.createCarousel("comedy", 2)}
           <div>
             <h2 className="carousel-header">Easy on the wallet</h2>
           </div>
-          {this.createCarousel("low")}
+          {this.createCarousel("low", 3)}
           <div>
             <h2 className="carousel-header">Premium Nightlife</h2>
           </div>
-          {this.createCarousel("high")}
+          {this.createCarousel("high", 4)}
         </div>
       </>
     )
