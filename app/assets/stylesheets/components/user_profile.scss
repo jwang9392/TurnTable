@@ -34,6 +34,21 @@
   border-bottom: 1px solid lightgray;
 }
 
+.empty-res {
+  width: 794px;
+  padding: 30px;
+  border-top: 2px solid rgb(235,235,235);
+}
+
+.empty-res-link {
+  text-decoration: none;
+  color: rgb(88,150,173);
+}
+
+.empty-res-link:hover {
+  color: #DA3743;
+}
+
 .review-link {
   text-decoration: none;
   font-size: 14px;
@@ -86,7 +101,7 @@
 
 .profile-content h1 {
   margin: 0;
-  padding: 24px;
+  padding: 26px 30px;
   font-weight: normal;
 }
 

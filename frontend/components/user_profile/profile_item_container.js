@@ -2,6 +2,7 @@ import { connect } from "react-redux";
 import ProfileItem from "./profile_item";
 
 const mapStateToProps = ({ entities, session }, { venue, reservation, review, type, past }) => {
+  debugger
   return {
     user: entities.users[session.currentUserId],
     venue,

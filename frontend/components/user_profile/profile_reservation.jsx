@@ -1,5 +1,5 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import ProfileItemContainer from './profile_item_container';
 
 const ProfileReservation = (props) => {
@@ -44,9 +44,14 @@ const ProfileReservation = (props) => {
       return -1;
     }
   });
-  
-  const createItemList = (resList, type, historyList) => {
+  const createItemList = (resList, type, reviews, historyList) => {
+    
     let resItems;
+    let reviewsObj = {};
+
+    reviews.forEach(review => {
+      reviewsObj[review.venue_id] = review; 
+    });
 
     if (type === "upcoming") {
       resItems = resList.map(res => {
@@ -61,6 +66,7 @@ const ProfileReservation = (props) => {
         );
       })
     } else {
+      debugger
       resItems = resList.map(res => {
         return (
           <ProfileItemContainer
@@ -68,7 +74,7 @@ const ProfileReservation = (props) => {
             type="past"
             reservation={res}
             venue={venues[res.venue_id]}
-            review={reviews[res.venue_id] ? reviews[res.venue_id] : ""}
+            review={reviewsObj[res.venue_id] ? reviewsObj[res.venue_id] : ""}
           />
         );
       })
@@ -76,16 +82,25 @@ const ProfileReservation = (props) => {
 
     return resItems;
   };
+
+  const emptyRes = type => {
+    return (
+      <div className="empty-res"> 
+        <span>No {type} Reservations </span>
+        <Link className="empty-res-link" to="/" >Book a Table.</Link>
+      </div>
+    )
+  }
   
   return (
     <>
       <ul className="upcoming-res">
         <h1>Upcoming Reservations</h1>
-        {upcoming.length ? createItemList(upcoming, "upcoming", past) : ""}
+        {upcoming.length ? createItemList(upcoming, "upcoming", reviews, past) : emptyRes("Upcoming")}
       </ul>
       <ul id="past"className="past-res">
         <h1>Past Reservations</h1>
-        {past.length ? createItemList(past, "past") : ""}
+        {past.length ? createItemList(past, "past", reviews) : emptyRes("Past")}
       </ul>
     </>
   );

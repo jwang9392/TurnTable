@@ -3,7 +3,7 @@ import { Link, withRouter } from 'react-router-dom';
 import ReviewItem from '../review/review_item';
 
 const ProfileItem = (props) => {
-  const { user, venue, reservation, review, type, past } = props
+  const { venue, reservation, review, type, past } = props
   
   const dateConversion = date => {
     let dateParts = date.split("-");
@@ -42,6 +42,7 @@ const ProfileItem = (props) => {
           </>
         );
       case "past":
+        debugger
         return (
           <>
             <div className="profile-item-date">{dateConversion(res.date)}</div>
@@ -54,7 +55,7 @@ const ProfileItem = (props) => {
                 state: {
                   venue: venue,
                   res: res, 
-                  review: review
+                  review
                 }
               }}>
                 <i className="far fa-comment-alt"></i> {review ? "Edit Review" : "Write Review"}
