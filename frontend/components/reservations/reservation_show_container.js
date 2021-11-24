@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { updateReservation, deleteReservation, fetchReservation } from '../../actions/reservation_actions';
+import { updateReservation, fetchReservation } from '../../actions/reservation_actions';
 import ReservationShow from './reservation_show';
 
 
@@ -19,7 +19,6 @@ const mapDispatchToProps = dispatch => {
   return {
     fetchReservations: (userId) => dispatch(fetchReservations(userId)),
     fetchReservation: (resId) => dispatch(fetchReservation(resId)),
-    deleteReservation: (resId) => dispatch(deleteReservation(resId)),
     updateReservation: (reservation) => dispatch(updateReservation(reservation))
   };
 };

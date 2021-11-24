@@ -234,7 +234,7 @@ class ReservationForm extends React.Component {
       return
     }
 
-    const { time, date, partySize, reservations, currentUser, loggedIn, createReservation, updateUser } = this.props
+    const { time, date, partySize, reservations, currentUser, loggedIn, modify, modifyRes, createReservation, updateReservation, updateUser } = this.props
     const reservation = {
       time: time,
       date: date,
@@ -250,29 +250,57 @@ class ReservationForm extends React.Component {
     if (loggedIn) {
       reservation.user_id = this.state.user_id
     }
-    
-    createReservation(reservation).then(data => {
-      localStorage.removeItem(`search-params`);
-      const resId = data.reservation.id;
-      const user = {
-        ...currentUser, 
-        "phone_number": this.state.phone_number
-      }
+    debugger
 
-      if (this.state.changed) {
-        updateUser(user)
-      }
+    if (modify) {
+      let modified = Object.assign({}, modifyRes, reservation)
 
-      this.props.history.replace({
-        pathname: `/reservations/${resId}`,
-        state: {
-          past: past
+      updateReservation(modified).then(data => {
+        localStorage.removeItem(`search-params`);
+        const resId = data.reservation.id;
+        const user = {
+          ...currentUser,
+          "phone_number": this.state.phone_number
         }
-      })
-    }, err => {
+
+        if (this.state.changed) {
+          updateUser(user)
+        }
+
+        this.props.history.replace({
+          pathname: `/reservations/${resId}`,
+          state: {
+            past: past
+          }
+        })
+      }, err => {
         this.handleSubmitErrors(err);
       }
-    );
+      );;
+    } else {
+      createReservation(reservation).then(data => {
+        localStorage.removeItem(`search-params`);
+        const resId = data.reservation.id;
+        const user = {
+          ...currentUser, 
+          "phone_number": this.state.phone_number
+        }
+  
+        if (this.state.changed) {
+          updateUser(user)
+        }
+  
+        this.props.history.replace({
+          pathname: `/reservations/${resId}`,
+          state: {
+            past: past
+          }
+        })
+      }, err => {
+          this.handleSubmitErrors(err);
+        }
+      );
+    }
   }
 
   handleSubmitErrors(err) {
@@ -486,7 +514,7 @@ class ReservationForm extends React.Component {
 
   render() {
     const { minutes, seconds, userExists } = this.state;
-    const { time, partySize, venue, loggedIn } = this.props;
+    const { time, partySize, venue, loggedIn, modify } = this.props;
     let date = this.props.date.toString().split(" ").slice(0, 3);
     let dateFront = [date.slice(0, -1).join(', ')];
     date = dateFront.concat([date[2]]).join(" ");
@@ -495,7 +523,7 @@ class ReservationForm extends React.Component {
       <div>
         <section className="res-create-container">
           <div className="res-form-container">
-            <span>You're almost done!</span>
+            <span>{modify ? "Modify your reservation" : "You're almost done!"}</span>
             <div className="res-left-header">
               <div className='res-img'></div>
               <div>

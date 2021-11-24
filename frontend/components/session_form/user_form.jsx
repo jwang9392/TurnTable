@@ -22,7 +22,7 @@ class UserForm extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    const user = Object.assign({}, this.state, { username: `${[this.state.fname]} ${[this.state.lname]}` });
+    const user = Object.assign({}, this.state, { username: `${this.state.fname[0].toUpperCase() + this.state.fname.slice(1)}${this.state.lname[0].toUpperCase()}` });
     this.props.processForm(user).then(this.props.closeModal);
   }
 

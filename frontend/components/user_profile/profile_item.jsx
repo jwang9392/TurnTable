@@ -42,7 +42,6 @@ const ProfileItem = (props) => {
           </>
         );
       case "past":
-        debugger
         return (
           <>
             <div className="profile-item-date">{dateConversion(res.date)}</div>

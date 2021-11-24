@@ -30,7 +30,14 @@ const ProfileReservation = (props) => {
   };
 
   upcoming.sort((a, b) => {
-    if (a.date < b.date) {
+    let timeA = a.time.slice(-2) === "PM" ? parseInt(a.time.split(":")[0]) + 12 : a.time.split(":")[0];
+    let timeB = b.time.slice(-2) === "PM" ? parseInt(b.time.split(":")[0]) + 12 : b.time.split(":")[0];
+    let datePartsA = a.date.split("-");
+    let datePartsB = b.date.split("-")
+    let dateA = new Date(datePartsA[0], parseInt(datePartsA[1]) - 1, datePartsA[2], timeA)
+    let dateB = new Date(datePartsB[0], parseInt(datePartsB[1]) - 1, datePartsB[2], timeB)
+    
+    if (dateA < dateB) {
       return -1;
     } else {
       return 1;
@@ -38,14 +45,21 @@ const ProfileReservation = (props) => {
   });
   
   past.sort((a, b) => {
-    if (a.date < b.date) {
+    let timeA = a.time.slice(-2) === "PM" ? parseInt(a.time.split(":")[0]) + 12 : a.time.split(":")[0];
+    let timeB = b.time.slice(-2) === "PM" ? parseInt(b.time.split(":")[0]) + 12 : b.time.split(":")[0];
+    let datePartsA = a.date.split("-");
+    let datePartsB = b.date.split("-")
+    let dateA = new Date(datePartsA[0], parseInt(datePartsA[1]) - 1, datePartsA[2], timeA)
+    let dateB = new Date(datePartsB[0], parseInt(datePartsB[1]) - 1, datePartsB[2], timeB)
+
+    if (dateA < dateB) {
       return 1;
     } else {
       return -1;
     }
   });
+
   const createItemList = (resList, type, reviews, historyList) => {
-    
     let resItems;
     let reviewsObj = {};
 
@@ -66,7 +80,6 @@ const ProfileReservation = (props) => {
         );
       })
     } else {
-      debugger
       resItems = resList.map(res => {
         return (
           <ProfileItemContainer

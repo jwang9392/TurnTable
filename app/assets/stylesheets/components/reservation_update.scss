@@ -1,0 +1,144 @@
+.modify-times {
+  margin: 24px 0 34px;
+}
+
+.modify-times > ul {
+  display: flex;
+  justify-content: space-between;
+}
+
+.modify-timeslot-large {
+  height: 36px;
+  width: 118px;
+  border: none;
+  border-radius: 3px;
+  color: white;
+}
+
+.modify-timeslot-small {
+  height: 36px;
+  width: 86px;
+  border: none;
+  border-radius: 3px;
+  color: white;
+  margin-left: 10px;
+}
+
+.time-available {
+  background-color: #da3743;
+}
+
+.time-available:hover { 
+  background-color: rgb(189, 36, 46);
+  cursor: pointer;
+}
+
+.time-unavailable {
+  color: rgb(130,134,140);
+  background-color: whitesmoke;
+}
+
+.mod-custom-select {
+  margin-right: 10px;
+}
+
+.mod-custom-select select {
+  position: relative;
+  border: none;
+  background-color: transparent;
+  font-size: 16px;
+  padding: 15px 34px 15px 38px;
+  -o-appearance: none;
+  -ms-appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  z-index: 1;
+  outline: none;
+}
+
+.mod-datepicker {
+  width: 100px;
+  padding: 15px 38px 14px 38px;
+  border: none;
+  border-radius: 3px 0 0 3px;
+  text-align: center;
+  font-size: 16px;
+}
+
+.mod-reservation-date {
+  border: 1px solid lightgray;
+  border-radius: 3px 0 0 3px;
+}
+
+.mod-reservation-time {
+  border: 1px solid lightgray;
+  margin: 0 -1px;
+}
+
+.mod-reservation-party {
+  border: 1px solid lightgray;
+  border-radius: 0 3px 3px 0;
+}
+
+.res-modify{
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding: 32px 0 80px;
+}
+
+.res-modify-container {
+  margin: 0 auto;
+  width: 976px;
+}
+
+.res-modify-body {
+  width: 620px;
+}
+
+.res-modify-form {
+  display: flex;
+}
+
+.res-modify-future {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid lightgray;
+  padding: 16px 0;
+}
+
+.res-modify-future-timeslots ul {
+  display: flex;
+}
+
+.res-modify-future > p {
+  font-size: 14px;
+}
+
+.res-modify-header {
+  margin: 0 0 8px;
+  font-weight: normal;
+  line-height: 24px;
+}
+
+.res-modify-image {
+  margin-right: 16px;
+  height: 64px;
+  width: 64px;
+  background-image: image-url('index1.jpg');
+  background-size: cover;
+  border-radius: 4px;
+}
+
+.res-modify-info {
+  display: flex;
+  padding-bottom: 16px;
+  border-bottom: 1px solid lightgray;
+  margin-bottom: 16px;
+}
+
+.res-modify-venue-name {
+  font-weight: normal;
+  margin: 5px 0 12px;
+}

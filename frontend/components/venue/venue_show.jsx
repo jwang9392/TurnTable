@@ -2,7 +2,7 @@ import React from 'react';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 import ReservationTimes from '../reservations/reservation_times_container';
-import { makeTimeOptions, formatDate } from '../../util/util';
+import { makeTimeOptions } from '../../util/util';
 
 class VenueShow extends React.Component {
   constructor(props) {
@@ -31,11 +31,9 @@ class VenueShow extends React.Component {
     });
   }
 
-  handleDateChange(selectedDate) {
-    let dateStr = formatDate(selectedDate);
-    
+  handleDateChange(date) {
     return this.setState({
-      "date": dateStr
+      "date": date
     })
   }
 
@@ -97,19 +95,14 @@ class VenueShow extends React.Component {
 
   dateDisplay = date => {
     let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-    let dateSplit = date.split("-");
-    if (dateSplit[1][0] === "0") dateSplit[1] = dateSplit[1].slice(1);
-    date = date.concat("T00:00:00")
-    let dt = new Date(date);
-    let day = dt.getDay();
+    let day = date.getDay();
+    let month = date.getMonth() + 1;
+    let dayNum = date.getDate()
     
-    return days[day] + ", " + dateSplit[1] + "/" + dateSplit[2]
+    return days[day] + ", " + month + "/" + dayNum
   } 
 
   render() {
-    const dateParts = this.state.date.split("-");
-    const resDate = new Date(dateParts[0], dateParts[1] - 1, dateParts[2]);
-    
     return (
       <div>
         <div id="splash" className="venue-splash">
@@ -184,7 +177,7 @@ class VenueShow extends React.Component {
                             useWeekdaysShort={true}
                             onFocus={e => e.target.blur()}
                             dateFormat="MMM d, yyyy"
-                            selected={resDate}
+                            selected={this.state.date}
                             onChange={this.handleDateChange}
                           />
                           <i className="fas fa-chevron-down"></i>

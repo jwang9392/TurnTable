@@ -164,7 +164,7 @@ class ReservationShow extends React.Component {
                       </div>
                     </div>
                     <div className="res-show-links">
-                      <Link to="" className="res-show-link">Modify</Link>
+                      <Link to={`/reservations/modify/${res.id}`} className="res-show-link">Modify</Link>
                       <Link to="" className="res-show-link">Cancel</Link>
                     </div>
                   </div>
