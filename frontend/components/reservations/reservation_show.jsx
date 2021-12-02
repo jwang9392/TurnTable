@@ -131,6 +131,7 @@ class ReservationShow extends React.Component {
   render() {
     const { res, venues, user, past } = this.props;
     const { presetDate, presetTime, presetSize } = this.state;
+    
     if (!res || Object.values(venues).length === 0) {
       return <div></div>
     } else {

@@ -55,7 +55,7 @@ const ReservationTimes = (props) => {
                 date,
                 time: timeslot,
                 partySize,
-                modify, 
+                modify: modify ? modify : false, 
                 res: res
               }
             })

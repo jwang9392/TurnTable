@@ -25,12 +25,12 @@ const ReservationCancel = (props) => {
 
   const handleClick = () => {
     deleteReservation(resId).then(() => {
-      props.history.push("/my/Profile")
+      props.history.replace("/my/Profile")
     })
   }
 
   if (!reservations[resId] || !venues[reservations[resId].venue_id]) {
-    return <div>yo</div>
+    return <div></div>
   } else {
     let res = reservations[resId];
     let venue = venues[res.venue_id];

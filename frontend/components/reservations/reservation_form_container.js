@@ -1,4 +1,5 @@
 import { connect } from "react-redux";
+import { fetchVenues } from '../../actions/venue_actions';
 import { createReservation, fetchReservations, updateReservation } from "../../actions/reservation_actions";
 import { logout, signup, updateUser } from '../../actions/session_actions';
 import { openModal } from '../../actions/modal_actions';
@@ -24,12 +25,13 @@ const mapStateToProps = (state, {match, location}) => {
     partySize: location.state ? location.state.partySize : storedParams.partySize,
     errors: state.errors,
     clearErrors: clearErrors(),
-    modify: location.state.modify, 
-    modifyRes: location.state.res
+    modify: location.state ? location.state.modify : false,
+    modifyRes: location.state ? location.state.res : {}
   }
 }
 
 const mapDispatchToProps = dispatch => ({
+  fetchVenues: () => dispatch(fetchVenues()),
   createReservation: reservation => dispatch(createReservation(reservation)),
   fetchReservations: userId => dispatch(fetchReservations(userId)),
   updateReservation: (resId) => dispatch(updateReservation(resId)),
