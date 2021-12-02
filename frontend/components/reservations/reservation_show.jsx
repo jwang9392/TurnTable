@@ -3,7 +3,6 @@ import { Link, withRouter } from 'react-router-dom';
 import { formatDate } from '../../util/util';
 
 class ReservationShow extends React.Component {
-
   constructor(props) {
     super(props);
     this.state = {
@@ -14,6 +13,13 @@ class ReservationShow extends React.Component {
   }
 
   componentDidMount() {
+    const { res, user, fetchVenues, fetchReservations } = this.props;
+    
+    if (!res) {
+      fetchVenues();
+      fetchReservations(user.id);
+    }
+
     const {presetDate} = this.state;
     const hour = presetDate.toString().slice(16, 18);
     let today = formatDate(presetDate);
@@ -123,123 +129,128 @@ class ReservationShow extends React.Component {
   }
   
   render() {
-    const {res, venues, user, past} = this.props;
-    const {presetDate, presetTime, presetSize} = this.state;
-    const venue = venues[res.venue_id];
-    let dateParts = res.date.split("-");
-    let date = new Date(dateParts);
-    date = date.toString().split(" ").slice(0, 3);
-    let dateFront = [date.slice(0, -1).join(', ')];
-    date = dateFront.concat([date[2]]).join(" ");
-
-    return (
-      <div className="res-show-body">
-        <div className="res-show-columns">
-          <div>
-            <div className="res-show-header">
-              <div className="res-confirm-success">
-                <i className="fas fa-check-circle"></i>
-                <div>
-                  <p>Thanks {user.fname}! Your reservation is confirmed.</p>
-                  <span>Confirmation #10519</span>
-                </div>
-              </div>
-              <div className="res-show-detail">
-                <div className="res-venue-detail">
-                  <div className="res-venue-image"></div>
-                  <div className="res-venue-info">
-                    <h2>{venue.name}</h2>
-                    <div className="res-show-details">
-                      <div>
-                        <i id="date" className="far fa-calendar"></i>
-                        {date}
-                      </div>
-                      <div>
-                        <i id="ticker" className="far fa-clock"></i>
-                        {this.timeConversion(res.time)}
-                      </div>
-                      <div>
-                        <i id="user-icon" className="far fa-user"></i>
-                        {res.party_size} {res.party_size != 1 ? "people" : "person"}
-                      </div>
-                    </div>
-                    <div className="res-show-links">
-                      <Link to={`/reservations/modify/${res.id}`} className="res-show-link">Modify</Link>
-                      <Link to="" className="res-show-link">Cancel</Link>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="res-optionals-container">
-              <div className="res-optionals-content">
-                <h3 className="res-section-header">Reservation details</h3>
-                <select name="profile-occasion" id="profile-occasion" className="profile-occasion profile-input">
-                  <option defaultValue="">Select an occasion (optional)</option>
-                  <option value="Birthday">Birthday</option>
-                  <option value="Anniversary">Anniversary</option>
-                  <option value="Date Night">Date Night</option>
-                  <option value="Business Meal">Business Meal</option>
-                  <option value="Celebration">Celebration</option>
-                </select>
-                <br />
-                <textarea 
-                  className="profile-special-request profile-input"
-                  id="profile-special-request" 
-                  placeholder="Add a special request (optional)"
-                  type="text" 
-                  rows="5" 
-                ></textarea>
-              </div>
-            </div>
-
-            <div className="res-venue-summary-container">
-              <div className="res-venue-container">
-                <h2 className="res-section-header">{venue.name}</h2>
-                <div className="res-venue-summary">
-                  <div>{venue.address}</div>
-                  <div>{venue.city}, {venue.state}</div>
-                  <div>{venue.phone_number}</div>
-                </div>
-                <Link className="profile-venue-link" to={{
-                  pathname: `/venues/${venue.id}`,
-                  state: {
-                    date: presetDate,
-                    time: presetTime,
-                    partySize: presetSize
-                  }
-                }}>
-                  View Hours, Transportation, and Other Details
-                </Link>
-              </div>
-            </div>
-          </div>
-          <div className="res-show-user-container">
-              <div className="res-show-user-detail">
-                <div className="res-show-user-name">
-                  <i id="user-icon" className="far fa-user"></i>
-                  <h2>{user.fname} {user.lname}</h2>
-                </div>
-                <div className="res-show-created">
-                  {this.joinedDate(user.created_at)}
-                </div>
-              </div>
-              <div className="res-show-history-sidebar">
-                <div className="res-show-history-container">
-                <div className="res-show-history-header">
-                    <h3>Your dining history</h3>
-                  <Link to={{ pathname: "/my/Profile", scroll: "past" }} className="res-show-history-view">View all</Link>
-                  </div>
+    const { res, venues, user, past } = this.props;
+    const { presetDate, presetTime, presetSize } = this.state;
+    if (!res || Object.values(venues).length === 0) {
+      return <div></div>
+    } else {
+      const venue = venues[res.venue_id];
+      let dateParts = res.date.split("-");
+      let date = new Date(dateParts);
+      date = date.toString().split(" ").slice(0, 3);
+      let dateFront = [date.slice(0, -1).join(', ')];
+      date = dateFront.concat([date[2]]).join(" ");
+  
+      return (
+        <div className="res-show-body">
+          <div className="res-show-columns">
+            <div>
+              <div className="res-show-header">
+                <div className="res-confirm-success">
+                  <i className="fas fa-check-circle"></i>
                   <div>
-                    {this.createHistory(past)}
+                    <p>Thanks {user.fname}! Your reservation is confirmed.</p>
+                    <span>Confirmation #10519</span>
+                  </div>
+                </div>
+                <div className="res-show-detail">
+                  <div className="res-venue-detail">
+                    <div className="res-venue-image"></div>
+                    <div className="res-venue-info">
+                      <h2>{venue.name}</h2>
+                      <div className="res-show-details">
+                        <div>
+                          <i id="date" className="far fa-calendar"></i>
+                          {date}
+                        </div>
+                        <div>
+                          <i id="ticker" className="far fa-clock"></i>
+                          {this.timeConversion(res.time)}
+                        </div>
+                        <div>
+                          <i id="user-icon" className="far fa-user"></i>
+                          {res.party_size} {res.party_size != 1 ? "people" : "person"}
+                        </div>
+                      </div>
+                      <div className="res-show-links">
+                        <Link to={`/reservations/modify/${res.id}`} className="res-show-link">Modify</Link>
+                        <Link to={`/reservations/cancel/${res.id}`} className="res-show-link">Cancel</Link>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
+  
+              <div className="res-optionals-container">
+                <div className="res-optionals-content">
+                  <h3 className="res-section-header">Reservation details</h3>
+                  <select name="profile-occasion" id="profile-occasion" className="profile-occasion profile-input">
+                    <option defaultValue="">Select an occasion (optional)</option>
+                    <option value="Birthday">Birthday</option>
+                    <option value="Anniversary">Anniversary</option>
+                    <option value="Date Night">Date Night</option>
+                    <option value="Business Meal">Business Meal</option>
+                    <option value="Celebration">Celebration</option>
+                  </select>
+                  <br />
+                  <textarea 
+                    className="profile-special-request profile-input"
+                    id="profile-special-request" 
+                    placeholder="Add a special request (optional)"
+                    type="text" 
+                    rows="5" 
+                  ></textarea>
+                </div>
+              </div>
+  
+              <div className="res-venue-summary-container">
+                <div className="res-venue-container">
+                  <h2 className="res-section-header">{venue.name}</h2>
+                  <div className="res-venue-summary">
+                    <div>{venue.address}</div>
+                    <div>{venue.city}, {venue.state}</div>
+                    <div>{venue.phone_number}</div>
+                  </div>
+                  <Link className="profile-venue-link" to={{
+                    pathname: `/venues/${venue.id}`,
+                    state: {
+                      date: presetDate,
+                      time: presetTime,
+                      partySize: presetSize
+                    }
+                  }}>
+                    View Hours, Transportation, and Other Details
+                  </Link>
+                </div>
+              </div>
+            </div>
+            <div className="res-show-user-container">
+                <div className="res-show-user-detail">
+                  <div className="res-show-user-name">
+                    <i id="user-icon" className="far fa-user"></i>
+                    <h2>{user.fname} {user.lname}</h2>
+                  </div>
+                  <div className="res-show-created">
+                    {this.joinedDate(user.created_at)}
+                  </div>
+                </div>
+                <div className="res-show-history-sidebar">
+                  <div className="res-show-history-container">
+                  <div className="res-show-history-header">
+                      <h3>Your dining history</h3>
+                    <Link to={{ pathname: "/my/Profile", scroll: "past" }} className="res-show-history-view">View all</Link>
+                    </div>
+                    <div>
+                      {this.createHistory(past)}
+                    </div>
+                  </div>
+                </div>
+            </div>
           </div>
         </div>
-      </div>
-    )
+      )
+
+    }
   }
 
 }
