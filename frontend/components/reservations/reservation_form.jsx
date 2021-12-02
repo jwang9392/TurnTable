@@ -250,7 +250,6 @@ class ReservationForm extends React.Component {
     if (loggedIn) {
       reservation.user_id = this.state.user_id
     }
-    debugger
 
     if (modify) {
       let modified = Object.assign({}, modifyRes, reservation)

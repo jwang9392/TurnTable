@@ -35,8 +35,8 @@ const ProfileItem = (props) => {
                 }}>
                   View
                 </Link>
-                <Link to={`/reservations/${res.id}`} className="profile-res-link">Modify</Link>
-                <Link to="" className="profile-res-link">Cancel</Link>
+                <Link to={`/reservations/modify/${res.id}`} className="profile-res-link">Modify</Link>
+                <Link to={`/reservations/cancel/${res.id}`} className="profile-res-link">Cancel</Link>
               </div>
             </div>
           </>

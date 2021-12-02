@@ -46,7 +46,7 @@ class Api::ReservationsController < ApplicationController
     @error = 2
 
     if @reservation.destroy!
-        render :show
+        render json: ["Reservation deleted."]
     else
         render json: ["Reservation does not exist."]
     end
