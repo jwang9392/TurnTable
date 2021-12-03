@@ -9,6 +9,8 @@ import VenueShowContainer from './venue/venue_show_container';
 import SearchIndexContainer from './search/search_index_container';
 import ReservationFormContainer from './reservations/reservation_form_container';
 import ReservationShowContainer from './reservations/reservation_show_container';
+import ReservationUpdateContainer from './reservations/reservation_update_container';
+import ReservationCancel from './reservations/reservation_cancel';
 import { Route, Switch } from 'react-router-dom';
 import { ProtectedRoute } from '../util/route_utils';
 
@@ -25,7 +27,9 @@ const App = () => (
       <Route exact path="/venues/:id" component={VenueShowContainer} />
       <Route path="/search/:searchParams" component={SearchIndexContainer} />
       <Route path="/venues/:venue_id/reservations" component={ReservationFormContainer} />
-      <Route path="/reservations/:id" component={ReservationShowContainer} />
+      <ProtectedRoute exact path="/reservations/:id" component={ReservationShowContainer} />
+      <ProtectedRoute path="/reservations/modify/:id" component={ReservationUpdateContainer} />
+      <ProtectedRoute path="/reservations/cancel/:id" component={ReservationCancel} />
     </Switch>
 
     <Footer />

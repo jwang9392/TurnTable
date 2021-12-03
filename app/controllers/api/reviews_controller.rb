@@ -30,10 +30,10 @@ class Api::ReviewsController < ApplicationController
     @action = 'UPDATE'
 
     if @review.update(review_params)
-        @review.save
-        render :show
+      @review.save
+      render :show
     else
-        render json: @review.errors.full_messages, status: 422
+      render json: @review.errors.full_messages, status: 422
     end
   end
 

@@ -3,7 +3,7 @@ import { Link, withRouter } from 'react-router-dom';
 import ReviewItem from '../review/review_item';
 
 const ProfileItem = (props) => {
-  const { user, venue, reservation, review, type, past } = props
+  const { venue, reservation, review, type, past } = props
   
   const dateConversion = date => {
     let dateParts = date.split("-");
@@ -35,8 +35,8 @@ const ProfileItem = (props) => {
                 }}>
                   View
                 </Link>
-                <Link to={`/reservations/${res.id}`} className="profile-res-link">Modify</Link>
-                <Link to="" className="profile-res-link">Cancel</Link>
+                <Link to={`/reservations/modify/${res.id}`} className="profile-res-link">Modify</Link>
+                <Link to={`/reservations/cancel/${res.id}`} className="profile-res-link">Cancel</Link>
               </div>
             </div>
           </>
@@ -54,7 +54,7 @@ const ProfileItem = (props) => {
                 state: {
                   venue: venue,
                   res: res, 
-                  review: review
+                  review
                 }
               }}>
                 <i className="far fa-comment-alt"></i> {review ? "Edit Review" : "Write Review"}

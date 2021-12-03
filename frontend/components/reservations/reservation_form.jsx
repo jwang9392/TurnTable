@@ -37,44 +37,48 @@ class ReservationForm extends React.Component {
   }
 
   componentDidMount() {
-    this.myInterval = setInterval( () => {
-      const { seconds, minutes } = this.state
-
-      if (seconds > 0) {
-        this.setState(({ seconds }) => ({
-          seconds: seconds - 1
-        }))
-      }
-      if (seconds === 0) {
-        if (minutes === 0) {
-          clearInterval(this.myInterval)
-        } else {
-          this.setState(({ minutes }) => ({
-            minutes: minutes - 1,
-            seconds: 59
+    const { venue, currentUser, fetchVenues, fetchReservations, clearErrors } = this.props;
+    
+    if (!this.props.venue) {
+      fetchVenues();
+    } else {
+      this.myInterval = setInterval( () => {
+        const { seconds, minutes } = this.state
+  
+        if (seconds > 0) {
+          this.setState(({ seconds }) => ({
+            seconds: seconds - 1
           }))
         }
-      }
-    }, 1000)
-
-    this.props.clearErrors;
-    
-    const {venue, currentUser, fetchReservations} = this.props
-
-    this.setState({
-      venue_id: venue.id,
-    })
-
-    if (this.props.loggedIn) {
+        if (seconds === 0) {
+          if (minutes === 0) {
+            clearInterval(this.myInterval)
+          } else {
+            this.setState(({ minutes }) => ({
+              minutes: minutes - 1,
+              seconds: 59
+            }))
+          }
+        }
+      }, 1000)
+  
+      clearErrors;
+  
       this.setState({
-        fname: currentUser.fname,
-        lname: currentUser.lname,
-        email: currentUser.email,
-        phone_number: currentUser.phone_number,
-        user_id: currentUser.id
+        venue_id: venue.id,
       })
-      fetchReservations(currentUser.id);
-    };
+  
+      if (this.props.loggedIn) {
+        this.setState({
+          fname: currentUser.fname,
+          lname: currentUser.lname,
+          email: currentUser.email,
+          phone_number: currentUser.phone_number,
+          user_id: currentUser.id
+        })
+        fetchReservations(currentUser.id);
+      };
+    }
   }
 
   componentWillUnmount() {
@@ -234,7 +238,7 @@ class ReservationForm extends React.Component {
       return
     }
 
-    const { time, date, partySize, reservations, currentUser, loggedIn, createReservation, updateUser } = this.props
+    const { time, date, partySize, reservations, currentUser, loggedIn, modify, modifyRes, createReservation, updateReservation, updateUser } = this.props
     const reservation = {
       time: time,
       date: date,
@@ -250,29 +254,56 @@ class ReservationForm extends React.Component {
     if (loggedIn) {
       reservation.user_id = this.state.user_id
     }
-    
-    createReservation(reservation).then(data => {
-      localStorage.removeItem(`search-params`);
-      const resId = data.reservation.id;
-      const user = {
-        ...currentUser, 
-        "phone_number": this.state.phone_number
-      }
 
-      if (this.state.changed) {
-        updateUser(user)
-      }
+    if (modify) {
+      let modified = Object.assign({}, modifyRes, reservation)
 
-      this.props.history.replace({
-        pathname: `/reservations/${resId}`,
-        state: {
-          past: past
+      updateReservation(modified).then(data => {
+        localStorage.removeItem(`search-params`);
+        const resId = data.reservation.id;
+        const user = {
+          ...currentUser,
+          "phone_number": this.state.phone_number
         }
-      })
-    }, err => {
+
+        if (this.state.changed) {
+          updateUser(user)
+        }
+
+        this.props.history.replace({
+          pathname: `/reservations/${resId}`,
+          state: {
+            past: past
+          }
+        })
+      }, err => {
         this.handleSubmitErrors(err);
       }
-    );
+      );;
+    } else {
+      createReservation(reservation).then(data => {
+        localStorage.removeItem(`search-params`);
+        const resId = data.reservation.id;
+        const user = {
+          ...currentUser, 
+          "phone_number": this.state.phone_number
+        }
+  
+        if (this.state.changed) {
+          updateUser(user)
+        }
+  
+        this.props.history.replace({
+          pathname: `/reservations/${resId}`,
+          state: {
+            past: past
+          }
+        })
+      }, err => {
+          this.handleSubmitErrors(err);
+        }
+      );
+    }
   }
 
   handleSubmitErrors(err) {
@@ -486,81 +517,86 @@ class ReservationForm extends React.Component {
 
   render() {
     const { minutes, seconds, userExists } = this.state;
-    const { time, partySize, venue, loggedIn } = this.props;
-    let date = this.props.date.toString().split(" ").slice(0, 3);
-    let dateFront = [date.slice(0, -1).join(', ')];
-    date = dateFront.concat([date[2]]).join(" ");
-    
-    return (
-      <div>
-        <section className="res-create-container">
-          <div className="res-form-container">
-            <span>You're almost done!</span>
-            <div className="res-left-header">
-              <div className='res-img'></div>
-              <div>
-                <p className="res-venue-name">{venue.name}</p>
-                <div className="res-details">
-                  <div>
-                    <i id="date" className="far fa-calendar"></i>
-                    &nbsp;&nbsp;{date}
+    const { time, partySize, venue, loggedIn, modify } = this.props;
+
+    if (!venue) {
+      return <div></div>
+    } else {
+      let date = this.props.date.toString().split(" ").slice(0, 3);
+      let dateFront = [date.slice(0, -1).join(', ')];
+      date = dateFront.concat([date[2]]).join(" ");
+      
+      return (
+        <div>
+          <section className="res-create-container">
+            <div className="res-form-container">
+              <span>{modify ? "Modify your reservation" : "You're almost done!"}</span>
+              <div className="res-left-header">
+                <div className='res-img'></div>
+                <div>
+                  <p className="res-venue-name">{venue.name}</p>
+                  <div className="res-details">
+                    <div>
+                      <i id="date" className="far fa-calendar"></i>
+                      &nbsp;&nbsp;{date}
+                    </div>
+                    <div>
+                      <i id="ticker" className="far fa-clock"></i>
+                      &nbsp;&nbsp;{time.slice(0, -2)} {time.slice(-2)}
+                    </div>
+                    <div>
+                      <i id="user-icon" className="far fa-user"></i>
+                      &nbsp;&nbsp;{partySize}
+                    </div>  
                   </div>
-                  <div>
-                    <i id="ticker" className="far fa-clock"></i>
-                    &nbsp;&nbsp;{time.slice(0, -2)} {time.slice(-2)}
-                  </div>
-                  <div>
-                    <i id="user-icon" className="far fa-user"></i>
-                    &nbsp;&nbsp;{partySize}
-                  </div>  
                 </div>
               </div>
+  
+              { minutes === 0 && seconds === 0 ? 
+                <div className="countdown-over">
+                  <span className="res-timer">You can still try to complete your reservation, but this table may no longer be available.</span>
+                </div> :
+                <div className="countdown">
+                  <span className="res-timer">We're holding this table for you for </span>
+                  <span> {minutes}:{seconds < 10 ? `0${seconds}` : seconds} minutes</span> 
+                </div> 
+              }
+  
+              <div className={`res-user-exists ${userExists ? "" : "hidden"}`}>This email address is already registered. Please sign in to complete your reservation.</div>
+              
+              <form className="res-form" onSubmit={this.handleSubmit} noValidate>
+                <>{loggedIn ? this.loggedInComponent() : this.loggedOutComponent()}</>
+                <div className="res-contact-options">
+                    <div>
+                      <input className="res-checkbox" type="checkbox" />&nbsp;
+                      Sign me up to receive offers and news from this venue by email
+                    </div>
+                    <div>
+                      <input className="res-checkbox" type="checkbox" />&nbsp;
+                      Yes, I want to get text updates and reminders about my reservations
+                    </div>
+                </div>
+                <button className="submit-res-btn">
+                  Complete reservation
+                </button>
+                <p>By clicking “Complete reservation” you agree to the TurnTable Terms of Use and Privacy Policy. Standard text message rates may apply. You may opt out of receiving text messages at any time. </p>
+              </form>
             </div>
-
-            { minutes === 0 && seconds === 0 ? 
-              <div className="countdown-over">
-                <span className="res-timer">You can still try to complete your reservation, but this table may no longer be available.</span>
-              </div> :
-              <div className="countdown">
-                <span className="res-timer">We're holding this table for you for </span>
-                <span> {minutes}:{seconds < 10 ? `0${seconds}` : seconds} minutes</span> 
-              </div> 
-            }
-
-            <div className={`res-user-exists ${userExists ? "" : "hidden"}`}>This email address is already registered. Please sign in to complete your reservation.</div>
-            
-            <form className="res-form" onSubmit={this.handleSubmit} noValidate>
-              <>{loggedIn ? this.loggedInComponent() : this.loggedOutComponent()}</>
-              <div className="res-contact-options">
-                  <div>
-                    <input className="res-checkbox" type="checkbox" />&nbsp;
-                    Sign me up to receive offers and news from this venue by email
-                  </div>
-                  <div>
-                    <input className="res-checkbox" type="checkbox" />&nbsp;
-                    Yes, I want to get text updates and reminders about my reservations
-                  </div>
-              </div>
-              <button className="submit-res-btn">
-                Complete reservation
-              </button>
-              <p>By clicking “Complete reservation” you agree to the TurnTable Terms of Use and Privacy Policy. Standard text message rates may apply. You may opt out of receiving text messages at any time. </p>
-            </form>
-          </div>
-          <div className="res-message">
-            <span>What to know before you go</span>
-            <div>Important reservation information</div>
-            <p>We have a 30 minute grace period. Please call us if you are running later than 30 minutes after your reservation time.</p>
-            <br /><br />
-            <p>We may contact you about this reservation, so please ensure your email and phone number are up to date.</p>
-            <br /><br />
-            <p>Your table will be reserved for 1 hour 30 minutes for parties of up to 2; 2 hours for parties of up to 4; and 2 hours 30 minutes for parties of 5+.</p>
-            <div>A note from {venue.name}</div>
-            <p>Thank you for making your reservation at {venue.name}. Please note that we try our best to accommodate all reservations as received; however we cannot guarantee seating in any specific room unless specified and agreed upon. Kindly call if you are delayed 30 minutes after your reservation time. Furthermore, if you do not see your preferred time slot, please call us at {this.props.venue.phone_number}; we will try our best to accommodate you!</p>
-          </div>
-        </section>
-      </div>
-    );
+            <div className="res-message">
+              <span>What to know before you go</span>
+              <div>Important reservation information</div>
+              <p>We have a 30 minute grace period. Please call us if you are running later than 30 minutes after your reservation time.</p>
+              <br /><br />
+              <p>We may contact you about this reservation, so please ensure your email and phone number are up to date.</p>
+              <br /><br />
+              <p>Your table will be reserved for 1 hour 30 minutes for parties of up to 2; 2 hours for parties of up to 4; and 2 hours 30 minutes for parties of 5+.</p>
+              <div>A note from {venue.name}</div>
+              <p>Thank you for making your reservation at {venue.name}. Please note that we try our best to accommodate all reservations as received; however we cannot guarantee seating in any specific room unless specified and agreed upon. Kindly call if you are delayed 30 minutes after your reservation time. Furthermore, if you do not see your preferred time slot, please call us at {this.props.venue.phone_number}; we will try our best to accommodate you!</p>
+            </div>
+          </section>
+        </div>
+      );
+    }
   }
 }
 

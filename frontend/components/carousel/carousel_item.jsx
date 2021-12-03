@@ -9,15 +9,13 @@ const CarouselItem = (props) => {
   const createDate = () => {
     const date = new Date();
     const hour = date.toString().slice(16, 18);
-    let today = formatDate(date);
     let tomorrow = new Date(date);
     tomorrow.setDate(tomorrow.getDate() + 1);
-    tomorrow = formatDate(tomorrow);
 
     if (parseInt(hour) > 21) {
       return tomorrow;
     } else {
-      return today;
+      return date;
     }
   }
 

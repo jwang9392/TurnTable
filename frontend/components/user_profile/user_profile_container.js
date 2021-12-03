@@ -9,7 +9,6 @@ const mapStateToProps = ({entities, session}, {location}) => {
     currentUser: entities.users[session.currentUserId],
     venues: entities.venues,
     reservations: entities.reservations, 
-    reviews: entities.reviews,
     scroll: !!location.scroll
   };
 };

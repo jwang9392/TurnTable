@@ -11,7 +11,7 @@ const receiveVenues = venues => ({
 })
 
 const receiveVenue = venue => ({
-  type: RECEIVE_RESTAURANT,
+  type: RECEIVE_VENUE,
   venue
 })
 

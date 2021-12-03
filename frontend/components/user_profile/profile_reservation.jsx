@@ -1,5 +1,5 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import ProfileItemContainer from './profile_item_container';
 
 const ProfileReservation = (props) => {
@@ -30,7 +30,14 @@ const ProfileReservation = (props) => {
   };
 
   upcoming.sort((a, b) => {
-    if (a.date < b.date) {
+    let timeA = a.time.slice(-2) === "PM" ? parseInt(a.time.split(":")[0]) + 12 : a.time.split(":")[0];
+    let timeB = b.time.slice(-2) === "PM" ? parseInt(b.time.split(":")[0]) + 12 : b.time.split(":")[0];
+    let datePartsA = a.date.split("-");
+    let datePartsB = b.date.split("-")
+    let dateA = new Date(datePartsA[0], parseInt(datePartsA[1]) - 1, datePartsA[2], timeA)
+    let dateB = new Date(datePartsB[0], parseInt(datePartsB[1]) - 1, datePartsB[2], timeB)
+    
+    if (dateA < dateB) {
       return -1;
     } else {
       return 1;
@@ -38,15 +45,27 @@ const ProfileReservation = (props) => {
   });
   
   past.sort((a, b) => {
-    if (a.date < b.date) {
+    let timeA = a.time.slice(-2) === "PM" ? parseInt(a.time.split(":")[0]) + 12 : a.time.split(":")[0];
+    let timeB = b.time.slice(-2) === "PM" ? parseInt(b.time.split(":")[0]) + 12 : b.time.split(":")[0];
+    let datePartsA = a.date.split("-");
+    let datePartsB = b.date.split("-")
+    let dateA = new Date(datePartsA[0], parseInt(datePartsA[1]) - 1, datePartsA[2], timeA)
+    let dateB = new Date(datePartsB[0], parseInt(datePartsB[1]) - 1, datePartsB[2], timeB)
+
+    if (dateA < dateB) {
       return 1;
     } else {
       return -1;
     }
   });
-  
-  const createItemList = (resList, type, historyList) => {
+
+  const createItemList = (resList, type, reviews, historyList) => {
     let resItems;
+    let reviewsObj = {};
+
+    reviews.forEach(review => {
+      reviewsObj[review.venue_id] = review; 
+    });
 
     if (type === "upcoming") {
       resItems = resList.map(res => {
@@ -68,7 +87,7 @@ const ProfileReservation = (props) => {
             type="past"
             reservation={res}
             venue={venues[res.venue_id]}
-            review={reviews[res.venue_id] ? reviews[res.venue_id] : ""}
+            review={reviewsObj[res.venue_id] ? reviewsObj[res.venue_id] : ""}
           />
         );
       })
@@ -76,16 +95,25 @@ const ProfileReservation = (props) => {
 
     return resItems;
   };
+
+  const emptyRes = type => {
+    return (
+      <div className="empty-res"> 
+        <span>No {type} Reservations </span>
+        <Link className="empty-res-link" to="/" >Book a Table.</Link>
+      </div>
+    )
+  }
   
   return (
     <>
       <ul className="upcoming-res">
         <h1>Upcoming Reservations</h1>
-        {upcoming.length ? createItemList(upcoming, "upcoming", past) : ""}
+        {upcoming.length ? createItemList(upcoming, "upcoming", reviews, past) : emptyRes("Upcoming")}
       </ul>
       <ul id="past"className="past-res">
         <h1>Past Reservations</h1>
-        {past.length ? createItemList(past, "past") : ""}
+        {past.length ? createItemList(past, "past", reviews) : emptyRes("Past")}
       </ul>
     </>
   );

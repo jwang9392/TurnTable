@@ -33,6 +33,7 @@ class Api::ReservationsController < ApplicationController
     @error = 1
 
     if @reservation.update(reservation_params)
+      @reservation.save
         render :show
     else
         render json: @reservation.errors.full_messages, status: 422
@@ -45,7 +46,7 @@ class Api::ReservationsController < ApplicationController
     @error = 2
 
     if @reservation.destroy!
-        render :show
+        render json: ["Reservation deleted."]
     else
         render json: ["Reservation does not exist."]
     end
