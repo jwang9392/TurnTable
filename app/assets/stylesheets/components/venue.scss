@@ -225,3 +225,26 @@
   position: absolute;
   left: 95%;
 }
+
+.score {
+  margin-bottom: 5px;
+  display: inline-block;
+  font-size: 16px;
+  color: #ccc;
+  position: relative;
+  text-shadow: 0px 0px 4px #FFF;
+}
+
+.score::before,
+.score span::before {
+  content: "\2605\2605\2605\2605\2605";
+  display: block;
+}
+
+.score span {
+  color: rgb(218,54,67);
+  position: absolute;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+}

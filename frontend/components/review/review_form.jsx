@@ -127,7 +127,7 @@ class ReviewForm extends React.Component {
       ambience_rating,
       review_body, 
     } = this.state;
-    const { createReview, updateReview, user, venue, review } = this.props;
+    const { user, venue, review, createReview, updateReview, fetchUser } = this.props;
 
     const newReview = {
       overall_rating: overall_rating, 
@@ -141,25 +141,29 @@ class ReviewForm extends React.Component {
 
     if (!review) {
       createReview(newReview).then(data => {
-        this.props.history.replace({
-          pathname: `/my/Profile`,
-          state: {
-            past: []
-          }
-        })
-      })
+        fetchUser(user.id).then(() => {
+          this.props.history.replace({
+            pathname: `/my/Profile`,
+            state: {
+              past: []
+            }
+          });
+        });
+      });
     } else {
       const updatedReview = Object.assign({}, review, newReview);
       delete updatedReview["created_at"];
 
       updateReview(updatedReview).then(data => {
-        this.props.history.replace({
-          pathname: `/my/Profile`,
-          state: {
-            past: []
-          }
-        })
-      })
+        fetchUser(user.id).then(() => {
+          this.props.history.replace({
+            pathname: `/my/Profile`,
+            state: {
+              past: []
+            }
+          });
+        });
+      });
     }
   }
 

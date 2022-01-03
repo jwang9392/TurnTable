@@ -1,6 +1,7 @@
 import { connect } from "react-redux";
 import { openModal } from '../../actions/modal_actions';
 import { createReview, updateReview } from '../../actions/review_actions';
+import { fetchUser } from '../../actions/session_actions';
 import ReviewForm from "./review_form";
 
 const mapStateToProps = ({entities, session}, ownProps) => {
@@ -38,7 +39,8 @@ const mapStateToProps = ({entities, session}, ownProps) => {
 const mapDispatchToProps = dispatch => ({
   openModal: modal => dispatch(openModal(modal)), 
   createReview: review => dispatch(createReview(review)),
-  updateReview: review => dispatch(updateReview(review))
+  updateReview: review => dispatch(updateReview(review)),
+  fetchUser: userId => dispatch(fetchUser(userId))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(ReviewForm)

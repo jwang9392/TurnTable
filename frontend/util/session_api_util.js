@@ -21,6 +21,14 @@ export const logout = () => (
   })
 );
 
+export const fetchUser = userId => {
+  return $.ajax({
+    method: "GET",
+    url: `/api/users/${userId}`,
+    data: { userId }
+  })
+};
+
 export const updateUser = user => (
   $.ajax({
     method: 'PATCH',

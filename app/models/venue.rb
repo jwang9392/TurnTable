@@ -47,8 +47,14 @@ class Venue < ApplicationRecord
   validates :name, :address, :city, :state, :zipcode, :phone_number, :capacity, presence: true
   
   has_many :reservations
+  has_many :reviews
 
   # ADD COLUMN FOR OVERALL RATING?
+
+  def self.review_average 
+    Review.group(:venue_id)
+    .select('venue_id AS id', 'AVG(overall_rating)', 'COUNT(overall_rating)')
+  end
 
   def self.reservation_count
     Reservation.where(created_at: Time.now.beginning_of_day..Time.now.end_of_day)

@@ -3,12 +3,14 @@ class Api::VenuesController < ApplicationController
   def index
     @venues = Venue.all.includes(:reservations)
     @res_today = Venue.reservation_count
+    @review_average = Venue.review_average
 
     render :index
   end
     
   def show
     @venue = Venue.find_by(id: params[:id])
+    @review_average = Venue.review_average.select {|venue_reviews| venue_reviews.id == @venue.id}
 
     if @venue
       render :show
@@ -20,6 +22,7 @@ class Api::VenuesController < ApplicationController
   def search
     @venues = Venue.search(params["searchParams"]) 
     @res_today = Venue.reservation_count
+    @review_average = Venue.review_average
 
     render :index
   end

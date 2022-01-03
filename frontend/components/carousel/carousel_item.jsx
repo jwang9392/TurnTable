@@ -53,6 +53,10 @@ const CarouselItem = (props) => {
     }
   }
 
+  const createPercent = () => {
+    return venue.review_average.length === 0 ? 0 : parseFloat(venue.review_average[0].avg) / 5 * 100
+  }
+
   return (
     <li id={id} className="carousel-item" key={key}>
       <Link 
@@ -70,7 +74,8 @@ const CarouselItem = (props) => {
           <div className="carousel-item-body">
             <div className="carousel-item-name">{venue.name}</div>
             <div className="carousel-item-reviews">
-              Reviews
+                <span className="score"><span style={{width: `${createPercent()}%`}}></span></span>
+                <span> {venue.review_average[0] ? venue.review_average[0].count : " 0"} review{venue.review_average[0] && venue.review_average[0].count === 1 ? "" : "s"}</span>
             </div>
             <div className="carousel-item-desc">
               {venue.genre} <span> &#183; </span> {createDollars(venue)} <span> &#183; </span> {venue.city}
