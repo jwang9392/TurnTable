@@ -49,8 +49,6 @@ class Venue < ApplicationRecord
   has_many :reservations
   has_many :reviews
 
-  # ADD COLUMN FOR OVERALL RATING?
-
   def self.review_average 
     Review.group(:venue_id)
     .select('venue_id AS id', 'AVG(overall_rating)', 'COUNT(overall_rating)')

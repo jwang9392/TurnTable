@@ -26,13 +26,13 @@ class FilterForm extends React.Component {
           
           switch (i) {
             case 0:
-              display = " $ ";
+              display = " $$ ";
               break;
             case 1:
-              display = "$$"
+              display = "$$$"
               break;
             case 2:
-              display = "$$$"
+              display = "$$$$"
               break;
           }
 

@@ -4,6 +4,9 @@ import ReservationTimes from '../reservations/reservation_times_container';
 
 const SearchIndexItem = (props) => {
   const { venue, reservationsToday, date, time, partySize } = props
+  const rating = venue.review_average.length === 0 ? 0 : parseFloat(venue.review_average[0].avg);
+  const count = venue.review_average.length === 0 ? 0 : parseFloat(venue.review_average[0].count);
+  const hasReviews = venue.review_average.length != 0;
 
   let numBooked = reservationsToday;
 
@@ -16,6 +19,50 @@ const SearchIndexItem = (props) => {
           {/* PLACEHOLDER */}
         </div>
       )
+    }
+  }
+
+  const createPercent = () => {
+    return hasReviews ? rating / 5 * 100 : 0
+  }
+
+  const createLabel = () => {
+    switch (Math.ceil(rating)) {
+      case 5:
+        return <>Exceptional ({count})</>
+      case 4: 
+        return <>Excellent ({count})</>
+      case 3:
+        return <>Good ({count})</>
+      case 2:
+        return <>Fair ({count})</>
+      case 1:
+        return <>Poor ({count})</>
+      default:
+        break;
+    }
+  }
+
+  const createDollars = (venue) => {
+    let price = venue.price
+
+    switch (price) {
+      case "$100 and under":
+        return (
+          <span>
+            <span>$$</span><span className="cost-light">$$</span>
+          </span>
+        )
+      case "$101 to $400":
+        return (
+          <span>
+            <span>$$$</span><span className="cost-light">$</span>
+          </span>
+        )
+      case "$401 and over":
+        return <span>$$$$</span>
+      default:
+        break;
     }
   }
 
@@ -43,16 +90,11 @@ const SearchIndexItem = (props) => {
           {venue.name}
         </Link>
         <div className="venue-rating">
-          {/* <div>
-            **RATINGS STARTS**
-          </div>
-          <div className="rating-count">
-            <Link to={`/venues/${venue.id}`}>({venue.reviews_count})</Link>
-          </div> */}
-          {/* IMPORTANT ADD AFTER CREATING RATINGS ^ */}
+          <span className="review-score"><span style={{ width: `${createPercent()}%` }}></span></span>
+          <span className="review-label">{hasReviews ? createLabel() : "(0)"}</span>
         </div>
         <p className="event-subdetail">
-          {venue.city}
+          {createDollars(venue)} <span> &#183; </span> {venue.city}
         </p>
         {timesBooked()}
         <div className="timeslots">

@@ -75,7 +75,7 @@ const CarouselItem = (props) => {
             <div className="carousel-item-name">{venue.name}</div>
             <div className="carousel-item-reviews">
                 <span className="score"><span style={{width: `${createPercent()}%`}}></span></span>
-                <span> {venue.review_average[0] ? venue.review_average[0].count : " 0"} review{venue.review_average[0] && venue.review_average[0].count === 1 ? "" : "s"}</span>
+                <span>{venue.review_average[0] ? venue.review_average[0].count : "0"} review{venue.review_average[0] && venue.review_average[0].count === 1 ? "" : "s"}</span>
             </div>
             <div className="carousel-item-desc">
               {venue.genre} <span> &#183; </span> {createDollars(venue)} <span> &#183; </span> {venue.city}
