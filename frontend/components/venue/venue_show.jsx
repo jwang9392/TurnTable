@@ -116,7 +116,7 @@ class VenueShow extends React.Component {
 
   render() {
     const { venueId, venue, time } = this.props;
-    debugger
+
 
     if (!venue) {
       return <div></div>
