@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
-import { formatDate } from '../../util/util';
 
 const CarouselItem = (props) => {
   const { venue, key, idx, type } = props;

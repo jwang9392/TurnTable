@@ -38,6 +38,11 @@ class VenueShow extends React.Component {
     })
   }
 
+  createPercent = () => {
+    const { venue } = this.props; 
+    return venue.review_average.length === 0 ? 0 : parseFloat(venue.review_average[0].avg) / 5 * 100
+  }
+
   scroll(e) {
     e.preventDefault()
     
@@ -111,10 +116,15 @@ class VenueShow extends React.Component {
 
   render() {
     const { venueId, venue, time } = this.props;
+    debugger
 
     if (!venue) {
       return <div></div>
     } else {
+      const hasReviews = venue.review_average.length != 0;
+      const rating = venue.review_average.length === 0 ? 0 : venue.review_average[0].avg;
+      const count = venue.review_average.length === 0 ? 0 : venue.review_average[0].count;
+
       return (
         <div>
           <div id="splash" className="venue-splash">
@@ -131,14 +141,17 @@ class VenueShow extends React.Component {
                   </div>
                 </div>
                 <div className="venue-main-body">
-                  <div className="spacer"></div>
+                  <div className="spacer-top"></div>
                   <div id="Overview" className="venue-overview">
                     <div className="venue-overview-name">
                       <h2>{venue.name}</h2>
                     </div>
                     <div className="venue-overview-desc">
                       <div>
-                        <span>Reviews</span>
+                        {rating > 0 ? <span className="score"><span style={{ width: `${this.createPercent()}%` }}></span></span> : <div/>}
+                        <span>{rating > 0 ? rating : ""}</span>
+                        <i className="filter-icon far fa-comment-alt"></i>
+                        <span>{count > 0 ? count : "No"} Reviews</span>
                       </div>
                       <div>
                         <i className="filter-icon fas fa-money-bill-alt"></i>
@@ -226,7 +239,7 @@ class VenueShow extends React.Component {
               </div>
             </div>
           </div>
-          <div className="spacer"></div>
+          <div className="spacer-bot"></div>
         </div>
       )
     }

@@ -4,9 +4,9 @@ import ReservationTimes from '../reservations/reservation_times_container';
 
 const SearchIndexItem = (props) => {
   const { venue, reservationsToday, date, time, partySize } = props
+  const hasReviews = venue.review_average.length != 0;
   const rating = venue.review_average.length === 0 ? 0 : parseFloat(venue.review_average[0].avg);
   const count = venue.review_average.length === 0 ? 0 : parseFloat(venue.review_average[0].count);
-  const hasReviews = venue.review_average.length != 0;
 
   let numBooked = reservationsToday;
 
